@@ -1,0 +1,19 @@
+{
+  "name": "Spiritual",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "positions": {
+      "type": "hasMany",
+      "model": "Position",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

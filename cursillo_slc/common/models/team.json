@@ -1,0 +1,33 @@
+{
+  "name": "Team",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Notes": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "teamMembers": {
+      "type": "hasMany",
+      "model": "TeamMember",
+      "foreignKey": ""
+    },
+    "cursillo": {
+      "type": "belongsTo",
+      "model": "Cursillo",
+      "foreignKey": ""
+    },
+    "weekendPositions": {
+      "type": "hasMany",
+      "model": "WeekendPosition",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

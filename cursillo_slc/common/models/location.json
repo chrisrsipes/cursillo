@@ -1,0 +1,35 @@
+{
+  "name": "Location",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Street": {
+      "type": "string",
+      "required": true
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "required": true
+    },
+    "zip": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "cursillo": {
+      "type": "belongsTo",
+      "model": "Cursillo",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

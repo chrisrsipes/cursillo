@@ -1,0 +1,29 @@
+{
+  "name": "Spouse",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "hasAttendedCursillo": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "firstName": {
+      "type": "string",
+      "required": true,
+      "default": false
+    },
+    "lastName": {
+      "type": "string",
+      "required": true,
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

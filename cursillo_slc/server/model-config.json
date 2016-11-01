@@ -1,0 +1,99 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "ACL": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "RoleMapping": {
+    "dataSource": "cursillo",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "cursillo",
+    "public": false
+  },
+  "Account": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Person": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Parish": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Spouse": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Pastor": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Sponsor": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Spiritual": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Position": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Image": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Weekend": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "WeekendPosition": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Candidate": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "TeamMember": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Team": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Cursillo": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Location": {
+    "dataSource": "cursillo",
+    "public": true
+  }
+}

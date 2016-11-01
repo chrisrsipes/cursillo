@@ -1,0 +1,35 @@
+{
+  "name": "WeekendPosition",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "isActive": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "position": {
+      "type": "belongsTo",
+      "model": "Position",
+      "foreignKey": ""
+    },
+    "weekend": {
+      "type": "belongsTo",
+      "model": "Weekend",
+      "foreignKey": ""
+    },
+    "team": {
+      "type": "belongsTo",
+      "model": "Team",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
