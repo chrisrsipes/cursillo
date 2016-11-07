@@ -8,7 +8,7 @@ var router = express.Router();
 var requiredFields = ['firstName', 'lastName', 'password', 'email'];
 
 var Account = function (user) {
-    var i, obj = {
+    var obj = {
         firstName: null,
         lastName: null,
         email: null,
@@ -16,6 +16,7 @@ var Account = function (user) {
         username: null
     };
 
+    // is only null if explicitly part of schema, otherwise is undefined
     _.each(user, function (val, key) {
         if (obj[key] === null) {
             obj[key] = val;
@@ -35,14 +36,23 @@ var validateNonEmpty = function (field) {
     }
 };
 
+var validateProvidedFields = function (obj, fields) {
+    var flag = true;
+    
+    // validate required fields
+    _.each(fields, function (val) {
+        flag = flag && validateNonEmpty(obj[val]);
+    });
+    
+    return flag;
+};
+
 var validateNumeric = function (field) {
   return ((Number(field) + '') === field);
 };
 
 var validateMinLength = function (field, len) {
-    field = field + '';
-    
-    return (field.length >= len);
+    return ((field + '').length >= len);
 };
 
 var validateAllNonEmpty = function (object) {
@@ -69,6 +79,10 @@ var createAccount = function (account, cb) {
     connection.query('INSERT INTO Account SET ?', account, cb);
 };
 
+var findAccountById = function (accountId, cb) {
+    connection.query('SELECT * FROM Account WHERE id = ?', [accountId], cb);
+};
+
 
 // sample data
 
@@ -88,33 +102,35 @@ var dummyAccount = {
 // create account
 router.post('/', function (req, res) {
 
-    var flag = true, account = Account(req.body);
-
-    // validate required fields
-    _.each(requiredFields, function (val) {
-        flag = flag && validateNonEmpty(account[val]);
-        if (!flag) 
-            console.log('val', val);
-    });
-
+    var account = Account(req.body);
+    var flag = validateProvidedFields(account, requiredFields);
+    
     if (!flag) {
         res.status(400).json({message: 'Bad account object.'});
         return;
     }
     
-    var cb = function () {
+    createAccount(account, function () {
         res.status(201).json({account: account});
-    };
-    
-    console.log('account', account);
-    createAccount(account, cb);
+    });
 });
 
+// GET account by id
 router.get('/:accountId', function (req, res) {
     var accountId = req.params.accountId;
     
     if (validateNonEmpty(accountId) && validateNumeric(accountId)) {
-        res.status(200).json(dummyAccount);
+        findAccountById(accountId, function (err, rows, fields) {
+            
+            if (rows.length === 0) {
+                res.status(404).json({message: 'Account not found.'});
+            }
+            else {
+                var first = rows && rows[0] || {};
+                res.status(200).json(first);
+            }
+            
+        });
     }
     else {
         res.status(404).json({message: 'Invalid ID provided.'});
