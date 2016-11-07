@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cursillo</title>
+
+  <!-- Bootstrap -->
+  <link href="vendor/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="vendor/bower_components/angular-ui-notification/dist/angular-ui-notification.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body ng-app="app" data-ng-cloak>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="navbar-header pull-right">
+        <!-- navbar links -->
+        <div data-ng-show="!currentUser">
+          <a class="navbar-brand" ui-sref="login">Log In</a>
+          <a class="navbar-brand" ui-sref="register">Register</a>
+        </div>
+
+        <div data-ng-show="!!currentUser">
+          <a class="navbar-brand" ui-sref="dashboard">Dashboard</a>
+          <a class="navbar-brand" ui-sref="logout">Log out</a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="row" style="margin-top: 80px;">
+  <div ui-view></div>
+</div>
+
+<!-- vendor -->
+<script src="vendor/bower_components/jquery/dist/jquery.js"></script>
+<script src="vendor/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="vendor/bower_components/angular/angular.js"></script>
+<script src="vendor/bower_components/angular-resource/angular-resource.js"></script>
+<script src="vendor/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="vendor/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="vendor/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="vendor/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="vendor/bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
+<script src="vendor/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+
+
+<!-- app -->
+<script src="scripts/app.js"></script>
+<script src="scripts/services/account.service.js"></script>
+
+<!-- app:auth -->
+<script src="scripts/app/auth/auth.js"></script>
+<script src="scripts/app/auth/login.controller.js"></script>
+<script src="scripts/app/auth/register.controller.js"></script>
+
+<!-- app:dashboard -->
+<script src="scripts/app/dashboard/dashboard.controller.js"></script>
+<script src="scripts/app/dashboard/dashboard.js"></script>
+
+<!-- components -->
+<script src="scripts/components/auth/auth.interceptor.js"></script>
+<script src="scripts/components/auth/session.service.js"></script>
+<script src="scripts/components/auth/loginModal/loginModal.service.js"></script>
+<script src="scripts/components/auth/loginModal/loginModal.controller.js"></script>
+
+
+
+</body>
+</html>

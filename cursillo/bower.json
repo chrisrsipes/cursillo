@@ -1,0 +1,30 @@
+{
+  "name": "vendor",
+  "homepage": "https://github.com/chrisrsipes/parameter-discovery",
+  "authors": [
+    "Christopher Sipes"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "webapp/client/vendor/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "angular-ui": "^0.4.0",
+    "angular-bootstrap": "^2.2.0",
+    "angular-ui-notification": "^0.2.0",
+    "angular-local-storage": "^0.5.2"
+  }
+}

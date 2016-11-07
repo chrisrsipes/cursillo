@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>Register</h1>
+
+    <form name="login">
+
+      <div class="form-group">
+        <label for="register-first-name">First Name</label>
+        <input type="text" class="form-control" id="register-first-name" placeholder="First Name" ng-model="account.firstName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="register-last-name">Last Name</label>
+        <input type="text" class="form-control" id="register-last-name" placeholder="Last Name" ng-model="account.lastName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="login-email">Email address</label>
+        <input type="email" class="form-control" id="login-email" placeholder="Email" ng-model="account.email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" class="form-control" id="login-password" placeholder="Password" ng-model="account.password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="login-confirm-password">Confirm Password</label>
+        <input type="password" class="form-control" id="login-confirm-password" placeholder="Confirm Password" ng-model="account.confirmPassword" required>
+      </div>
+
+      <button type="submit" class="btn btn-default" ng-click="createAccount()" ng-disabled="login.$invalid || account.password != account.confirmPassword">Submit</button>
+    </form>
+  </div>
+</div>
