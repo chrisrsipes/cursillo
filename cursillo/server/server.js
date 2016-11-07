@@ -4,23 +4,23 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
 
+var accounts = require('./routing/accounts');
+
+var port = 8080;
+
+// app.use(express.static(path.join(__dirname, '/../client')));
+
+/* GET home page for client side app */
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, '/../client')));
-
-console.log('starting it up');
-console.log(path.join(__dirname + '/../client/index.html'));
-
-/* GET home page. */
-app.get('/', function(req, res, next) {
-    //Path to your main file
-    console.log('path to main file');
-    console.log(path.join(__dirname + '/../client/index.html'));
+app.get('/', function (req, res) {
     res.status(200).sendFile(path.join(__dirname+'/../client/index.html'));
-}, function () {
-    console.log('error');
 });
+app.use('/api/accounts', accounts);
 
-app.listen(8080);
+
+app.listen(port);
 
 module.exports = app;

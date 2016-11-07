@@ -50,36 +50,11 @@ angular.module('app').service('Session', ['localStorageService', '$rootScope', '
           }
           else {
 
-            var user = {
-              firstName: 'John',
-              lastName: 'Doe',
-              username: 'john.doe',
-              email: 'johndoe@host.com',
-              created: new Date(),
-              lastUpdated: new Date(),
-              id: 1
-            };
-
-            // @TODO: fix this after authorization is fixed
-            $rootScope.currentUser = {
-              firstName: 'John',
-              lastName: 'Doe',
-              username: 'john.doe',
-              email: 'johndoe@host.com',
-              created: new Date(),
-              lastUpdated: new Date(),
-              id: 1
-            };
-
-            resolve(true);
-
-            /*
-             Account.get({id: session.userId}, function (account) {
-             $rootScope.currentUser = account;
-             sessionObj.create(session.id, account.id, account.userRoles || []);
-             resolve(true);
-             });
-             */
+            Account.get({id: session.userId}, function (account) {
+              $rootScope.currentUser = account;
+              sessionObj.create(session.id, account.id, account.userRoles || []);
+              resolve(true);
+            });
 
           }
         });

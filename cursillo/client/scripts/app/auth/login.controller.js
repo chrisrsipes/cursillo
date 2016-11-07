@@ -31,41 +31,27 @@ angular.module('app').controller('LoginController', ['$scope', '$rootScope', '$s
     }
     else {
       
-      // @TODO: fix this after authentication endpoint works
-      var user = {
-        firstName: 'John',
-        lastName: 'Doe',
-        username: 'john.doe',
-        email: 'johndoe@host.com',
-        created: new Date(),
-        lastUpdated: new Date(),
-        id: 1
-      };
+      Account.login(credentials, function (session) {
+        if (!session.id && $rootScope.currentUser) {
+          success();
+          return;
+        }
+        
+        if (!session.id) {
+          Notification.error('Invalid email address or password.');
+          return;
+        }
+
+        var user = session.user;
+
+        Session.create(session.id, session.user.id, session.userRoles || []);
+        Notification.success(['Welcome, ', user.firstName, ' ',  user.lastName, '.'].join(''));
+        success();
+
+      }, function () {
+        Notification.error('Invalid email address or password.');
+      });
       
-      Session.create(1, user.id, ['ROLES_USER']);
-      Notification.success(['Welcome, ', user.firstName, ' ',  user.lastName, '.'].join(''));
-      success();
-
-
-      /*
-       Account.login(credentials, function (session) {
-       // @TODO: figure out why login is being called a second time from somewhere else after
-       // at least one unsuccessful login, this condiiton is to get around that
-       if (session.error && $rootScope.currentUser) {
-       success();
-       return;
-       }
-
-       var user = session.user;
-
-       Session.create(session.id, session.user.id, session.userRoles || []);
-       Notification.success(['Welcome, ', user.firstName, ' ',  user.lastName, '.'].join(''));
-       success();
-
-       }, function () {
-       Notification.error('Invalid email address or password.');
-       });
-       */
     }
 
   };

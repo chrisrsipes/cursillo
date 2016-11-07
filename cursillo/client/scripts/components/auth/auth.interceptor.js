@@ -13,12 +13,10 @@ angular.module('app').config(['$httpProvider', function ($httpProvider) {
       responseError: function (rejection) {
         var deferred = $q.defer();
 
-        debugger;
-
         // unauthorized request, not authorized user
         if (rejection.status === 401 && !$rootScope.currentUser) {
-          var message = rejection && rejection.data && rejection.data.error && rejection.data.error.message;
-          var loginError = message.indexOf('login failed') !== -1;
+          var message = rejection && rejection.message;
+          var loginError = message && message.indexOf('login failed') !== -1;
           
           if (loginError) {
             Notification.error('Login failed');
@@ -30,7 +28,7 @@ angular.module('app').config(['$httpProvider', function ($httpProvider) {
           }
         }
         else if (rejection.status === 422) {
-          Notification.error(rejection && rejection.data && rejection.data.error && rejection.data.error.message);
+          Notification.error(rejection && rejection.message);
           deferred.reject(rejection);
         }
         else {
