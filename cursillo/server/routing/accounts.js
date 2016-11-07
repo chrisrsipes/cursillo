@@ -2,45 +2,10 @@ var mysql = require('mysql');
 var express = require('express');
 var _ = require('underscore');
 
+var router = express.Router();
+
+// Schema
 var requiredFields = ['firstName', 'lastName', 'password', 'email'];
-
-
-// create connection to db
-var connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    database: 'cursillo'
-});
-
-var startConnection = function (cb) {
-    console.log('Starting connection');
-    connection.connect(cb);
-};
-
-var endConnection = function (cb) {
-    console.log('Terminating connection');
-    connection.end(cb);
-};
-
-var createAccount = function (account, cb) {
-    
-    var afterCloseCb = (function (cb) {
-        return function () {
-            endConnection(cb);
-        };
-    })(cb);
-    
-    var operation = (function (account, cb) {
-        return function () {
-            console.log('about to perform query');
-            var query = connection.query('INSERT INTO Account SET ?', account, cb);
-        };
-    })(account, afterCloseCb);
-    
-    connection.query('INSERT INTO Account SET ?', account, cb);
-    // startConnection(operation);
-};
 
 var Account = function (user) {
     var i, obj = {
@@ -60,6 +25,7 @@ var Account = function (user) {
     return obj;
 };
 
+// validations
 var validateNonEmpty = function (field) {
     if ((field === null) || (field === undefined) || (!field && field !== false)) {
         return false;
@@ -89,6 +55,23 @@ var validateAllNonEmpty = function (object) {
     return flag;
 };
 
+
+// db connections and operations
+
+var connection = mysql.createConnection({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    database: 'cursillo'
+});
+
+var createAccount = function (account, cb) {
+    connection.query('INSERT INTO Account SET ?', account, cb);
+};
+
+
+// sample data
+
 var dummyAccount = {
     firstName: 'John',
     lastName: 'Doe',
@@ -99,7 +82,8 @@ var dummyAccount = {
     id: 1
 };
 
-var router = express.Router();
+
+// endpoints
 
 // create account
 router.post('/', function (req, res) {
