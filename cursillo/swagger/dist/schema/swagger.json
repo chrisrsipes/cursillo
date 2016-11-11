@@ -116,7 +116,7 @@
         "tags":[
           "account"
         ],
-        "summary":"Get account",
+        "summary":"Get account by id.",
         "description":"",
         "operationId":"getAccount",
         "consumes":[
@@ -186,7 +186,7 @@
         "tags":[
           "account"
         ],
-        "summary":"Logout from Account.",
+        "summary":"Logout",
         "description":"",
         "operationId":"logout",
         "consumes":[
