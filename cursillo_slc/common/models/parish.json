@@ -30,7 +30,7 @@
   "relations": {
     "people": {
       "type": "hasMany",
-      "model": "Person",
+      "model": "Account",
       "foreignKey": ""
     }
   },
