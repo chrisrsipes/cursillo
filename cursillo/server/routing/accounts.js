@@ -43,6 +43,7 @@ var Account = function (user) {
   return obj;
 };
 
+
 // validations
 var validateNonEmpty = function (field) {
   if ((field === null) || (field === undefined) || (!field && field !== false)) {
@@ -83,6 +84,7 @@ var validateAllNonEmpty = function (object) {
 };
 
 
+
 // db connections and operations
 
 var connection = mysql.createConnection({
@@ -115,6 +117,36 @@ var findAllAccounts  = function (cb) {
   connection.query('SELECT * FROM Account', cb);
 };
 
+var deleteAllAccessTokensForAccount = function (userId, cb) {
+  connection.query('DELETE FROM AccessToken WHERE userId = ?', [userId], cb);
+};
+
+var findAccountFromAccessToken = function (tokenId, cb) {
+  if (!validateNonEmpty(tokenId)) {
+    console.log('error 1');
+    cb(true, null);
+    return;
+  }
+
+  connection.query('SELECT * FROM AccessToken WHERE id = ?', [tokenId], function (err, rows, fields) {
+    if (err || !rows || rows.length === 0) {
+      cb(true, null);
+      return;
+    }
+
+    connection.query('SELECT * FROM Account WHERE id = ?', rows[0].userId, function (err, rows, fields) {
+
+      if (err || !rows || rows.length === 0) {
+        console.log('error 3');
+        cb(true, null);
+        return;
+      }
+
+      cb(false, rows[0]);
+    })
+  });
+};
+
 var generateAccessTokenForAccount = function (accountId, cb) {
   if (!validateNonEmpty(accountId)) {
     console.log('returning null');
@@ -137,21 +169,33 @@ var generateAccessTokenForAccount = function (accountId, cb) {
   connection.query('INSERT INTO AccessToken SET ?', [at], hackedCb);
 };
 
+// authentication
 
-// sample data
+var isAuthenticated = function (req, res, next) {
 
-var dummyAccount = {
-  firstName: 'John',
-  lastName: 'Doe',
-  username: 'john.doe',
-  email: 'johndoe@host.com',
-  created: new Date(),
-  lastUpdated: new Date(),
-  id: 1
+  if (validateNonEmpty(req.query.authorization)) {
+    findAccountFromAccessToken(req.query.authorization, function (err, account) {
+      if (err) {
+        res.status(500).json({message: 'Error executing request.'});
+        return;
+      }
+
+      req.account = account;
+
+      return next();
+    });
+  }
+  else {
+    res.status(401).json({message: 'You are unauthorized to access this resource.'});
+  }
+
 };
 
-
 // endpoints
+
+router.get('/authenticated', isAuthenticated, function (req, res) {
+  res.status(200).json({message: 'mde it', accout: req.account});
+});
 
 // create account
 router.post('/', function (req, res) {
@@ -183,27 +227,6 @@ router.get('/', function (req, res) {
 
 });
 
-// GET account by id
-router.get('/:accountId', function (req, res) {
-  var accountId = req.params.accountId;
-
-  if (validateNonEmpty(accountId) && validateNumeric(accountId)) {
-    findAccountById(accountId, function (err, rows, fields) {
-
-      if (rows.length === 0) {
-        res.status(404).json({message: 'Account not found.'});
-      }
-      else {
-        var first = rows && rows[0] || {};
-        res.status(200).json(first);
-      }
-
-    });
-  }
-  else {
-    res.status(404).json({message: 'Invalid ID provided.'});
-  }
-});
 
 // login
 router.post('/login', function(req, res) {
@@ -249,5 +272,39 @@ router.post('/login', function(req, res) {
     });
   }
 });
+
+router.get('/logout', isAuthenticated, function(req, res) {
+
+  deleteAllAccessTokensForAccount(req.account.id, function () {
+    res.status(200).json({message: 'Successfully logged out.'});
+  });
+
+
+});
+
+
+// GET account by id
+router.get('/:accountId', function (req, res) {
+  var accountId = req.params.accountId;
+
+  if (validateNonEmpty(accountId) && validateNumeric(accountId)) {
+    findAccountById(accountId, function (err, rows, fields) {
+
+      if (rows.length === 0) {
+        res.status(404).json({message: 'Account not found.'});
+      }
+      else {
+        var first = rows && rows[0] || {};
+        res.status(200).json(first);
+      }
+
+    });
+  }
+  else {
+    res.status(404).json({message: 'Invalid ID provided.'});
+  }
+});
+
+
 
 module.exports = router;

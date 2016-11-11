@@ -17,6 +17,40 @@
     "http"
   ],
   "paths":{
+    "/accounts/authenticated": {
+      "get":{
+        "tags":[
+          "account"
+        ],
+        "summary":"Return account for authenticated user.",
+        "description":"",
+        "operationId":"isAuthenticated",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"Access Token",
+            "required":true,
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"Invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+
+    },
     "/accounts":{
       "post":{
         "tags":[
@@ -146,6 +180,40 @@
 
         ]
       }
+    },
+    "/accounts/logout": {
+      "get":{
+        "tags":[
+          "account"
+        ],
+        "summary":"Logout from Account.",
+        "description":"",
+        "operationId":"logout",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"Access Token",
+            "required":true,
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"Invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+
     }
   },
   "securityDefinitions":{
