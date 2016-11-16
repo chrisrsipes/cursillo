@@ -2,8 +2,9 @@ var mysql = require('mysql');
 var bcrypt = require('bcrypt');
 var hat = require('hat');
 var _ = require('underscore');
+var connection = require('../utils/connection');
 
-var validations = require('../utils/Validations')
+var validations = require('../utils/validations')
 var constants = require('../utils/constants');
 
 const requiredFields = ['firstName', 'lastName', 'password', 'email'];
@@ -39,13 +40,6 @@ var schema = function (user) {
 
   return obj;
 };
-
-var connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  database: 'cursillo'
-});
 
 var createAccount = function (account, cb) {
 

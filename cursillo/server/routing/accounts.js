@@ -3,7 +3,7 @@ var _ = require('underscore');
 var bcrypt = require('bcrypt');
 
 var auth = require('../utils/auth');
-var validations = require('../utils/Validations');
+var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 var Account = require('../models/account');
 
@@ -13,7 +13,7 @@ var router = express.Router();
 
 // endpoints
 
-router.get('/authenticated', auth.authenticate, function (req, res) {
+router.get('/authenticated', auth.authenticate, auth.authorize, function (req, res) {
   res.status(200).json({message: 'mde it', account: req.account});
 });
 
@@ -105,7 +105,7 @@ router.post('/login', function(req, res) {
   }
 });
 
-router.get('/logout', auth.authenticate, function(req, res) {
+router.get('/logout', auth.authenticate, auth.authorize, function(req, res) {
 
   Account.deleteAllAccessTokensForAccount(req.account.id, function () {
     res.status(200).json({message: 'Successfully logged out.'});

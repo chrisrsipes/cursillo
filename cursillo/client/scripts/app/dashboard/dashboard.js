@@ -5,10 +5,7 @@ angular
       parent: 'app',
       url: '/dashboard',
       templateUrl: 'scripts/app/dashboard/dashboard.template.html',
-      // controller: 'DashboardController',
-      controller: ['$scope', function ($scope) {
-        console.log('in dashboard scope');
-      }],
+      controller: 'DashboardController',
       data: {
         requireLogin: true
       }

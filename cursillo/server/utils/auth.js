@@ -1,8 +1,10 @@
-var validations = require('../utils/Validations');
+var validations = require('../utils/validations');
 var Account = require('../models/account');
+var Role = require('../models/role');
+
 
 var authenticate = function (req, res, next) {
-  
+
   var proceed = function (err, account) {
 
     if (err) {
@@ -15,7 +17,7 @@ var authenticate = function (req, res, next) {
     return next();
 
   };
-  
+
   var stop = function () {
     res.status(401).json({message: 'You are unauthorized to access this resource.'});
   };
@@ -29,11 +31,29 @@ var authenticate = function (req, res, next) {
 
 };
 
+var authorize = function (req, res, next) {
+
+  // require request is authenticated already
+  if (!req || !req.account || !req.account.id) {
+    throw Error('Request is in invalid state for authorization.');
+  }
+
+  var parseAccess = function (err, access) {
+    console.log('access', access);
+    console.log('base', req.baseUrl);
+
+    next();
+  };
+
+  Role.findAssignedAccessFromUser(req.account.id, parseAccess);
+};
+
 
 
 
 var auth = {
-  'authenticate': authenticate
+  'authenticate': authenticate,
+  'authorize': authorize
 
 };
 
