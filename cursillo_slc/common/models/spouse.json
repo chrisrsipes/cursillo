@@ -6,18 +6,16 @@
     "validateUpsert": true
   },
   "properties": {
-    "hasAttendedCursillo": {
-      "type": "boolean",
-      "required": true,
-      "default": false
-    },
     "firstName": {
       "type": "string",
-      "required": true,
-      "default": false
+      "required": true
     },
     "lastName": {
       "type": "string",
+      "required": true
+    },
+    "hasAttendedCursillo": {
+      "type": "boolean",
       "required": true,
       "default": false
     }

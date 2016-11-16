@@ -36,23 +36,7 @@
     "dataSource": "cursillo",
     "public": true
   },
-  "Person": {
-    "dataSource": "cursillo",
-    "public": true
-  },
   "Parish": {
-    "dataSource": "cursillo",
-    "public": true
-  },
-  "Spouse": {
-    "dataSource": "cursillo",
-    "public": true
-  },
-  "Pastor": {
-    "dataSource": "cursillo",
-    "public": true
-  },
-  "Sponsor": {
     "dataSource": "cursillo",
     "public": true
   },
@@ -76,14 +60,6 @@
     "dataSource": "cursillo",
     "public": true
   },
-  "Candidate": {
-    "dataSource": "cursillo",
-    "public": true
-  },
-  "TeamMember": {
-    "dataSource": "cursillo",
-    "public": true
-  },
   "Team": {
     "dataSource": "cursillo",
     "public": true
@@ -93,6 +69,10 @@
     "public": true
   },
   "Location": {
+    "dataSource": "cursillo",
+    "public": true
+  },
+  "Spouse": {
     "dataSource": "cursillo",
     "public": true
   }

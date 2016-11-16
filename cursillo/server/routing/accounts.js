@@ -1,162 +1,142 @@
-var mysql = require('mysql');
 var express = require('express');
 var _ = require('underscore');
+var bcrypt = require('bcrypt');
+
+var auth = require('../utils/auth');
+var validations = require('../utils/validations');
+var constants = require('../utils/constants');
+var Account = require('../models/account');
 
 var router = express.Router();
 
-// Schema
-var requiredFields = ['firstName', 'lastName', 'password', 'email'];
-
-var Account = function (user) {
-    var obj = {
-        firstName: null,
-        lastName: null,
-        email: null,
-        password: null,
-        username: null
-    };
-
-    // is only null if explicitly part of schema, otherwise is undefined
-    _.each(user, function (val, key) {
-        if (obj[key] === null) {
-            obj[key] = val;
-        }
-    });
-    
-    return obj;
-};
-
-// validations
-var validateNonEmpty = function (field) {
-    if ((field === null) || (field === undefined) || (!field && field !== false)) {
-        return false;
-    }
-    else {
-        return true;
-    }
-};
-
-var validateProvidedFields = function (obj, fields) {
-    var flag = true;
-    
-    // validate required fields
-    _.each(fields, function (val) {
-        flag = flag && validateNonEmpty(obj[val]);
-    });
-    
-    return flag;
-};
-
-var validateNumeric = function (field) {
-  return ((Number(field) + '') === field);
-};
-
-var validateMinLength = function (field, len) {
-    return ((field + '').length >= len);
-};
-
-var validateAllNonEmpty = function (object) {
-    var flag = true;
-    
-    _.each(object, function (val, key) {
-        flag = flag && validateNonEmpty(object[key]);
-    });
-    
-    return flag;
-};
-
-
-// db connections and operations
-
-var connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    database: 'cursillo'
-});
-
-var createAccount = function (account, cb) {
-    connection.query('INSERT INTO Account SET ?', account, cb);
-};
-
-var findAccountById = function (accountId, cb) {
-    connection.query('SELECT * FROM Account WHERE id = ?', [accountId], cb);
-};
-
-
-// sample data
-
-var dummyAccount = {
-    firstName: 'John',
-    lastName: 'Doe',
-    username: 'john.doe',
-    email: 'johndoe@host.com',
-    created: new Date(),
-    lastUpdated: new Date(),
-    id: 1
-};
 
 
 // endpoints
 
+router.get('/authenticated', auth.authenticate, auth.authorize, function (req, res) {
+  res.status(200).json({message: 'mde it', account: req.account});
+});
+
 // create account
 router.post('/', function (req, res) {
 
-    var account = Account(req.body);
-    var flag = validateProvidedFields(account, requiredFields);
-    
-    if (!flag) {
-        res.status(400).json({message: 'Bad account object.'});
-        return;
-    }
-    
-    createAccount(account, function () {
-        res.status(201).json({account: account});
-    });
+  var account = Account.schema(req.body);
+  var flag = validations.validateProvidedFields(account, Account.requiredFields);
+  
+  var fail = function () {
+    res.status(400).json({message: 'Bad account object.'});
+  };
+  
+  var finish = function () {
+    res.status(201).json({account: account});
+  };
+
+  if (!flag) {
+    fail();
+  }
+  else {
+    Account.createAccount(account, finish);
+  }
+
 });
 
-// GET account by id
-router.get('/:accountId', function (req, res) {
-    var accountId = req.params.accountId;
-    
-    if (validateNonEmpty(accountId) && validateNumeric(accountId)) {
-        findAccountById(accountId, function (err, rows, fields) {
-            
-            if (rows.length === 0) {
-                res.status(404).json({message: 'Account not found.'});
-            }
-            else {
-                var first = rows && rows[0] || {};
-                res.status(200).json(first);
-            }
-            
-        });
+// get all accounts
+router.get('/', function (req, res) {
+  
+  var finish = function (err, rows, fields) {
+    if (err) {
+      res.status(500).json({message: 'Error executing request.'});
     }
     else {
-        res.status(404).json({message: 'Invalid ID provided.'});
+      res.status(200).json({accounts: rows});
     }
+  };
+
+  Account.findAllAccounts(finish);
+  
 });
+
 
 // login
 router.post('/login', function(req, res) {
-    var credentials = {
-        email: req.body.email,
-        password: req.body.password
-    };
+  var account;
+  var credentials = {
+    email: req.body.email,
+    password: req.body.password
+  };
+  
+  var fail = function (status, message) {
+    res.status(status).json({message: message});
+  };
 
-    if (validateAllNonEmpty(credentials) && validateMinLength(credentials.password, 5)) {
-        res.status(201).json({
-            user: dummyAccount,
-            id: 'accesstoken1',
-            createdDate: new Date(),
-            ttl: 1209600000
-        });
+  var finish = function (accessToken) {
+    res.status(200).json({accessToken: accessToken, account: account});
+  };
+
+  var parseComparison = function (err, isMatch) {
+    if (isMatch) {
+      Account.generateAccessTokenForAccount(account.id, finish);
     }
     else {
-        res.status(400).json({
-            message: 'Invalid credentials.'
-        });
+      fail(401, 'Login failed - username or password incorrect.');
     }
+
+  };
+
+  var parseAccount = function (err, rows, fields) {
+    if (err) {
+      fail(500, 'There was an error processing your request.');
+    }
+    else if (rows.length === 0) {
+      fail(401, 'Login failed - username or password incorrect.');
+    }
+    else {
+      account = rows[0];
+      bcrypt.compare(credentials.password, account.password, parseComparison);
+    }
+
+  };
+
+  if (validations.validateAllNonEmpty(credentials) && validations.validateMinLength(credentials.password, 5)) {
+    Account.findAccountByEmail(credentials.email, parseAccount);
+  }
+  else {
+    fail(400, 'Invalid credentials.');
+  }
 });
+
+router.get('/logout', auth.authenticate, auth.authorize, function(req, res) {
+
+  Account.deleteAllAccessTokensForAccount(req.account.id, function () {
+    res.status(200).json({message: 'Successfully logged out.'});
+  });
+
+
+});
+
+
+// GET account by id
+router.get('/:accountId', function (req, res) {
+  var accountId = req.params.accountId;
+
+  if (validations.validateNonEmpty(accountId) && validations.validateNumeric(accountId)) {
+    Account.findAccountById(accountId, function (err, rows, fields) {
+
+      if (rows.length === 0) {
+        res.status(404).json({message: 'Account not found.'});
+      }
+      else {
+        var first = rows && rows[0] || {};
+        res.status(200).json(first);
+      }
+
+    });
+  }
+  else {
+    res.status(404).json({message: 'Invalid ID provided.'});
+  }
+});
+
+
 
 module.exports = router;

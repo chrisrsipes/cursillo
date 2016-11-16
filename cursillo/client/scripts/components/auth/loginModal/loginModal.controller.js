@@ -29,9 +29,9 @@ angular.module('app')
                   return;
               }
 
-              var user = session.user;
+              var user = session.account;
 
-              Session.create(session.id, session.user.id, session.userRoles || []);
+              Session.create(session.accessToken.id, session.account.id, session.userRoles || []);
               Notification.success(['Welcome, ', user.firstName, ' ',  user.lastName, '.'].join(''));
               $scope.ok(user);
           }, function (err) {
