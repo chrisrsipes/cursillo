@@ -12,19 +12,14 @@
   },
   "validations": [],
   "relations": {
-    "teamMembers": {
+    "weekedPositions": {
       "type": "hasMany",
-      "model": "TeamMember",
+      "model": "WeekendPosition",
       "foreignKey": ""
     },
     "cursillo": {
       "type": "belongsTo",
       "model": "Cursillo",
-      "foreignKey": ""
-    },
-    "weekendPositions": {
-      "type": "hasMany",
-      "model": "WeekendPosition",
       "foreignKey": ""
     }
   },
