@@ -8,8 +8,10 @@
     "posttest": "nsp check"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "hat": "0.0.3",
     "mysql": "^2.12.0",
     "underscore": "^1.8.3"
   },

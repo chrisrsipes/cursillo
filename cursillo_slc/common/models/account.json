@@ -13,10 +13,88 @@
     "lastName": {
       "type": "string",
       "required": true
+    },
+    "password": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "tagName": {
+      "type": "string",
+      "required": false
+    },
+    "street": {
+      "type": "string",
+      "required": false
+    },
+    "zip": {
+      "type": "number",
+      "required": false
+    },
+    "homePhone": {
+      "type": "string",
+      "required": false
+    },
+    "workPhone": {
+      "type": "string",
+      "required": false
+    },
+    "birthdate": {
+      "type": "date",
+      "required": false
+    },
+    "occupation": {
+      "type": "string",
+      "required": false
+    },
+    "maritalStatus": {
+      "type": "string",
+      "required": false
+    },
+    "gender": {
+      "type": "string",
+      "required": false
+    },
+    "saint": {
+      "type": "string",
+      "required": false
+    },
+    "pastor": {
+      "type": "string",
+      "required": false
+    },
+    "sponsor": {
+      "type": "string",
+      "required": false
+    },
+    "isTeamMember": {
+      "type": "boolean",
+      "required": false
+    },
+    "dateStarted": {
+      "type": "date",
+      "required": false
     }
+
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+
+    "parish": {
+      "type": "belongsTo",
+      "model": "Parish",
+      "foreignKey": ""
+    },
+    "spouse": {
+      "type": "hasOne",
+      "model": "Spouse",
+      "foreignKey": ""
+    }
+
+  },
   "acls": [],
   "methods": {}
 }

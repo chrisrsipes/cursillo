@@ -4,13 +4,9 @@ var lbTables = ['AccessToken',
   'ACL', 'RoleMapping',
   'Role', 'Account',
   'Image', 'Parish',
-  'Pastor', 'Person',
   'Position', 'Spiritual',
-  'Sponsor', 'Spouse',
-  'Weekend', 'WeekendPosition',
-  'Candidate', 'TeamMember',
-  'Team'
-  
+  'Spouse','Team',
+  'Weekend', 'WeekendPosition'
 ];
 
 var cb = function (er) {

@@ -32,19 +32,19 @@ angular.module('app').controller('LoginController', ['$scope', '$rootScope', '$s
     else {
       
       Account.login(credentials, function (session) {
-        if (!session.id && $rootScope.currentUser) {
+        if (!session.accessToken.id && $rootScope.currentUser) {
           success();
           return;
         }
         
-        if (!session.id) {
+        if (!session.accessToken.id) {
           Notification.error('Invalid email address or password.');
           return;
         }
 
-        var user = session.user;
+        var user = session.account;
 
-        Session.create(session.id, session.user.id, session.userRoles || []);
+        Session.create(session.accessToken.id, session.account.id, session.userRoles || []);
         Notification.success(['Welcome, ', user.firstName, ' ',  user.lastName, '.'].join(''));
         success();
 

@@ -17,6 +17,40 @@
     "http"
   ],
   "paths":{
+    "/accounts/authenticated": {
+      "get":{
+        "tags":[
+          "account"
+        ],
+        "summary":"Return account for authenticated user.",
+        "description":"",
+        "operationId":"isAuthenticated",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"Access Token",
+            "required":true,
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"Invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+
+    },
     "/accounts":{
       "post":{
         "tags":[
@@ -50,6 +84,30 @@
         "security":[
 
         ]
+      },
+      "get":{
+        "tags":[
+          "account"
+        ],
+        "summary":"Get all users.",
+        "description":"",
+        "operationId":"getAccounts",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+        ],
+        "responses":{
+          "500":{
+            "description":"Error executing request."
+          }
+        },
+        "security":[
+
+        ]
       }
     },
 
@@ -58,7 +116,7 @@
         "tags":[
           "account"
         ],
-        "summary":"Get account",
+        "summary":"Get account by id.",
         "description":"",
         "operationId":"getAccount",
         "consumes":[
@@ -122,6 +180,40 @@
 
         ]
       }
+    },
+    "/accounts/logout": {
+      "get":{
+        "tags":[
+          "account"
+        ],
+        "summary":"Logout",
+        "description":"",
+        "operationId":"logout",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"Access Token",
+            "required":true,
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"Invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+
     }
   },
   "securityDefinitions":{
@@ -162,7 +254,56 @@
         },
         "password":{
           "type":"string"
+        },
+        "tagName":{
+          "type":"string"
+        },
+        "street":{
+          "type":"string"
+        },
+        "zip":{
+          "type":"string"
+        },
+        "homePhone":{
+          "type":"integer",
+          "format":"int64"
+        },
+        "workPhone":{
+          "type":"integer",
+          "format":"int64"
+        },
+        "birthdate":{
+          "type":"date"
+        },
+        "occupation":{
+          "type":"string"
+        },
+        "maritalStatus":{
+          "type":"string"
+        },
+        "gender":{
+          "type":"string"
+        },
+        "saint":{
+          "type":"string"
+        },
+        "pastor":{
+          "type":"string"
+        },
+        "sponsor":{
+          "type":"string"
+        },
+        "isTeamMemeber":{
+          "type":"boolean"
+        },
+        "dateStarted":{
+          "type":"date"
+        },
+        "parishId":{
+          "type":"integer",
+          "format":"int64"
         }
+
       },
       "xml":{
         "name":"User"
