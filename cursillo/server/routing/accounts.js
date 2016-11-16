@@ -6,6 +6,8 @@ var auth = require('../utils/auth');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 var Account = require('../models/account');
+var Role = require('../models/role');
+var RoleMapping = require('../models/roleMapping');
 
 var router = express.Router();
 
@@ -22,27 +24,45 @@ router.post('/', function (req, res) {
 
   var account = Account.schema(req.body);
   var flag = validations.validateProvidedFields(account, Account.requiredFields);
-  
+
   var fail = function () {
     res.status(400).json({message: 'Bad account object.'});
   };
-  
+
   var finish = function () {
     res.status(201).json({account: account});
+  };
+
+  var createRoleMapping = function (err, result) {
+
+    var principalId = result.insertId;
+
+    var cb = insertRoleMapping = function (err, rows, fields) {
+      var role = rows[0];
+
+      RoleMapping.createRoleMapping({
+        roleId: role.id,
+        principalId: principalId,
+        principalType: 'Account'
+      }, finish);
+    };
+
+    Role.findRoleByName('User', cb);
+
   };
 
   if (!flag) {
     fail();
   }
   else {
-    Account.createAccount(account, finish);
+    Account.createAccount(account, createRoleMapping);
   }
 
 });
 
 // get all accounts
 router.get('/', function (req, res) {
-  
+
   var finish = function (err, rows, fields) {
     if (err) {
       res.status(500).json({message: 'Error executing request.'});
@@ -53,7 +73,7 @@ router.get('/', function (req, res) {
   };
 
   Account.findAllAccounts(finish);
-  
+
 });
 
 
@@ -64,7 +84,7 @@ router.post('/login', function(req, res) {
     email: req.body.email,
     password: req.body.password
   };
-  
+
   var fail = function (status, message) {
     res.status(status).json({message: message});
   };

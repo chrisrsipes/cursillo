@@ -37,9 +37,14 @@ var findAssignedAccessFromUser = function (accountId, cb) {
                    'AND rm.principalId = ?', [accountId], cb);
 };
 
+var findRoleByName = function (name, cb) {
+  connection.query('SELECT * FROM Role WHERE name = ?', [name], cb);
+};
+
 var Role = {
   'findAssignedRolesFromUser': findAssignedRolesFromUser,
   'findAssignedAccessFromUser': findAssignedAccessFromUser,
+  'findRoleByName': findRoleByName,
   'schema': schema,
   'requiredFields': requiredFields
 

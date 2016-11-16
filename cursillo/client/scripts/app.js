@@ -46,7 +46,8 @@ angular
 
       return {
         request: function (config) {
-          var token = angular.fromJson(localStorageService.get('session')).id;
+          var session = angular.fromJson(localStorageService.get('session'));
+          var token = session && session.id;
 
           if (token) {
             config.params = config.params || {};
