@@ -1,0 +1,52 @@
+{
+  "Role": [
+    {
+      "id": 1,
+      "name": "User",
+      "description": "user",
+      "created": null,
+      "modified": null
+    }
+  ],
+  "ACL": [
+    {
+      "id": 1,
+      "model": "Account",
+      "property": "*",
+      "accessType": "GRANT",
+      "permission": "*",
+      "principalType": "Role",
+      "principalId": "1"
+    }
+  ],
+  "Account": [
+    {
+      "id": 1,
+      "firstName": "Christopher",
+      "lastName": "Sipes",
+      "email": "chris.sipes@localhost",
+      "password": "$2a$10$05IsABpUE7ogiABZvujJ7uQyidTrVl/Hxjva4ebRLytx7m8QImF2y"
+    },
+    {
+      "id": 2,
+      "firstName": "Denesh",
+      "lastName": "Totaram",
+      "email": "denesh.totaram@localhost",
+      "password": "$2a$10$05IsABpUE7ogiABZvujJ7uQyidTrVl/Hxjva4ebRLytx7m8QImF2y"
+    }
+  ],
+  "RoleMapping": [
+    {
+      "id": 1,
+      "principalType": "Account",
+      "principalId": 1,
+      "roleId": 1
+    },
+    {
+      "id": 2,
+      "principalType": "Account",
+      "principalId": 2,
+      "roleId": 1
+    }
+  ]
+}
