@@ -14,20 +14,6 @@ var schema = function (user) {
       "firstName": null,
       "lastName": null,
       "email": null,
-      "tagName": null,
-      "street": null,
-      "zip": null,
-      "homePhone": null,
-      "workPhone": null,
-      "birthdate": null,
-      "occupation": null,
-      "maritalStatus": null,
-      "gender": null,
-      "saint": null,
-      "pastor": null,
-      "sponsor": null,
-      "isTeamMember": null,
-      "dateStarted":null,
       "password": null
     };
 
@@ -56,7 +42,13 @@ var findAccountById = function (accountId, cb) {
 };
 
 var findAccountByEmail = function (email, cb) {
-  connection.query('SELECT * FROM Account WHERE email = ?', [email], cb);
+
+  connection.query(
+    'SELECT a.id, a.firstName, a.lastName, a.email, a.status, a.password ' +
+    'FROM Account a ' +
+    'WHERE a.email = ?', [email], cb
+  );
+
 };
 
 var findAllAccounts  = function (cb) {
@@ -127,7 +119,7 @@ var Account = {
   'generateAccessTokenForAccount': generateAccessTokenForAccount,
   'schema': schema,
   'requiredFields': requiredFields
-  
+
 };
 
 module.exports = Account;

@@ -35,6 +35,8 @@ router.post('/', function (req, res) {
 
   var createRoleMapping = function (err, result) {
 
+    if (err) console.log('err', err);
+
     var principalId = result.insertId;
 
     var cb = insertRoleMapping = function (err, rows, fields) {
@@ -47,7 +49,7 @@ router.post('/', function (req, res) {
       }, finish);
     };
 
-    Role.findRoleByName('User', cb);
+    Role.findRoleByName('rector', cb);
 
   };
 
@@ -79,7 +81,7 @@ router.get('/', function (req, res) {
 
 // login
 router.post('/login', function(req, res) {
-  var account;
+  var account, roles, accessToken;
   var credentials = {
     email: req.body.email,
     password: req.body.password
@@ -90,14 +92,23 @@ router.post('/login', function(req, res) {
   };
 
   var finish = function (accessToken) {
-    res.status(200).json({accessToken: accessToken, account: account});
+    delete account.password;
+    res.status(200).json({accessToken: accessToken, account: account, roles: roles});
+  };
+
+  var processRoles = function (err, rows, fields) {
+    console.log('err', err);
+    console.log('rows', rows);
+    roles = _.map(rows, 'name');
+    Account.generateAccessTokenForAccount(account.id, finish);
   };
 
   var parseComparison = function (err, isMatch) {
     if (isMatch) {
-      Account.generateAccessTokenForAccount(account.id, finish);
+      Role.findAssignedRolesFromUser(account.id, processRoles);
     }
     else {
+      console.log('failed to match password');
       fail(401, 'Login failed - username or password incorrect.');
     }
 
@@ -112,6 +123,7 @@ router.post('/login', function(req, res) {
     }
     else {
       account = rows[0];
+      console.log('account id', account.id);
       bcrypt.compare(credentials.password, account.password, parseComparison);
     }
 

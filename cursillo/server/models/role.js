@@ -25,6 +25,7 @@ var schema = function (user) {
 };
 
 var findAssignedRolesFromUser = function (accountId, cb) {
+  console.log('accountid', accountId);
   connection.query('SELECT r.id, r.name, r.description FROM Role r, RoleMapping rm WHERE rm.roleId = r.id AND rm.principalId = ?', [accountId], cb);
 };
 

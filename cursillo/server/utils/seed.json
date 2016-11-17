@@ -2,8 +2,22 @@
   "Role": [
     {
       "id": 1,
-      "name": "User",
-      "description": "user",
+      "name": "admin",
+      "description": "Full read / write access.",
+      "created": null,
+      "modified": null
+    },
+    {
+      "id": 2,
+      "name": "secretary",
+      "description": "Full read access, ability to process applications (includes ability to generate reports)",
+      "created": null,
+      "modified": null
+    },
+    {
+      "id": 3,
+      "name": "rector",
+      "description": "Full read access, write access to owned weekends.",
       "created": null,
       "modified": null
     }
@@ -25,14 +39,16 @@
       "firstName": "Christopher",
       "lastName": "Sipes",
       "email": "chris.sipes@localhost",
-      "password": "$2a$10$05IsABpUE7ogiABZvujJ7uQyidTrVl/Hxjva4ebRLytx7m8QImF2y"
+      "password": "$2a$10$05IsABpUE7ogiABZvujJ7uQyidTrVl/Hxjva4ebRLytx7m8QImF2y",
+      "status": "ACTIVE"
     },
     {
       "id": 2,
       "firstName": "Denesh",
       "lastName": "Totaram",
       "email": "denesh.totaram@localhost",
-      "password": "$2a$10$05IsABpUE7ogiABZvujJ7uQyidTrVl/Hxjva4ebRLytx7m8QImF2y"
+      "password": "$2a$10$05IsABpUE7ogiABZvujJ7uQyidTrVl/Hxjva4ebRLytx7m8QImF2y",
+      "status": "ACTIVE"
     }
   ],
   "RoleMapping": [
