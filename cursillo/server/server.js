@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 var accounts = require('./routing/accounts');
+var positions = require('./routing/positions');
 
 var port = 8080;
 
@@ -24,7 +25,9 @@ app.get('/explorer/', function (req, res) {
 
   res.status(200).sendFile(path.join(__dirname+'/../swagger/dist/index.html'));
 });
+
 app.use('/api/accounts', accounts);
+app.use('/api/positions', positions);
 
 
 app.listen(port, function () {

@@ -25,7 +25,7 @@
   "ACL": [
     {
       "id": 1,
-      "model": "Account",
+      "model": "*",
       "property": "*",
       "accessType": "GRANT",
       "permission": "*",
@@ -64,5 +64,92 @@
       "principalId": 2,
       "roleId": 1
     }
+  ],
+  "Position": [
+    {
+      "id": 1,
+      "number": 1,
+      "name": "Rector",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "number": 2,
+      "name": "Backup Rector",
+      "description": ""
+    },
+    {
+      "id": 3,
+      "number": 3,
+      "name": "Spiritual Directory",
+      "description": ""
+    },
+    {
+      "id": 4,
+      "number": 4,
+      "name": "Assistant Spiritual Director",
+      "description": ""
+    },
+    {
+      "id": 5,
+      "number": 5,
+      "name": "Bell Ringer",
+      "description": ""
+    },
+    {
+      "id": 6,
+      "number": 6,
+      "name": "Head of Music",
+      "description": ""
+    },
+    {
+      "id": 7,
+      "number": 7,
+      "name": "Backup Head of Music",
+      "description": ""
+    },
+    {
+      "id": 8,
+      "number": 8,
+      "name": "Head of Kitchen",
+      "description": ""
+    },
+    {
+      "id": 9,
+      "number": 9,
+      "name": "Backup Head of Kitchen",
+      "description": ""
+    },
+    {
+      "id": 10,
+      "number": 10,
+      "name": "Head of Setup",
+      "description": ""
+    },
+    {
+      "id": 11,
+      "number": 11,
+      "name": "Backup Head of Setup",
+      "description": ""
+    },
+    {
+      "id": 12,
+      "number": 12,
+      "name": "Setup",
+      "description": ""
+    },
+    {
+      "id": 13,
+      "number": 13,
+      "name": "Kitchen",
+      "description": ""
+    },
+    {
+      "id": 14,
+      "number": 14,
+      "name": "Music",
+      "description": ""
+    }
+
   ]
 }

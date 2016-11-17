@@ -9,6 +9,7 @@
   <!-- Bootstrap -->
   <link href="vendor/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
   <link href="vendor/bower_components/angular-ui-notification/dist/angular-ui-notification.css" rel="stylesheet">
+  <link href="vendor/bower_components/angular-datatables/dist/css/angular-datatables.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,15 +40,15 @@
         </ui>
 
         <ui class="nav navbar-nav" data-ng-if="!!currentUser">
-          <li><a href="javascript:void(0)" ui-sref="dashboard">Dashboard</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-has-role="admin">
+          <li><a href="javascript:void(0)" ui-sref="dashboard" data-has-any-role="admin, secretary, rector">Dashboard</a></li>
+          <li class="dropdown" data-has-role="admin">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
               Admin
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0)" ui-sref="position.list">Positions</a></li>
-              <li><a href="javascript:void(0)" ui-sref="cursillo.list">Cursillos</a></li>
+              <li><a href="javascript:void(0)" ui-sref="position.list" data-has-any-role="admin, secretary, rector">Positions</a></li>
+              <li><a href="javascript:void(0)" ui-sref="cursillo.list" data-has-any-role="admin, secretary, rector">Cursillos</a></li>
             </ul>
           </li>
           <li><a href="javascript:void(0)" ui-sref="logout">Logout</a></li>
@@ -81,11 +82,12 @@
 <script src="vendor/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="vendor/bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
 <script src="vendor/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+<script src="vendor/bower_components/datatables.net/js/jquery.dataTables.js"></script>
+<script src="vendor/bower_components/angular-datatables/dist/angular-datatables.js"></script>
 
 
 <!-- app -->
 <script src="scripts/app.js"></script>
-<script src="scripts/services/account.service.js"></script>
 
 <!-- app:auth -->
 <script src="scripts/app/auth/auth.js"></script>
@@ -101,7 +103,7 @@
 <script src="scripts/app/reporting/reporting.js"></script>
 
 <!-- app:position -->
-<script src="scripts/app/position/position-list.controller.js"></script>
+<script src="scripts/app/position/positionList.controller.js"></script>
 <script src="scripts/app/position/position.js"></script>
 
 
@@ -113,6 +115,9 @@
 <script src="scripts/components/auth/loginModal/loginModal.service.js"></script>
 <script src="scripts/components/auth/loginModal/loginModal.controller.js"></script>
 
+<!-- services -->
+<script src="scripts/services/account.service.js"></script>
+<script src="scripts/services/position.service.js"></script>
 
 
 </body>

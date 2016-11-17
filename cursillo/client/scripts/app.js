@@ -4,7 +4,9 @@ angular
     'ui.router',
     'ui.bootstrap',
     'ui-notification',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'datatables'
+    
   ])
 
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

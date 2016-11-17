@@ -15,7 +15,7 @@ angular
   .state('position.list', {
       parent: 'position',
       url: '/list',
-      templateUrl: 'scripts/app/position/position-list.template.html',
+      templateUrl: 'scripts/app/position/positionList.template.html',
       controller: 'PositionListController',
       data: {
         requireLogin: true,
