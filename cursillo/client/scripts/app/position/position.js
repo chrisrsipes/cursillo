@@ -1,25 +1,25 @@
 angular
   .module('app').config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('reporting', {
+    .state('position', {
       parent: 'app',
-      url: '/reporting',
+      url: '/positions',
       template: '<ui-view />',
       controller: ['$scope', function ($scope) {}],
       data: {
         requireLogin: true,
-        roles: ['admin', 'secretary']
+        roles: ['admin']
       }
     })
 
-  .state('reporting.weekends', {
-      parent: 'reporting',
-      url: '/weekends',
-      templateUrl: 'scripts/app/reporting/reporting-weekend.template.html',
-      controller: 'ReportingWeekendController',
+  .state('position.list', {
+      parent: 'position',
+      url: '/list',
+      templateUrl: 'scripts/app/position/position-list.template.html',
+      controller: 'PositionListController',
       data: {
         requireLogin: true,
-        roles: ['admin', 'secretary']
+        roles: ['admin']
       }
     });
 
