@@ -6,24 +6,17 @@
     "validateUpsert": true
   },
   "properties": {
-    "Street": {
-      "type": "string",
-      "required": true
-    },
-    "city": {
-      "type": "string",
-      "required": true
-    },
-    "state": {
-      "type": "string",
-      "required": true
-    },
-    "zip": {
-      "type": "number"
+    "name": {
+      "type": "string"
     }
   },
   "validations": [],
   "relations": {
+    "weekends": {
+      "type": "hasMany",
+      "model": "Weekend",
+      "foreignKey": ""
+    },
     "cursillo": {
       "type": "belongsTo",
       "model": "Cursillo",

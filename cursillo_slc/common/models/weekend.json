@@ -11,36 +11,36 @@
       "required": true
     },
     "description": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "startDate": {
-      "type": "date",
-      "required": true
+      "type": "date"
     },
     "endDate": {
-      "type": "date",
-      "required": true
+      "type": "date"
     },
     "notes": {
       "type": "string"
     },
     "isCompleted": {
-      "type": "boolean",
-      "required": true,
-      "default": false
+      "type": "boolean"
     }
   },
   "validations": [],
   "relations": {
-    "images": {
-      "type": "hasOne",
-      "model": "Image",
+    "talkLinks": {
+      "type": "hasMany",
+      "model": "TalkLink",
       "foreignKey": ""
     },
-    "weekendPositions": {
+    "teams": {
       "type": "hasMany",
-      "model": "WeekendPosition",
+      "model": "Team",
+      "foreignKey": ""
+    },
+    "location": {
+      "type": "belongsTo",
+      "model": "Location",
       "foreignKey": ""
     }
   },

@@ -8,11 +8,11 @@
   "properties": {
     "name": {
       "type": "string",
-      "required": true
+      "required": "true"
     },
     "number": {
       "type": "number",
-      "required": true
+      "required": "true"
     },
     "description": {
       "type": "string"
@@ -20,16 +20,6 @@
   },
   "validations": [],
   "relations": {
-    "spiritual": {
-      "type": "belongsTo",
-      "model": "Spiritual",
-      "foreignKey": ""
-    },
-    "images": {
-      "type": "hasOne",
-      "model": "Image",
-      "foreignKey": ""
-    },
     "weekendPositions": {
       "type": "hasMany",
       "model": "WeekendPosition",

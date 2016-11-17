@@ -6,20 +6,24 @@
     "validateUpsert": true
   },
   "properties": {
-    "Notes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "notes": {
       "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "weekedPositions": {
-      "type": "hasMany",
-      "model": "WeekendPosition",
+    "weekend": {
+      "type": "belongsTo",
+      "model": "Weekend",
       "foreignKey": ""
     },
-    "cursillo": {
-      "type": "belongsTo",
-      "model": "Cursillo",
+    "weekendPositions": {
+      "type": "hasMany",
+      "model": "WeekendPosition",
       "foreignKey": ""
     }
   },

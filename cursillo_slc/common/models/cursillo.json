@@ -5,17 +5,21 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
   "validations": [],
   "relations": {
-    "teams": {
-      "type": "hasMany",
-      "model": "Team",
-      "foreignKey": ""
-    },
     "locations": {
       "type": "hasMany",
       "model": "Location",
+      "foreignKey": ""
+    },
+    "parishes": {
+      "type": "hasMany",
+      "model": "Parish",
       "foreignKey": ""
     }
   },

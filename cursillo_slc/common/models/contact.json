@@ -1,33 +1,32 @@
 {
-  "name": "Parish",
+  "name": "Contact",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
+    "firstName": {
       "type": "string"
     },
-    "city": {
+    "lastName": {
       "type": "string"
     },
-    "area": {
+    "phone": {
       "type": "string"
     },
-    "notes": {
-      "type": "string"
+    "age": {
+      "type": "number"
+    },
+    "hasAttended": {
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],
   "relations": {
-    "cursillo": {
+    "person": {
       "type": "belongsTo",
-      "model": "Cursillo",
-      "foreignKey": ""
-    },
-    "people": {
-      "type": "hasMany",
       "model": "Person",
       "foreignKey": ""
     }

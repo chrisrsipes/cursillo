@@ -7,26 +7,24 @@
   },
   "properties": {
     "isActive": {
-      "type": "boolean",
-      "required": true,
-      "default": false
+      "type": "boolean"
     }
   },
   "validations": [],
   "relations": {
+    "team": {
+      "type": "belongsTo",
+      "model": "Team",
+      "foreignKey": ""
+    },
     "position": {
       "type": "belongsTo",
       "model": "Position",
       "foreignKey": ""
     },
-    "weekend": {
+    "person": {
       "type": "belongsTo",
-      "model": "Weekend",
-      "foreignKey": ""
-    },
-    "team": {
-      "type": "belongsTo",
-      "model": "Team",
+      "model": "Person",
       "foreignKey": ""
     }
   },
