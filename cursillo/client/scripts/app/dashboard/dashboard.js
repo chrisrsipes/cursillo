@@ -7,7 +7,8 @@ angular
       templateUrl: 'scripts/app/dashboard/dashboard.template.html',
       controller: 'DashboardController',
       data: {
-        requireLogin: true
+        requireLogin: true,
+        roles: ['admin', 'secretary', 'rector']
       }
     });
 }]);

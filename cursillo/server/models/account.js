@@ -38,7 +38,12 @@ var createAccount = function (account, cb) {
 };
 
 var findAccountById = function (accountId, cb) {
-  connection.query('SELECT * FROM Account WHERE id = ?', [accountId], cb);
+  connection.query(
+    'SELECT a.id, a.firstName, a.lastName, a.email, a.status, a.password ' +
+    'FROM Account a ' +
+    'WHERE a.id = ?', [accountId], cb
+  );
+
 };
 
 var findAccountByEmail = function (email, cb) {
@@ -67,7 +72,6 @@ var findAccountFromAccessToken = function (tokenId, cb) {
 
   var handleAccount = function (err, rows, fields) {
     if (err || !rows || rows.length === 0) {
-      console.log('error 3');
       cb(true, null);
       return;
     }

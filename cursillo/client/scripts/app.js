@@ -17,7 +17,8 @@ angular
           $scope.currentUser = $rootScope.currentUser;
         }],
         data: {
-          requireLogin: true
+          requireLogin: true,
+          roles: ['admin', 'secretary', 'rector']
         }
       })
 
@@ -28,7 +29,7 @@ angular
   .service('AuthInterceptor', ['$rootScope', 'localStorageService', function ($rootScope, localStorageService) {
 
     var service = this;
-    
+
 
   }])
 
@@ -82,8 +83,8 @@ angular
 
 
   }])
-  .run(function ($rootScope, $state, $q, loginModal, Session) {
-
+  .run(function ($rootScope, $state, $q, loginModal, Session, Principal) {
+    
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
       var requireLogin, fail;
 
@@ -116,6 +117,21 @@ angular
             fail();
           }
         }, fail);
+      }
+      else if (requireLogin && $rootScope.currentUser) {
+        if (!toState.data.roles) {
+          throw Error('All state configs must have a roles property defined on the data property.');
+        }
+        
+        if (Principal.isInAnyRole(toState.data.roles, Session.roles)) {
+          return;
+        }
+        else {
+          // go to permission denied page instead of dashboard
+          event.preventDefault();
+          $state.go('dashboard');
+        }
+        
       }
       else {
         return;

@@ -7,7 +7,8 @@ angular
       templateUrl: '/scripts/app/auth/login.html',
       controller: 'LoginController',
       data: {
-        requireLogin: false
+        requireLogin: false,
+        roles: []
       }
     })
     
@@ -21,7 +22,8 @@ angular
         $state.go('login');
       }],
       data: {
-        requireLogin: true
+        requireLogin: true,
+        roles: ['admin', 'secretary', 'rector']
       }
     })
 
@@ -30,10 +32,10 @@ angular
       templateUrl: '/scripts/app/auth/register.html',
       controller: 'RegisterController',
       data: {
-        requireLogin: false
+        requireLogin: false,
+        roles: []
       }
-    })
-  ;
+    });
 
   $urlRouterProvider.otherwise('login');
 }]);

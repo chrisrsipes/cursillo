@@ -1,13 +1,13 @@
 angular.module('app').service('Session', ['localStorageService', '$rootScope', 'Account', '$q', function (localStorageService, $rootScope, Account, $q) {
-  this.create = function (sessionId, userId, userRoles) {
+  this.create = function (sessionId, userId, roles) {
     this.id = sessionId;
     this.userId = userId;
-    this.userRoles = userRoles;
+    this.roles = roles;
 
     var sessionObj = {
       id: this.id,
       userId: this.userId,
-      userRoles: angular.isArray(this.userRoles) ? this.userRoles : [this.userRoles]
+      roles: angular.isArray(this.roles) ? this.roles : [this.roles]
     };
 
     localStorageService.set('session', angular.toJson(sessionObj));
@@ -16,14 +16,14 @@ angular.module('app').service('Session', ['localStorageService', '$rootScope', '
   this.destroy = function () {
     this.id = null;
     this.userId = null;
-    this.userRoles = [];
+    this.roles = [];
 
     localStorageService.remove('session');
   };
 
   // @TODO: validate against the server
   this.isValidSessionObject = function (session) {
-    var validLocalSession = (session && session.userId && session.id && session.userRoles);
+    var validLocalSession = (session && session.userId && session.id && session.roles);
 
     return $q(function (resolve, reject) {
       resolve(validLocalSession);
@@ -45,14 +45,14 @@ angular.module('app').service('Session', ['localStorageService', '$rootScope', '
         return $q(function (resolve, reject) {
           if (session.user) {
             $rootScope.currentUser = session.user;
-            sessionObj.create(session.id, session.user.id, session.userRoles || []);
+            sessionObj.create(session.id, session.user.id, session.roles || []);
             resolve(true);
           }
           else {
 
             Account.get({id: session.userId}, function (account) {
               $rootScope.currentUser = account;
-              sessionObj.create(session.id, account.id, account.userRoles || []);
+              sessionObj.create(session.id, account.id, account.roles);
               resolve(true);
             });
 

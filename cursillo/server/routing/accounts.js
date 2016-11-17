@@ -93,12 +93,11 @@ router.post('/login', function(req, res) {
 
   var finish = function (accessToken) {
     delete account.password;
-    res.status(200).json({accessToken: accessToken, account: account, roles: roles});
+    account.roles = roles;
+    res.status(200).json({accessToken: accessToken, account: account});
   };
 
   var processRoles = function (err, rows, fields) {
-    console.log('err', err);
-    console.log('rows', rows);
     roles = _.map(rows, 'name');
     Account.generateAccessTokenForAccount(account.id, finish);
   };
@@ -108,7 +107,6 @@ router.post('/login', function(req, res) {
       Role.findAssignedRolesFromUser(account.id, processRoles);
     }
     else {
-      console.log('failed to match password');
       fail(401, 'Login failed - username or password incorrect.');
     }
 
@@ -123,7 +121,6 @@ router.post('/login', function(req, res) {
     }
     else {
       account = rows[0];
-      console.log('account id', account.id);
       bcrypt.compare(credentials.password, account.password, parseComparison);
     }
 
@@ -149,7 +146,13 @@ router.get('/logout', auth.authenticate, auth.authorize, function(req, res) {
 
 // GET account by id
 router.get('/:accountId', function (req, res) {
-  var accountId = req.params.accountId;
+  var account, accountId = req.params.accountId;
+
+  var finish = function (err, rows, fields) {
+    var roles = _.map(rows, 'name');
+    account.roles = roles;
+    res.status(200).json(account);
+  };
 
   if (validations.validateNonEmpty(accountId) && validations.validateNumeric(accountId)) {
     Account.findAccountById(accountId, function (err, rows, fields) {
@@ -158,8 +161,8 @@ router.get('/:accountId', function (req, res) {
         res.status(404).json({message: 'Account not found.'});
       }
       else {
-        var first = rows && rows[0] || {};
-        res.status(200).json(first);
+        account = rows && rows[0] || {};
+        Role.findAssignedRolesFromUser(accountId, finish);
       }
 
     });
