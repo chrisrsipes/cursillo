@@ -21,7 +21,43 @@ angular
         requireLogin: true,
         roles: ['admin']
       }
-    });
+    })
+  
+  .state('position.create', {
+      parent: 'position',
+      url: '/create',
+      templateUrl: 'scripts/app/position/positionEdit.template.html',
+      controller: 'PositionEditController',
+      data: {
+        requireLogin: true,
+        roles: ['admin']
+      }
+    })
+  
+  .state('position.edit', {
+      parent: 'position',
+      url: '/:id/edit',
+      templateUrl: 'scripts/app/position/positionEdit.template.html',
+      controller: 'PositionEditController',
+      data: {
+        requireLogin: true,
+        roles: ['admin']
+      }
+    })
+  
+  .state('position.detail', {
+      parent: 'position',
+      url: '/:id/detail',
+      templateUrl: 'scripts/app/position/positionDetail.template.html',
+      controller: 'PositionDetailController',
+      data: {
+        requireLogin: true,
+        roles: ['admin', 'secretary']
+      }
+    })
+  
+  
+  ;
 
 
 }]);

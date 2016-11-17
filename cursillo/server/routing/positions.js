@@ -31,4 +31,26 @@ router.get('/', function (req, res) {
 
 });
 
+router.get('/:positionId', function (req, res) {
+  var position, positionId = req.params.positionId;
+
+  var finish = function (err, rows, fields) {
+    if (rows.length === 0) {
+      res.status(404).json({message: 'Position not found.'});
+    }
+    else {
+      position = rows && rows[0] || {};
+    }
+
+    res.status(200).json(position);
+  };
+
+  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
+    Position.findById(positionId, finish);
+  }
+  else {
+    res.status(404).json({message: 'Invalid ID provided.'});
+  }
+});
+
 module.exports = router;

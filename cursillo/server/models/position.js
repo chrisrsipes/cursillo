@@ -118,9 +118,22 @@ var findAll= function (cb) {
   connection.query('SELECT * FROM Position', cb);
 };
 
+var findById = function (positionId, cb) {
+  connection.query(
+    'SELECT * ' +
+    'FROM Position ' +
+    'WHERE id = ?', [positionId], cb
+  );
+
+};
+
+var updateById = function (position, cb) {
+  
+};
 
 var Position = {
   'findAll': findAll,
+  'findById': findById,
   'schema': schema,
   'requiredFields': requiredFields
 
