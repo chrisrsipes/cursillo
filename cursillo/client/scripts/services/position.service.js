@@ -6,13 +6,17 @@ angular.module('app').factory('Position', ['$resource', '$location', function($r
     };
 
     return $resource(getPath('/positions/:id'), null, {
-        'query': {
-          method: 'GET',
-          url: getPath('/positions')
-        },
-        'get': {
-          method:'GET' 
-        }
+      'query': {
+        method: 'GET',
+        url: getPath('/positions')
+      },
+      'get': {
+        method:'GET'
+      },
+      'create': {
+        method: 'POST',
+        url: getPath('/positions')
+      }
     });
-  
+
 }]);

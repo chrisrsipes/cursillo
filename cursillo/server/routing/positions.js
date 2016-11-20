@@ -31,6 +31,24 @@ router.get('/', function (req, res) {
 
 });
 
+router.post('/', function (req, res) {
+  var position = Position.schema(req.body);
+ 
+  
+  var finish = function (err, result) {
+    if (err) {
+      res.status(500).json({message: 'Error executing request.'});
+    }
+    else {
+      position.id = result.insertId;
+      res.status(200).json(position);
+    }
+  };
+
+  Position.create(position, finish);
+
+});
+
 router.get('/:positionId', function (req, res) {
   var position, positionId = req.params.positionId;
 
@@ -47,6 +65,28 @@ router.get('/:positionId', function (req, res) {
 
   if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
     Position.findById(positionId, finish);
+  }
+  else {
+    res.status(404).json({message: 'Invalid ID provided.'});
+  }
+});
+
+router.delete('/:positionId', function (req, res) {
+  var position, positionId = req.params.positionId;
+
+  var finish = function (err, rows, fields) {
+    if (rows.length === 0) {
+      res.status(404).json({message: 'Position not found.'});
+    }
+    else {
+      position = rows && rows[0] || {};
+    }
+
+    res.status(200).json({message: 'Successfully deleted.'});
+  };
+
+  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
+    Position.deleteById(positionId, finish);
   }
   else {
     res.status(404).json({message: 'Invalid ID provided.'});

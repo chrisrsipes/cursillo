@@ -114,15 +114,28 @@ var generateAccessTokenForAccount = function (accountId, cb) {
 
 */
 
+var create = function (position, cb) {
+  connection.query('INSERT INTO position SET ?', [position], cb);
+};
+
 var findAll= function (cb) {
   connection.query('SELECT * FROM Position', cb);
 };
 
 var findById = function (positionId, cb) {
+  
   connection.query(
     'SELECT * ' +
     'FROM Position ' +
     'WHERE id = ?', [positionId], cb
+  );
+
+};
+
+var deleteById = function (positionId, cb) {
+  
+  connection.query(
+    'DELETE FROM Position WHERE id = ?', [positionId], cb
   );
 
 };
@@ -132,8 +145,10 @@ var updateById = function (position, cb) {
 };
 
 var Position = {
+  'create': create,
   'findAll': findAll,
   'findById': findById,
+  'deleteById': deleteById,
   'schema': schema,
   'requiredFields': requiredFields
 
