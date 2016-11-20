@@ -7,14 +7,13 @@ var connection = require('../utils/connection');
 var validations = require('../utils/validations')
 var constants = require('../utils/constants');
 
-const requiredFields = ['firstName', 'lastName', 'password', 'email'];
+const requiredFields = ['number', 'name'];
 
 var schema = function (user) {
     var obj = {
-      "firstName": null,
-      "lastName": null,
-      "email": null,
-      "password": null
+      "number": null,
+      "name": null,
+      "description": null
     };
 
   // is only null if explicitly part of schema, otherwise is undefined
@@ -27,6 +26,7 @@ var schema = function (user) {
   return obj;
 };
 
+/*
 var createAccount = function (account, cb) {
 
   // Store hash for password instead of password
@@ -112,18 +112,46 @@ var generateAccessTokenForAccount = function (accountId, cb) {
   connection.query('INSERT INTO AccessToken SET ?', [at], giveBackToken);
 };
 
+*/
 
-var Account = {
-  'createAccount': createAccount,
-  'findAccountById': findAccountById,
-  'findAccountByEmail': findAccountByEmail,
-  'findAllAccounts': findAllAccounts,
-  'deleteAllAccessTokensForAccount': deleteAllAccessTokensForAccount,
-  'findAccountFromAccessToken':findAccountFromAccessToken,
-  'generateAccessTokenForAccount': generateAccessTokenForAccount,
+var create = function (position, cb) {
+  connection.query('INSERT INTO position SET ?', [position], cb);
+};
+
+var findAll= function (cb) {
+  connection.query('SELECT * FROM Position', cb);
+};
+
+var findById = function (positionId, cb) {
+  
+  connection.query(
+    'SELECT * ' +
+    'FROM Position ' +
+    'WHERE id = ?', [positionId], cb
+  );
+
+};
+
+var deleteById = function (positionId, cb) {
+  
+  connection.query(
+    'DELETE FROM Position WHERE id = ?', [positionId], cb
+  );
+
+};
+
+var updateById = function (position, cb) {
+  
+};
+
+var Position = {
+  'create': create,
+  'findAll': findAll,
+  'findById': findById,
+  'deleteById': deleteById,
   'schema': schema,
   'requiredFields': requiredFields
 
 };
 
-module.exports = Account;
+module.exports = Position;

@@ -38,13 +38,49 @@ var authorize = function (req, res, next) {
     throw Error('Request is in invalid state for authorization.');
   }
 
-  var parseAccess = function (err, access) {
-    console.log('access', access);
-    console.log('base', req.baseUrl);
+  // gets the model from the base url
+  var parseModel = function (baseUrl) {
+    var raw, formatted, ind;
 
-    next();
+    ind = baseUrl.indexOf('api/');
+
+    if (ind !== -1) {
+      raw = baseUrl.substring(ind + 4);
+      formatted = raw.substring(0, raw.length - 1).toLowerCase();
+    }
+
+    return formatted;
   };
 
+  // checks if an acl has a permission for the model
+  var isAuthorized = function (model, acls) {
+    var i;
+
+    for (i = 0; i < acls.length; i++) {
+      var acl = acls[i];
+
+      if ((acl.model === '*' || acl.model.toLowerCase() === model) && (acl.accessType === 'GRANT')) {
+        return true;
+      }
+
+    }
+
+    return false;
+  };
+
+  // determines if principal has access to resource
+  var parseAccess = function (err, acls) {
+    var model = parseModel(req.baseUrl);
+
+    if (model && isAuthorized(model, acls)) {
+      next();
+    }
+    else {
+      res.status(401).json({message: 'Unauthorized to access this resource.'});
+    }
+
+  };
+  
   Role.findAssignedAccessFromUser(req.account.id, parseAccess);
 };
 

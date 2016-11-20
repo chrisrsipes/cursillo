@@ -1,18 +1,29 @@
 var server = require('./server');
-var ds = server.dataSources.cursillo;
-var lbTables = ['AccessToken',
-  'ACL', 'RoleMapping',
-  'Role', 'Account',
-  'Image', 'Parish',
-  'Position', 'Spiritual',
-  'Spouse','Team',
-  'Weekend', 'WeekendPosition'
+var ds = server.dataSources.mysql;
+var lbTables = [
+  'ACL',
+  'AccessToken',
+  'Account',
+  'ApplicationInfo',
+  'Contact',
+  'Cursillo',
+  'Image',
+  'Location',
+  'Parish',
+  'Position',
+  'RoleMapping',
+  'Role',
+  'Talk',
+  'TalkLink',
+  'Team',
+  'Weekend',
+  'WeekendPosition'
 ];
 
 var cb = function (er) {
   if (er)
     throw er;
-  
+
   console.log('Loopback tables [' + lbTables + '] created in ', ds.adapter.name);
   ds.disconnect();
 };
@@ -24,4 +35,4 @@ else {
   ds.once('connected', function() {
     ds.automigrate(lbTables, cb)
   });
-} 
+}

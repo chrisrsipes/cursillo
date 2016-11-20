@@ -11,6 +11,10 @@
     {
       "name": "account",
       "description": "Account operations"
+    },
+    {
+      "name": "position",
+      "description": "Positions"
     }
   ],
   "schemes":[
@@ -189,6 +193,40 @@
         "summary":"Logout",
         "description":"",
         "operationId":"logout",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"Access Token",
+            "required":true,
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"Invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+
+    },
+    "/positions": {
+      "get":{
+        "tags":[
+          "position"
+        ],
+        "summary":"Return positions.",
+        "description":"",
+        "operationId":"getPositions",
         "consumes":[
           "application/json"
         ],

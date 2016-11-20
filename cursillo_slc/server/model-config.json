@@ -17,63 +17,75 @@
     "dataSource": "db"
   },
   "AccessToken": {
-    "dataSource": "cursillo",
-    "public": true
+    "dataSource": "mysql",
+    "public": false
   },
   "ACL": {
-    "dataSource": "cursillo",
-    "public": true
+    "dataSource": "mysql",
+    "public": false
   },
   "RoleMapping": {
-    "dataSource": "cursillo",
+    "dataSource": "mysql",
     "public": false
   },
   "Role": {
-    "dataSource": "cursillo",
+    "dataSource": "mysql",
     "public": false
   },
-  "Account": {
-    "dataSource": "cursillo",
+  "Person": {
+    "dataSource": "mysql",
     "public": true
   },
-  "Parish": {
-    "dataSource": "cursillo",
+  "Contact": {
+    "dataSource": "mysql",
     "public": true
   },
-  "Spiritual": {
-    "dataSource": "cursillo",
+  "ApplicationInfo": {
+    "dataSource": "mysql",
     "public": true
   },
   "Position": {
-    "dataSource": "cursillo",
+    "dataSource": "mysql",
     "public": true
   },
   "Image": {
-    "dataSource": "cursillo",
+    "dataSource": "mysql",
+    "public": true
+  },
+  "Talk": {
+    "dataSource": "mysql",
+    "public": true
+  },
+  "TalkLink": {
+    "dataSource": "mysql",
     "public": true
   },
   "Weekend": {
-    "dataSource": "cursillo",
+    "dataSource": "mysql",
     "public": true
   },
   "WeekendPosition": {
-    "dataSource": "cursillo",
+    "dataSource": "mysql",
     "public": true
   },
   "Team": {
-    "dataSource": "cursillo",
-    "public": true
-  },
-  "Cursillo": {
-    "dataSource": "cursillo",
+    "dataSource": "mysql",
     "public": true
   },
   "Location": {
-    "dataSource": "cursillo",
+    "dataSource": "mysql",
     "public": true
   },
-  "Spouse": {
-    "dataSource": "cursillo",
+  "Cursillo": {
+    "dataSource": "mysql",
+    "public": true
+  },
+  "Parish": {
+    "dataSource": "mysql",
+    "public": true
+  },
+  "Account": {
+    "dataSource": "mysql",
     "public": true
   }
 }

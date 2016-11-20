@@ -6,6 +6,8 @@ var auth = require('../utils/auth');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 var Account = require('../models/account');
+var Role = require('../models/role');
+var RoleMapping = require('../models/roleMapping');
 
 var router = express.Router();
 
@@ -22,27 +24,47 @@ router.post('/', function (req, res) {
 
   var account = Account.schema(req.body);
   var flag = validations.validateProvidedFields(account, Account.requiredFields);
-  
+
   var fail = function () {
     res.status(400).json({message: 'Bad account object.'});
   };
-  
+
   var finish = function () {
     res.status(201).json({account: account});
+  };
+
+  var createRoleMapping = function (err, result) {
+
+    if (err) console.log('err', err);
+
+    var principalId = result.insertId;
+
+    var cb = insertRoleMapping = function (err, rows, fields) {
+      var role = rows[0];
+
+      RoleMapping.createRoleMapping({
+        roleId: role.id,
+        principalId: principalId,
+        principalType: 'Account'
+      }, finish);
+    };
+
+    Role.findRoleByName('rector', cb);
+
   };
 
   if (!flag) {
     fail();
   }
   else {
-    Account.createAccount(account, finish);
+    Account.createAccount(account, createRoleMapping);
   }
 
 });
 
 // get all accounts
 router.get('/', function (req, res) {
-  
+
   var finish = function (err, rows, fields) {
     if (err) {
       res.status(500).json({message: 'Error executing request.'});
@@ -53,29 +75,36 @@ router.get('/', function (req, res) {
   };
 
   Account.findAllAccounts(finish);
-  
+
 });
 
 
 // login
 router.post('/login', function(req, res) {
-  var account;
+  var account, roles, accessToken;
   var credentials = {
     email: req.body.email,
     password: req.body.password
   };
-  
+
   var fail = function (status, message) {
     res.status(status).json({message: message});
   };
 
   var finish = function (accessToken) {
+    delete account.password;
+    account.roles = roles;
     res.status(200).json({accessToken: accessToken, account: account});
+  };
+
+  var processRoles = function (err, rows, fields) {
+    roles = _.map(rows, 'name');
+    Account.generateAccessTokenForAccount(account.id, finish);
   };
 
   var parseComparison = function (err, isMatch) {
     if (isMatch) {
-      Account.generateAccessTokenForAccount(account.id, finish);
+      Role.findAssignedRolesFromUser(account.id, processRoles);
     }
     else {
       fail(401, 'Login failed - username or password incorrect.');
@@ -117,7 +146,13 @@ router.get('/logout', auth.authenticate, auth.authorize, function(req, res) {
 
 // GET account by id
 router.get('/:accountId', function (req, res) {
-  var accountId = req.params.accountId;
+  var account, accountId = req.params.accountId;
+
+  var finish = function (err, rows, fields) {
+    var roles = _.map(rows, 'name');
+    account.roles = roles;
+    res.status(200).json(account);
+  };
 
   if (validations.validateNonEmpty(accountId) && validations.validateNumeric(accountId)) {
     Account.findAccountById(accountId, function (err, rows, fields) {
@@ -126,8 +161,8 @@ router.get('/:accountId', function (req, res) {
         res.status(404).json({message: 'Account not found.'});
       }
       else {
-        var first = rows && rows[0] || {};
-        res.status(200).json(first);
+        account = rows && rows[0] || {};
+        Role.findAssignedRolesFromUser(accountId, finish);
       }
 
     });

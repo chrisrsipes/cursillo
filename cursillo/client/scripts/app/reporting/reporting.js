@@ -7,7 +7,8 @@ angular
       template: '<ui-view />',
       controller: ['$scope', function ($scope) {}],
       data: {
-        requireLogin: true
+        requireLogin: true,
+        roles: ['admin', 'secretary']
       }
     })
 
@@ -17,7 +18,8 @@ angular
       templateUrl: 'scripts/app/reporting/reporting-weekend.template.html',
       controller: 'ReportingWeekendController',
       data: {
-        requireLogin: true
+        requireLogin: true,
+        roles: ['admin', 'secretary']
       }
     });
 

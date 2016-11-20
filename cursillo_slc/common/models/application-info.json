@@ -1,0 +1,53 @@
+{
+  "name": "ApplicationInfo",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "isCatholic": {
+      "type": "boolean"
+    },
+    "isConverted": {
+      "type": "boolean"
+    },
+    "convertedDate": {
+      "type": "string"
+    },
+    "receivesEucharist": {
+      "type": "boolean"
+    },
+    "pastor": {
+      "type": "string"
+    },
+    "church": {
+      "type": "string"
+    },
+    "sponsorName": {
+      "type": "string"
+    },
+    "sponsorPhone": {
+      "type": "string"
+    },
+    "reasonForApplying": {
+      "type": "string"
+    },
+    "requestLowerBunk": {
+      "type": "boolean"
+    },
+    "medicalInformation": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "person": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

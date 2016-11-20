@@ -1,5 +1,5 @@
 {
-  "name": "Parish",
+  "name": "Talk",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -7,28 +7,25 @@
   },
   "properties": {
     "name": {
+      "type": "string",
+      "required": "true"
+    },
+    "number": {
+      "type": "number",
+      "required": "true"
+    },
+    "description": {
       "type": "string"
     },
-    "city": {
-      "type": "string"
-    },
-    "area": {
-      "type": "string"
-    },
-    "notes": {
-      "type": "string"
+    "isActive": {
+      "type": "boolean"
     }
   },
   "validations": [],
   "relations": {
-    "cursillo": {
-      "type": "belongsTo",
-      "model": "Cursillo",
-      "foreignKey": ""
-    },
-    "people": {
+    "talkLinks": {
       "type": "hasMany",
-      "model": "Person",
+      "model": "TalkLink",
       "foreignKey": ""
     }
   },
