@@ -10,6 +10,7 @@ var lbTables = [
   'Image',
   'Location',
   'Parish',
+  'Person',
   'Position',
   'RoleMapping',
   'Role',
