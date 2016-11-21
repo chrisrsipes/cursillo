@@ -14,9 +14,20 @@ angular
 
   .state('reporting.weekends', {
       parent: 'reporting',
-      url: '/weekends',
+      url: '/weekend',
       templateUrl: 'scripts/app/reporting/reporting-weekend.template.html',
       controller: 'ReportingWeekendController',
+      data: {
+        requireLogin: true,
+        roles: ['admin', 'secretary']
+      }
+    })
+
+    .state('reporting.people', {
+      parent: 'reporting',
+      url: '/people',
+      templateUrl: 'scripts/app/reporting/reporting-people.template.html',
+      controller: 'ReportingPeopleController',
       data: {
         requireLogin: true,
         roles: ['admin', 'secretary']
