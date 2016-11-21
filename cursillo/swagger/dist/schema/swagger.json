@@ -31,6 +31,10 @@
     {
       "name": "parish",
       "description": "Parishes"
+    },
+    {
+      "name": "weekend",
+      "description": "Weekends"
     }
   ],
   "schemes":[
@@ -915,6 +919,209 @@
         ]
       }
     },
+
+    "/weekends": {
+      "get":{
+        "tags":[
+          "weekend"
+        ],
+        "summary":"gets all weekends.",
+        "description":"",
+        "operationId":"getweekends",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "post":{
+        "tags":[
+          "weekend"
+        ],
+        "summary":"Creates a new weekend.",
+        "description":"",
+        "operationId":"createWeekend",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"body",
+            "name":"body",
+            "description":"Create a new weekend",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/Weekend"
+            }
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+    "/weekends/{weekendId}": {
+      "get":{
+        "tags":[
+          "weekend"
+        ],
+        "summary":"return weekend with id weekendId.",
+        "description":"",
+        "operationId":"getWeekendbyId",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"weekendId",
+            "description":"weekend id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "put":{
+        "tags":[
+          "weekend"
+        ],
+        "summary":"updates an existing weekend.",
+        "description":"",
+        "operationId":"updateWeekend",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"weekendId",
+            "description":"id of weekend being updated.",
+            "required":true
+          },
+          {
+            "in":"body",
+            "name":"body",
+            "description":"create a new weekend",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/Weekend"
+            }
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "delete":{
+        "tags":[
+          "weekend"
+        ],
+        "summary":"delete weekend with id weekendid.",
+        "description":"",
+        "operationId":"deleteweekendbyid",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"weekendid",
+            "description":"weekend id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+
+
+
     "/talks": {
       "get":{
         "tags":[
@@ -1506,6 +1713,35 @@
           "type": "integer",
           "format": "int64",
           "required": "true"
+        }
+      }
+    },
+    "Weekend": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "number",
+          "required": true
+        },
+        "description": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "date"
+        },
+        "endDate": {
+          "type": "date"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "isCompleted": {
+          "type": "boolean"
+        },
+        "locationId": {
+          "type": "integer",
+          "format": "int64",
+          "required": true
         }
       }
     },
