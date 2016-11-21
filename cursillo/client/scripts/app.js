@@ -7,7 +7,8 @@ angular
     'ui.select',
     'LocalStorageModule',
     'datatables',
-    'ngSanitize'
+    'ngSanitize',
+    'mwl.confirm'
 
   ])
 

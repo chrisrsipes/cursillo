@@ -14,10 +14,10 @@
       "type": "string"
     },
     "startDate": {
-      "type": "date"
+      "type": "string"
     },
     "endDate": {
-      "type": "date"
+      "type": "string"
     },
     "notes": {
       "type": "string"

@@ -50,7 +50,9 @@
             <ul class="dropdown-menu">
               <li><a href="javascript:void(0)" ui-sref="cursillo.list" data-has-any-role="admin">Cursillos</a></li>
               <li><a href="javascript:void(0)" ui-sref="location.list">Locations</a></li>
+              <li><a href="javascript:void(0)" ui-sref="parish.list">Parishes</a></li>
               <li><a href="javascript:void(0)" ui-sref="position.list">Positions</a></li>
+              <li><a href="javascript:void(0)" ui-sref="talk.list">Talks</a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -59,8 +61,8 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0)" ui-sref="weekend.create" data-has-any-role="admin, rector">New Weekend</a></li>
               <li><a href="javascript:void(0)" ui-sref="weekend.list">Weekend List</a></li>
+              <li><a href="javascript:void(0)" ui-sref="weekend.create" data-has-any-role="admin, rector">New Weekend</a></li>
             </ul>
           </li>
           <li><a href="javascript:void(0)" ui-sref="logout">Logout</a></li>
@@ -99,6 +101,8 @@
 <script src="vendor/bower_components/datatables.net/js/jquery.dataTables.js"></script>
 <script src="vendor/bower_components/angular-datatables/dist/angular-datatables.js"></script>
 <script src="vendor/bower_components/angular-ui-select/dist/select.js"></script>
+<script src="vendor/bower_components/angular-ui-select/dist/select.js"></script>
+<script src="vendor/bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.js"></script>
 
 
 <!-- app -->
@@ -127,11 +131,18 @@
 <script src="scripts/app/position/positionEdit.controller.js"></script>
 <script src="scripts/app/position/positionDetail.controller.js"></script>
 
+<!-- app:talk -->
+<script src="scripts/app/talk/talk.js"></script>
+<script src="scripts/app/talk/talkList.controller.js"></script>
+<script src="scripts/app/talk/talkEdit.controller.js"></script>
+<script src="scripts/app/talk/talkDetail.controller.js"></script>
+
 <!-- app:cursillo -->
 <script src="scripts/app/cursillo/cursillo.js"></script>
 <script src="scripts/app/cursillo/cursilloList.controller.js"></script>
 <script src="scripts/app/cursillo/cursilloEdit.controller.js"></script>
 <script src="scripts/app/cursillo/cursilloDetail.controller.js"></script>
+
 <!-- app:reporting -->
 <script src="scripts/app/reporting/reporting-weekend.controller.js"></script>
 <script src="scripts/app/reporting/reporting.js"></script>
@@ -142,6 +153,12 @@
 <script src="scripts/app/location/locationList.controller.js"></script>
 <script src="scripts/app/location/locationEdit.controller.js"></script>
 <script src="scripts/app/location/locationDetail.controller.js"></script>
+
+<!-- app:parish -->
+<script src="scripts/app/parish/parish.js"></script>
+<script src="scripts/app/parish/parishList.controller.js"></script>
+<script src="scripts/app/parish/parishEdit.controller.js"></script>
+<script src="scripts/app/parish/parishDetail.controller.js"></script>
 
 
 <!-- app:weekend -->
@@ -168,9 +185,11 @@
 <!-- services -->
 <script src="scripts/services/account.service.js"></script>
 <script src="scripts/services/position.service.js"></script>
+<script src="scripts/services/talk.service.js"></script>
 <script src="scripts/services/cursillo.service.js"></script>
 <script src="scripts/services/location.service.js"></script>
 <script src="scripts/services/weekend.service.js"></script>
+<script src="scripts/services/parish.service.js"></script>
 
 
 </body>
