@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref="weekend.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      {{ edit ? "Edit" : "Create"}} Weekend
+    </h3>
+  </div>
+</div>
 
-</body>
-</html>
+<div class="row">
+  <div class="col-md-12">
+
+    <form name="weekend">
+
+      <div class="form-group">
+        <label for="weekend-number">Weekend Number</label>
+        <input type="text" class="form-control" id="weekend-number" placeholder="Enter Number" ng-model="weekend.number" required>
+      </div>
+
+      <div class="form-group">
+        <label for="weekend-description">Weekend Description</label>
+        <input type="text" class="form-control" id="weekend-description" placeholder="Enter description" ng-model="weekend.description">
+      </div>
+
+      <div class="form-group">
+        <label for="weekend-start-date">Weekend Start Date</label>
+        <input type="text" class="form-control" id="weekend-start-date" placeholder="Enter Start Date" ng-model="weekend.startDate">
+      </div>
+
+      <div class="form-group">
+        <label for="weekend-end-date">Weekend End Date</label>
+        <input type="text" class="form-control" id="weekend-end-date" placeholder="Enter End Date" ng-model="weekend.endDate">
+      </div>
+
+      <div class="form-group">
+        <label for="weekend-notes">Weekend Notes</label>
+        <input type="text" class="form-control" id="weekend-notes" placeholder="Enter Notes" ng-model="weekend.notes">
+      </div>
+
+      <div class="form-group">
+        <label for="weekend-location-id">Select Location</label>
+        <ui-select ng-model="weekend.locationId" style="min-width: 300px;" id="weekend-location-id">
+          <ui-select-match placeholder="Select">{{$select.selected.name }}</ui-select-match>
+          <ui-select-choices repeat="location.id as location in locations">
+            <div ng-bind-html="location.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+
+
+      <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="weekend-is-completed" ng-model="weekend.isCompleted"> Weekend Completed
+            </label>
+          </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" data-ng-if="!edit" data-ng-click="createWeekend()">Create</button>
+      <button type="submit" class="btn btn-danger" data-ng-if="edit" data-ng-click="loadWeekend()">Reset</button>
+      <button type="submit" class="btn btn-primary" data-ng-if="edit" data-ng-click="updateWeekend()">Update</button>
+    </form>
+
+
+  </div>
+</div>

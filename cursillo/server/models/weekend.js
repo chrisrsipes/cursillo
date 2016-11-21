@@ -36,15 +36,17 @@ var create = function (weekend, cb) {
 };
 
 var findAll= function (cb) {
-  connection.query('SELECT * FROM Weekend', cb);
+  connection.query('SELECT w.id, w.number, w.description, w.startDate, w.endDate, w.notes, w.isCompleted, l.name as locationName ' +
+    'FROM Weekend w, Location l ' +
+    'WHERE l.id = w.locationId', cb);
 };
 
 var findById = function (weekendId, cb) {
-
-  connection.query('SELECT * ' +
-    'FROM Weekend ' +
-    'WHERE id  = ? ', [weekendId], cb);
-
+  
+  connection.query('SELECT w.id, w.number, w.description, w.startDate, w.endDate, w.notes, w.isCompleted, l.name as locationName, l.id as locationId ' +
+    'FROM Weekend w, Location l ' +
+    'WHERE l.id = w.locationId ' +
+    ' AND w.id = ?', [weekendId], cb);
 
 };
 

@@ -3,8 +3,8 @@ angular
   $stateProvider
     .state('weekend', {
       parent: 'app',
-      url: '/weekend',
-      templateUrl: '<ui-view />',
+      url: '/weekends',
+      template: '<ui-view />',
       controller: ['$scope', function ($scope) {}],
       data: {
         requireLogin: true,

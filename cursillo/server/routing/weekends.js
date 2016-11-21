@@ -37,6 +37,7 @@ router.post('/', function (req, res) {
   var weekend = Weekend.schema(req.body);
 
   var finish = function (err, result) {
+    console.log('result', result);
     if (err) {
       console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
