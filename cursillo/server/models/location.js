@@ -31,16 +31,16 @@ var create = function (location, cb) {
 };
 
 var findAll= function (cb) {
-  connection.query('SELECT * FROM Location', cb);
+  connection.query('SELECT l.id, l.name, l.cursilloId, c.name as cursilloName FROM Location l, Cursillo c WHERE l.cursilloId = c.id', cb);
 };
 
 var findById = function (locationId, cb) {
 
-  connection.query(
-    'SELECT * ' +
-    'FROM Location ' +
-    'WHERE id = ?', [locationId], cb
-  );
+  connection.query('SELECT l.id, l.name, l.cursilloId, c.name as cursilloName ' +
+    'FROM Location l, Cursillo c ' +
+    'WHERE l.cursilloId = c.id ' +
+    'AND l.id = ?', [locationId], cb);
+  
 
 };
 

@@ -19,6 +19,11 @@
         <span id="location-name" class="form-control">{{location.name}}</span>
       </div>
 
+      <div class="form-group">
+        <label for="location-cursillo-id">Cursillo</label>
+        <span id="location-cursillo-id" class="form-control">{{ selectedCursillo.name }}</span>
+      </div>
+
       <button type="button" class="btn btn-primary" data-ui-sref="location.edit({id: location.id})" has-role="admin">Edit</button>
     </form>
 

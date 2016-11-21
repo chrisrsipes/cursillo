@@ -10,6 +10,11 @@
       "id": 1,
       "name": "Test Location",
       "cursilloId": 1
+    },
+    {
+      "id": 2,
+      "name": "Test Location 2",
+      "cursilloId": 1
     }
   ],
   "Talk": [

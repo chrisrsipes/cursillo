@@ -1,8 +1,10 @@
-angular.module('app').controller('LocationEditController', ['$scope', 'Location', '$stateParams', '$state', function ($scope, Location, $stateParams, $state) {
+angular.module('app').controller('LocationEditController', ['$scope', 'Location', 'Cursillo', '$stateParams', '$state', function ($scope, Location, Cursillo, $stateParams, $state) {
 
   $scope.location;
   $scope.locationId = $stateParams.id;
   $scope.edit = !!$scope.locationId;
+  
+  $scope.cursillos = [];
 
   $scope.createLocation = function () {
     Location.create($scope.location, function (res) {
@@ -22,7 +24,15 @@ angular.module('app').controller('LocationEditController', ['$scope', 'Location'
       $state.go('location.detail', {id: $scope.locationId});
     });
   };
+  
+  $scope.loadCursillos = function () {
+    Cursillo.query(function (cursillos) {
+      $scope.cursillos = cursillos;
+    });
+  };
 
+  $scope.loadCursillos();
+  
   if ($scope.edit) {
     $scope.loadLocation();
   }

@@ -6,6 +6,7 @@ var auth = require('../utils/auth');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 var Location = require('../models/location');
+var Cursillo = require('../models/cursillo');
 
 var router = express.Router();
 
@@ -20,6 +21,7 @@ router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
@@ -37,6 +39,7 @@ router.post('/', function (req, res) {
 
   var finish = function (err, result) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
@@ -51,10 +54,11 @@ router.post('/', function (req, res) {
 
 // get location by id
 router.get('/:locationId', function (req, res) {
-  var location, locationId = req.params.locationId;
+  var location, cursillo, locationId = req.params.locationId;
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else if (rows.length === 0) {
@@ -82,6 +86,7 @@ router.put('/:locationId', function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
       return;
     }
@@ -104,6 +109,7 @@ router.delete('/:locationId', function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR).json({message: constants.http.INTERNAL_ERROR});
       return;
     }

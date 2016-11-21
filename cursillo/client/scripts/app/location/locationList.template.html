@@ -4,8 +4,34 @@
   </div>
 
   <div class="col-md-2 pull-right" has-role="admin">
-      <button type="button" class="btn btn-primary" data-ui-sref="location.create" style="margin-top: 10px;">Create Location</button>
+    <button type="button" class="btn btn-primary" data-ui-sref="location.create" style="margin-top: 10px;">Create Location</button>
   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">Filter Locations by Cursillo</div>
+
+  <div class="col-md-8">
+    <ui-select ng-model="selected.cursilloId"
+               on-select="loadLocations()"
+               title="Single property binding with async data">
+      <ui-select-match placeholder="Select">{{$select.selected.name }}</ui-select-match>
+      <ui-select-choices repeat="cursillo.id as cursillo in cursillos">
+        <div ng-bind-html="cursillo.name | highlight: $select.search"></div>
+        <small>
+          {{cursillo.name}}
+        </small>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+
+  <div class="col-md-1" ng-show="selected.cursilloId">
+    <a ng-click="resetFilter()" href="javascript:void(0)">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true" style="font-size: 24px;"></span>
+    </a>
+  </div>
+
+
 </div>
 
 <div class="row">
@@ -24,7 +50,7 @@
       <tr ng-repeat="location in locations">
         <td>{{ location.id }}</td>
         <td>{{ location.name }}</td>
-        <td>{{ location.cursilloId }}</td>
+        <td>{{ location.cursilloName }}</td>
         <td>
           <a ui-sref="location.detail({id: location.id})" href="javascript:void(0)">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>

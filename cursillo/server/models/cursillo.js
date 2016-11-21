@@ -56,7 +56,11 @@ var updateById = function (cursilloId, cursillo, cb) {
 };
 
 var findLocationsById = function (cursilloId, cb) {
-  connection.query('SELECT * FROM Location WHERE cursilloId = ?', cursilloId, cb);
+  connection.query('SELECT l.id, l.name, l.cursilloId, c.name as cursilloName ' +
+    'FROM Location l, Cursillo c ' +
+    'WHERE l.cursilloId = c.id ' +
+    'AND l.cursilloId = ?', [cursilloId], cb);
+  
 };
 
 var findParishesById = function (cursilloId, cb) {

@@ -25,12 +25,12 @@ angular.module('app').factory('Cursillo', ['$resource', '$location', function($r
         method:'DELETE'
       },
       'getLocations': {
-        url: '/cursillos/:id/locations',
+        url: getPath('/cursillos/:id/locations'),
         method: 'GET',
         isArray: true
       },
       'getParishes': {
-        url: '/cursillos/:id/parishes',
+        url: getPath('/cursillos/:id/parishes'),
         method: 'GET',
         isArray: true
       }

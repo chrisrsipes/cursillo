@@ -1,7 +1,11 @@
-angular.module('app').controller('LocationListController', ['$scope', 'Location', 'DTOptionsBuilder', 'DTColumnDefBuilder', function ($scope, Location, DTOptionsBuilder, DTColumnBuilder) {
+angular.module('app').controller('LocationListController', ['$scope', 'Location', 'Cursillo', 'DTOptionsBuilder', 'DTColumnDefBuilder', function ($scope, Location, Cursillo, DTOptionsBuilder, DTColumnBuilder) {
   $scope.locations = [];
-
+  $scope.cursillos = [];
   
+  $scope.selected = {
+    cursilloId: null
+  };
+
   $scope.options = DTOptionsBuilder.newOptions().withDisplayLength(10);
   $scope.columnDefs = [
     DTColumnBuilder.newColumnDef(0),
@@ -23,13 +27,33 @@ angular.module('app').controller('LocationListController', ['$scope', 'Location'
   };
   
   $scope.loadLocations = function () {
+    
+    if ($scope.selected.cursilloId) {
+      Cursillo.getLocations({id: $scope.selected.cursilloId}, function (locations) {
+        $scope.locations = locations;
+      });
+    }
+    else {
+      Location.query(function (locations) {
+        $scope.locations = locations;
+      });
+    }
 
-    Location.query(function (locations) {
-      $scope.locations = locations;
-    });
 
   };
   
+  $scope.loadCursillos = function () {
+    Cursillo.query(function (cursillos) {
+      $scope.cursillos = cursillos;
+    });
+  };
+  
+  $scope.resetFilter = function () {
+    $scope.selected.cursilloId = null;
+    $scope.loadLocations();
+  };
+  
   $scope.loadLocations();
+  $scope.loadCursillos();
   
 }]);
