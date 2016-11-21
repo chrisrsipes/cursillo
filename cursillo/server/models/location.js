@@ -7,13 +7,13 @@ var connection = require('../utils/connection');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 
-const requiredFields = ['number', 'name'];
+const requiredFields = ['name', 'cursilloId'];
 
 var schema = function (user) {
     var obj = {
-      "number": null,
+      "id": null,
       "name": null,
-      "description": null
+      "cursilloId": null
     };
 
   // is only null if explicitly part of schema, otherwise is undefined
@@ -26,37 +26,37 @@ var schema = function (user) {
   return obj;
 };
 
-var create = function (position, cb) {
-  connection.query('INSERT INTO position SET ?', [position], cb);
+var create = function (location, cb) {
+  connection.query('INSERT INTO Location SET ?', [location], cb);
 };
 
 var findAll= function (cb) {
-  connection.query('SELECT * FROM Position', cb);
+  connection.query('SELECT * FROM Location', cb);
 };
 
-var findById = function (positionId, cb) {
+var findById = function (locationId, cb) {
 
   connection.query(
     'SELECT * ' +
-    'FROM Position ' +
-    'WHERE id = ?', [positionId], cb
+    'FROM Location ' +
+    'WHERE id = ?', [locationId], cb
   );
 
 };
 
-var deleteById = function (positionId, cb) {
+var deleteById = function (locationId, cb) {
 
   connection.query(
-    'DELETE FROM Position WHERE id = ?', [positionId], cb
+    'DELETE FROM Location WHERE id = ?', [locationId], cb
   );
 
 };
 
-var updateById = function (positionId, position, cb) {
-  connection.query('UPDATE Position SET ? WHERE id = ' + positionId, schema(position), cb);
+var updateById = function (locationId, location, cb) {
+  connection.query('UPDATE Location SET ? WHERE id = ' + locationId, schema(location), cb);
 };
 
-var Position = {
+var Location = {
   'create': create,
   'findAll': findAll,
   'findById': findById,
@@ -67,4 +67,4 @@ var Position = {
 
 };
 
-module.exports = Position;
+module.exports = Location;

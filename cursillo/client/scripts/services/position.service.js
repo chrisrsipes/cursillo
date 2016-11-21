@@ -10,12 +10,18 @@ angular.module('app').factory('Position', ['$resource', '$location', function($r
         method: 'GET',
         url: getPath('/positions')
       },
-      'get': {
-        method:'GET'
-      },
       'create': {
         method: 'POST',
         url: getPath('/positions')
+      },
+      'get': {
+        method:'GET'
+      },
+      'update': {
+        method:'PUT'
+      },
+      'delete': {
+        method:'DELETE'
       }
     });
 

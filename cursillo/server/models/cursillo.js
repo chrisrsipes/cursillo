@@ -7,13 +7,12 @@ var connection = require('../utils/connection');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 
-const requiredFields = ['number', 'name'];
+const requiredFields = ['name'];
 
 var schema = function (user) {
     var obj = {
-      "number": null,
-      "name": null,
-      "description": null
+      "id": null,
+      "name": null
     };
 
   // is only null if explicitly part of schema, otherwise is undefined
@@ -26,45 +25,50 @@ var schema = function (user) {
   return obj;
 };
 
-var create = function (position, cb) {
-  connection.query('INSERT INTO position SET ?', [position], cb);
+var create = function (cursillo, cb) {
+  connection.query('INSERT INTO Cursillo SET ?', [cursillo], cb);
 };
 
 var findAll= function (cb) {
-  connection.query('SELECT * FROM Position', cb);
+  connection.query('SELECT * FROM Cursillo', cb);
 };
 
-var findById = function (positionId, cb) {
+var findById = function (cursilloId, cb) {
 
   connection.query(
     'SELECT * ' +
-    'FROM Position ' +
-    'WHERE id = ?', [positionId], cb
+    'FROM Cursillo ' +
+    'WHERE id = ?', [cursilloId], cb
   );
 
 };
 
-var deleteById = function (positionId, cb) {
+var deleteById = function (cursilloId, cb) {
 
   connection.query(
-    'DELETE FROM Position WHERE id = ?', [positionId], cb
+    'DELETE FROM Cursillo WHERE id = ?', [cursilloId], cb
   );
 
 };
 
-var updateById = function (positionId, position, cb) {
-  connection.query('UPDATE Position SET ? WHERE id = ' + positionId, schema(position), cb);
+var updateById = function (cursilloId, cursillo, cb) {
+  connection.query('UPDATE Cursillo SET ? WHERE id = ' + cursilloId, schema(cursillo), cb);
 };
 
-var Position = {
+var findLocationsById = function (cursilloId, cb) {
+  connection.query('SELECT * FROM Location WHERE cursilloId = ?', cursilloId, cb);
+};
+
+var Cursillo = {
   'create': create,
   'findAll': findAll,
   'findById': findById,
   'updateById': updateById,
   'deleteById': deleteById,
+  'findLocationsById': findLocationsById,
   'schema': schema,
   'requiredFields': requiredFields
 
 };
 
-module.exports = Position;
+module.exports = Cursillo;

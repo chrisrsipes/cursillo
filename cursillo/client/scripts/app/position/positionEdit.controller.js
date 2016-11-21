@@ -19,7 +19,7 @@ angular.module('app').controller('PositionEditController', ['$scope', 'Position'
 
   $scope.updatePosition = function () {
     Position.update({id: $scope.positionId}, $scope.position, function (position) {
-      $state.go('position.detail', {id: position.id});
+      $state.go('position.detail', {id: $scope.positionId});
     });
   };
 

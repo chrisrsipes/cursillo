@@ -6,6 +6,9 @@ var app = express();
 
 var accounts = require('./routing/accounts');
 var positions = require('./routing/positions');
+var cursillos = require('./routing/cursillos');
+var locations = require('./routing/locations');
+var talks = require('./routing/talks');
 
 var port = 8080;
 
@@ -28,6 +31,9 @@ app.get('/explorer/', function (req, res) {
 
 app.use('/api/accounts', accounts);
 app.use('/api/positions', positions);
+app.use('/api/cursillos', cursillos);
+app.use('/api/locations', locations);
+app.use('/api/talks', talks);
 
 
 app.listen(port, function () {

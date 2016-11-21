@@ -78,6 +78,11 @@
       "type": "belongsTo",
       "model": "Parish",
       "foreignKey": ""
+    },
+    "talkLinks": {
+      "type": "hasMany",
+      "model": "TalkLink",
+      "foreignKey": ""
     }
   },
   "acls": [],
