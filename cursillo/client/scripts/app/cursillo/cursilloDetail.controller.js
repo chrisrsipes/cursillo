@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-/**
- * Created by deneshtotaram on 11/20/16.
- */
-angular.module('app').controller('CursilloDetailController', ['$scope', 'Position', 'DTOptionsBuilder', 'DTColumnDefBuilder', function ($scope, Position, DTOptionsBuilder, DTColumnBuilder) {
-
-
-=======
 angular.module('app').controller('CursilloDetailController', ['$scope', 'Cursillo', '$stateParams', function ($scope, Cursillo, $stateParams) {
   
   $scope.cursillo;
@@ -20,5 +12,4 @@ angular.module('app').controller('CursilloDetailController', ['$scope', 'Cursill
 
   $scope.loadCursillo();
   
->>>>>>> christopher-branch
 }]);
