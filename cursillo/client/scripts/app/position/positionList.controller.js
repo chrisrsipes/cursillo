@@ -24,8 +24,8 @@ angular.module('app').controller('PositionListController', ['$scope', 'Position'
   
   $scope.loadPositions = function () {
 
-    Position.query(function (result) {
-      $scope.positions = result.positions;
+    Position.query(function (positions) {
+      $scope.positions = positions;
     });
 
   };

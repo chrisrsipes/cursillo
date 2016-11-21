@@ -5,7 +5,8 @@ var bcrypt = require('bcrypt');
 var auth = require('../utils/auth');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
-var Position = require('../models/position');
+var Location = require('../models/location');
+var Cursillo = require('../models/cursillo');
 
 var router = express.Router();
 
@@ -15,12 +16,12 @@ router.use(auth.authorize);
 
 // endpoints
 
-// get all positions
+// get all locations
 router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
-    console.log('err', err);
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
@@ -28,70 +29,73 @@ router.get('/', function (req, res) {
     }
   };
 
-  Position.findAll(finish);
+  Location.findAll(finish);
 
 });
 
-// create a new position
+// create a new location
 router.post('/', function (req, res) {
-  var position = Position.schema(req.body);
+  var location = Location.schema(req.body);
 
   var finish = function (err, result) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      position.id = result.insertId;
-      res.status(constants.http.SUCCESS.status).json(position);
+      location.id = result.insertId;
+      res.status(constants.http.SUCCESS.status).json(location);
     }
   };
 
-  Position.create(position, finish);
+  Location.create(location, finish);
 
 });
 
-// get position by id
-router.get('/:positionId', function (req, res) {
-  var position, positionId = req.params.positionId;
+// get location by id
+router.get('/:locationId', function (req, res) {
+  var location, cursillo, locationId = req.params.locationId;
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else if (rows.length === 0) {
       res.status(constants.http.NO_CONTENT.status).json({message: constants.http.NO_CONTENT.message});
     }
     else {
-      position = rows && rows[0] || {};
-      res.status(constants.http.SUCCESS.status).json(position);
+      location = rows && rows[0] || {};
+      res.status(constants.http.SUCCESS.status).json(location);
     }
 
   };
 
-  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
-    Position.findById(positionId, finish);
+  if (validations.validateNonEmpty(locationId) && validations.validateNumeric(locationId)) {
+    Location.findById(locationId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
-// update position by id
-router.put('/:positionId', function (req, res) {
-  var positionId = req.params.positionId;
-  var position = Position.schema(req.body);
+// update location by id
+router.put('/:locationId', function (req, res) {
+  var locationId = req.params.locationId;
+  var location = Location.schema(req.body);
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
       return;
     }
 
-    res.status(constants.http.SUCCESS.status).json(position);
+    res.status(constants.http.SUCCESS.status).json(location);
   };
 
-  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
-    Position.updateById(positionId, position, finish);
+  if (validations.validateNonEmpty(locationId) && validations.validateNumeric(locationId)) {
+    Location.updateById(locationId, location, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
@@ -99,12 +103,13 @@ router.put('/:positionId', function (req, res) {
 
 });
 
-// delete position by id
-router.delete('/:positionId', function (req, res) {
-  var position, positionId = req.params.positionId;
+// delete location by id
+router.delete('/:locationId', function (req, res) {
+  var location, locationId = req.params.locationId;
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR).json({message: constants.http.INTERNAL_ERROR});
       return;
     }
@@ -112,8 +117,8 @@ router.delete('/:positionId', function (req, res) {
     res.status(constants.http.NO_CONTENT.status).json({message: 'Successfully deleted.'});
   };
 
-  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
-    Position.deleteById(positionId, finish);
+  if (validations.validateNonEmpty(locationId) && validations.validateNumeric(locationId)) {
+    Location.deleteById(locationId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

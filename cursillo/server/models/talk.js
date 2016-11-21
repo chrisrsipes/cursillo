@@ -7,13 +7,15 @@ var connection = require('../utils/connection');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 
-const requiredFields = ['number', 'name'];
+const requiredFields = ['name', 'number'];
 
 var schema = function (user) {
     var obj = {
-      "number": null,
+      "id": null,
       "name": null,
-      "description": null
+      "number": null,
+      "description": null,
+      "isActive": null
     };
 
   // is only null if explicitly part of schema, otherwise is undefined
@@ -26,37 +28,37 @@ var schema = function (user) {
   return obj;
 };
 
-var create = function (position, cb) {
-  connection.query('INSERT INTO position SET ?', [position], cb);
+var create = function (talk, cb) {
+  connection.query('INSERT INTO Talk SET ?', [talk], cb);
 };
 
 var findAll= function (cb) {
-  connection.query('SELECT * FROM Position', cb);
+  connection.query('SELECT * FROM Talk', cb);
 };
 
-var findById = function (positionId, cb) {
+var findById = function (talkId, cb) {
 
   connection.query(
     'SELECT * ' +
-    'FROM Position ' +
-    'WHERE id = ?', [positionId], cb
+    'FROM Talk ' +
+    'WHERE id = ?', [talkId], cb
   );
 
 };
 
-var deleteById = function (positionId, cb) {
+var deleteById = function (talkId, cb) {
 
   connection.query(
-    'DELETE FROM Position WHERE id = ?', [positionId], cb
+    'DELETE FROM Talk WHERE id = ?', [talkId], cb
   );
 
 };
 
-var updateById = function (positionId, position, cb) {
-  connection.query('UPDATE Position SET ? WHERE id = ' + positionId, schema(position), cb);
+var updateById = function (talkId, talk, cb) {
+  connection.query('UPDATE Talk SET ? WHERE id = ' + talkId, schema(talk), cb);
 };
 
-var Position = {
+var Talk = {
   'create': create,
   'findAll': findAll,
   'findById': findById,
@@ -67,4 +69,4 @@ var Position = {
 
 };
 
-module.exports = Position;
+module.exports = Talk;

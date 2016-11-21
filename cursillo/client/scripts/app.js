@@ -4,9 +4,11 @@ angular
     'ui.router',
     'ui.bootstrap',
     'ui-notification',
+    'ui.select',
     'LocalStorageModule',
-    'datatables'
-    
+    'datatables',
+    'ngSanitize'
+
   ])
 
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
@@ -52,7 +54,7 @@ angular
           var session = angular.fromJson(localStorageService.get('session'));
           var token = session && session.id;
 
-          if (token) {
+          if (token && config.url.indexOf('api') !== -1) {
             config.params = config.params || {};
             config.params['authorization'] = token;
           }
@@ -86,7 +88,7 @@ angular
 
   }])
   .run(function ($rootScope, $state, $q, loginModal, Session, Principal) {
-    
+
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
       var requireLogin, fail;
 
@@ -124,7 +126,7 @@ angular
         if (!toState.data.roles) {
           throw Error('All state configs must have a roles property defined on the data property.');
         }
-        
+
         if (Principal.isInAnyRole(toState.data.roles, Session.roles)) {
           return;
         }
@@ -133,7 +135,7 @@ angular
           event.preventDefault();
           $state.go('dashboard');
         }
-        
+
       }
       else {
         return;

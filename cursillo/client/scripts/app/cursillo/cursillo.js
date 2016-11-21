@@ -1,12 +1,9 @@
-/**
- * Created by deneshtotaram on 11/20/16.
- */
 angular
   .module('app').config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('cursillo', {
       parent: 'app',
-      url: '/cursillo',
+      url: '/cursillos',
       template: '<ui-view />',
       controller: ['$scope', function ($scope) {}],
       data: {
@@ -15,18 +12,18 @@ angular
       }
     })
 
-    .state('cursillo.list', {
+  .state('cursillo.list', {
       parent: 'cursillo',
       url: '/list',
       templateUrl: 'scripts/app/cursillo/cursilloList.template.html',
       controller: 'CursilloListController',
       data: {
         requireLogin: true,
-        roles: ['admin']
+        roles: ['admin', 'secretary', 'rector']
       }
     })
-
-    .state('cursillo.create', {
+  
+  .state('cursillo.create', {
       parent: 'cursillo',
       url: '/create',
       templateUrl: 'scripts/app/cursillo/cursilloEdit.template.html',
@@ -36,8 +33,8 @@ angular
         roles: ['admin']
       }
     })
-
-    .state('cursillo.edit', {
+  
+  .state('cursillo.edit', {
       parent: 'cursillo',
       url: '/:id/edit',
       templateUrl: 'scripts/app/cursillo/cursilloEdit.template.html',
@@ -47,20 +44,17 @@ angular
         roles: ['admin']
       }
     })
-
-    .state('cursillo.detail', {
+  
+  .state('cursillo.detail', {
       parent: 'cursillo',
       url: '/:id/detail',
       templateUrl: 'scripts/app/cursillo/cursilloDetail.template.html',
       controller: 'CursilloDetailController',
       data: {
         requireLogin: true,
-        roles: ['admin']
+        roles: ['admin', 'secretary', 'rector']
       }
-    })
-
-
-  ;
+    });
 
 
 }]);

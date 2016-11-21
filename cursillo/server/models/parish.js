@@ -7,13 +7,16 @@ var connection = require('../utils/connection');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 
-const requiredFields = ['number', 'name'];
+const requiredFields = ['name', 'city', 'area', 'cursilloId'];
 
 var schema = function (user) {
     var obj = {
-      "number": null,
+      "id": null,
       "name": null,
-      "description": null
+      "city": null,
+      "area": null,
+      "notes": null,
+      "cursilloId": null
     };
 
   // is only null if explicitly part of schema, otherwise is undefined
@@ -26,37 +29,37 @@ var schema = function (user) {
   return obj;
 };
 
-var create = function (position, cb) {
-  connection.query('INSERT INTO position SET ?', [position], cb);
+var create = function (parish, cb) {
+  connection.query('INSERT INTO Parish SET ?', [parish], cb);
 };
 
 var findAll= function (cb) {
-  connection.query('SELECT * FROM Position', cb);
+  connection.query('SELECT * FROM Parish', cb);
 };
 
-var findById = function (positionId, cb) {
+var findById = function (parishId, cb) {
 
   connection.query(
     'SELECT * ' +
-    'FROM Position ' +
-    'WHERE id = ?', [positionId], cb
+    'FROM Parish ' +
+    'WHERE id = ?', [parishId], cb
   );
 
 };
 
-var deleteById = function (positionId, cb) {
+var deleteById = function (parishId, cb) {
 
   connection.query(
-    'DELETE FROM Position WHERE id = ?', [positionId], cb
+    'DELETE FROM Parish WHERE id = ?', [parishId], cb
   );
 
 };
 
-var updateById = function (positionId, position, cb) {
-  connection.query('UPDATE Position SET ? WHERE id = ' + positionId, schema(position), cb);
+var updateById = function (parishId, parish, cb) {
+  connection.query('UPDATE Parish SET ? WHERE id = ' + parishId, schema(parish), cb);
 };
 
-var Position = {
+var Parish = {
   'create': create,
   'findAll': findAll,
   'findById': findById,
@@ -67,4 +70,4 @@ var Position = {
 
 };
 
-module.exports = Position;
+module.exports = Parish;

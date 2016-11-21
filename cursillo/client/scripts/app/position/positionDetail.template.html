@@ -1,6 +1,11 @@
 <div class="row">
   <div class="col-md-12">
-    <h3>Position Detail</h3>
+    <h3>
+      <a ui-sref="position.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      Position Detail
+    </h3>
   </div>
 </div>
 
@@ -24,7 +29,7 @@
         <span id="position-description" class="form-control">{{position.description}}</span>
       </div>
 
-      <button type="button" class="btn btn-primary" data-ui-sref="position.edit({id: position.id})">Edit</button>
+      <button type="button" class="btn btn-primary" data-ui-sref="position.edit({id: position.id})" has-role="admin">Edit</button>
     </form>
 
 

@@ -1,19 +1,19 @@
-angular.module('app').factory('Position', ['$resource', '$location', function($resource, $location) {
+angular.module('app').factory('Location', ['$resource', '$location', function($resource, $location) {
     var base = [$location.protocol(), '://', $location.host(), ':', $location.port(), '/api'].join('');
 
     var getPath = function (trail) {
         return base + trail;
     };
 
-    return $resource(getPath('/positions/:id'), null, {
+    return $resource(getPath('/locations/:id'), null, {
       'query': {
         method: 'GET',
-        url: getPath('/positions'),
+        url: getPath('/locations'),
         isArray: true
       },
       'create': {
         method: 'POST',
-        url: getPath('/positions')
+        url: getPath('/locations')
       },
       'get': {
         method:'GET'

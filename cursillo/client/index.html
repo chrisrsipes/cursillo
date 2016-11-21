@@ -10,6 +10,7 @@
   <link href="vendor/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
   <link href="vendor/bower_components/angular-ui-notification/dist/angular-ui-notification.css" rel="stylesheet">
   <link href="vendor/bower_components/angular-datatables/dist/css/angular-datatables.css" rel="stylesheet">
+  <link href="vendor/bower_components/angular-ui-select/dist/select.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,15 +41,16 @@
         </ui>
 
         <ui class="nav navbar-nav" data-ng-if="!!currentUser">
-          <li><a href="javascript:void(0)" ui-sref="dashboard" data-has-any-role="admin, secretary, rector">Dashboard</a></li>
-          <li class="dropdown" data-has-role="admin">
+          <li><a href="javascript:void(0)" ui-sref="dashboard">Dashboard</a></li>
+          <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
               Admin
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0)" ui-sref="position.list" data-has-any-role="admin, secretary, rector">Positions</a></li>
-              <li><a href="javascript:void(0)" ui-sref="cursillo.list" data-has-any-role="admin, secretary, rector">Cursillos</a></li>
+              <li><a href="javascript:void(0)" ui-sref="cursillo.list" data-has-any-role="admin">Cursillos</a></li>
+              <li><a href="javascript:void(0)" ui-sref="location.list">Locations</a></li>
+              <li><a href="javascript:void(0)" ui-sref="position.list">Positions</a></li>
             </ul>
           </li>
           <li><a href="javascript:void(0)" ui-sref="logout">Logout</a></li>
@@ -75,6 +77,7 @@
 <script src="vendor/bower_components/jquery/dist/jquery.js"></script>
 <script src="vendor/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="vendor/bower_components/angular/angular.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular-sanitize.js"></script>
 <script src="vendor/bower_components/angular-resource/angular-resource.js"></script>
 <script src="vendor/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="vendor/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
@@ -84,6 +87,7 @@
 <script src="vendor/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
 <script src="vendor/bower_components/datatables.net/js/jquery.dataTables.js"></script>
 <script src="vendor/bower_components/angular-datatables/dist/angular-datatables.js"></script>
+<script src="vendor/bower_components/angular-ui-select/dist/select.js"></script>
 
 
 <!-- app -->
@@ -94,21 +98,10 @@
 <script src="scripts/app/auth/login.controller.js"></script>
 <script src="scripts/app/auth/register.controller.js"></script>
 
-<!-- app:cursillo -->
-<script src="scripts/app/cursillo/cursillo.js"></script>
-<script src="scripts/app/cursillo/cursilloList.controller.js"></script>
-<script src="scripts/app/cursillo/cursilloEdit.controller.js"></script>
-<script src="scripts/app/cursillo/cursilloDetail.controller.js"></script>
-
 <!-- app:dashboard -->
 <script src="scripts/app/dashboard/dashboard.controller.js"></script>
 <script src="scripts/app/dashboard/dashboard.js"></script>
 
-<!-- app:location -->
-<script src="scripts/app/location/location.js"></script>
-<script src="scripts/app/location/locationList.controller.js"></script>
-<script src="scripts/app/location/locationEdit.controller.js"></script>
-<script src="scripts/app/location/locationEdit.controller.js"></script>
 
 
 <!-- app:people -->
@@ -123,10 +116,22 @@
 <script src="scripts/app/position/positionEdit.controller.js"></script>
 <script src="scripts/app/position/positionDetail.controller.js"></script>
 
+<!-- app:cursillo -->
+<script src="scripts/app/cursillo/cursillo.js"></script>
+<script src="scripts/app/cursillo/cursilloList.controller.js"></script>
+<script src="scripts/app/cursillo/cursilloEdit.controller.js"></script>
+<script src="scripts/app/cursillo/cursilloDetail.controller.js"></script>
 <!-- app:reporting -->
 <script src="scripts/app/reporting/reporting-weekend.controller.js"></script>
 <script src="scripts/app/reporting/reporting.js"></script>
 <script src="scripts/app/reporting/reporting-people.controller.js"></script>
+
+<!-- app:location -->
+<script src="scripts/app/location/location.js"></script>
+<script src="scripts/app/location/locationList.controller.js"></script>
+<script src="scripts/app/location/locationEdit.controller.js"></script>
+<script src="scripts/app/location/locationDetail.controller.js"></script>
+
 
 <!-- app:weekend -->
 <script src="scripts/app/weekend/weekend.js"></script>
@@ -152,6 +157,8 @@
 <!-- services -->
 <script src="scripts/services/account.service.js"></script>
 <script src="scripts/services/position.service.js"></script>
+<script src="scripts/services/cursillo.service.js"></script>
+<script src="scripts/services/location.service.js"></script>
 
 
 </body>

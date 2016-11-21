@@ -1,4 +1,5 @@
 var validations = require('../utils/validations');
+var constants = require('../utils/constants');
 var Account = require('../models/account');
 var Role = require('../models/role');
 
@@ -8,7 +9,7 @@ var authenticate = function (req, res, next) {
   var proceed = function (err, account) {
 
     if (err) {
-      res.status(500).json({message: 'Error executing request.'});
+      res.status(constants.http.NOT_AUTHORIZED.status).json({message: constants.http.NOT_AUTHORIZED.message});
       return;
     }
 
@@ -19,7 +20,7 @@ var authenticate = function (req, res, next) {
   };
 
   var stop = function () {
-    res.status(401).json({message: 'You are unauthorized to access this resource.'});
+    res.status(constants.http.NOT_AUTHORIZED.status).json({message: constants.http.NOT_AUTHORIZED.message});
   };
 
   if (validations.validateNonEmpty(req.query.authorization)) {
@@ -76,7 +77,7 @@ var authorize = function (req, res, next) {
       next();
     }
     else {
-      res.status(401).json({message: 'Unauthorized to access this resource.'});
+      res.status(constants.http.NOT_AUTHORIZED.status).json({message: constants.http.NOT_AUTHORIZED.message});
     }
 
   };

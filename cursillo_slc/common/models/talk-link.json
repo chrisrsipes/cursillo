@@ -6,7 +6,7 @@
     "validateUpsert": true
   },
   "properties": {
-    "type": {
+    "status": {
       "type": "string",
       "required": "true"
     }
@@ -16,6 +16,11 @@
     "talk": {
       "type": "belongsTo",
       "model": "Talk",
+      "foreignKey": ""
+    },
+    "person": {
+      "type": "belongsTo",
+      "model": "Person",
       "foreignKey": ""
     }
   },

@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt');
 var auth = require('../utils/auth');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
-var Position = require('../models/position');
+var Talk = require('../models/talk');
 
 var router = express.Router();
 
@@ -15,11 +15,10 @@ router.use(auth.authorize);
 
 // endpoints
 
-// get all positions
+// get all talks
 router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
-    console.log('err', err);
     if (err) {
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
@@ -28,31 +27,31 @@ router.get('/', function (req, res) {
     }
   };
 
-  Position.findAll(finish);
+  Talk.findAll(finish);
 
 });
 
-// create a new position
+// create a new talk
 router.post('/', function (req, res) {
-  var position = Position.schema(req.body);
+  var talk = Talk.schema(req.body);
 
   var finish = function (err, result) {
     if (err) {
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      position.id = result.insertId;
-      res.status(constants.http.SUCCESS.status).json(position);
+      talk.id = result.insertId;
+      res.status(constants.http.SUCCESS.status).json(talk);
     }
   };
 
-  Position.create(position, finish);
+  Talk.create(talk, finish);
 
 });
 
-// get position by id
-router.get('/:positionId', function (req, res) {
-  var position, positionId = req.params.positionId;
+// get talk by id
+router.get('/:talkId', function (req, res) {
+  var talk, talkId = req.params.talkId;
 
   var finish = function (err, rows, fields) {
     if (err) {
@@ -62,24 +61,24 @@ router.get('/:positionId', function (req, res) {
       res.status(constants.http.NO_CONTENT.status).json({message: constants.http.NO_CONTENT.message});
     }
     else {
-      position = rows && rows[0] || {};
-      res.status(constants.http.SUCCESS.status).json(position);
+      talk = rows && rows[0] || {};
+      res.status(constants.http.SUCCESS.status).json(talk);
     }
 
   };
 
-  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
-    Position.findById(positionId, finish);
+  if (validations.validateNonEmpty(talkId) && validations.validateNumeric(talkId)) {
+    Talk.findById(talkId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
-// update position by id
-router.put('/:positionId', function (req, res) {
-  var positionId = req.params.positionId;
-  var position = Position.schema(req.body);
+// update talk by id
+router.put('/:talkId', function (req, res) {
+  var talkId = req.params.talkId;
+  var talk = Talk.schema(req.body);
 
   var finish = function (err, rows, fields) {
     if (err) {
@@ -87,11 +86,11 @@ router.put('/:positionId', function (req, res) {
       return;
     }
 
-    res.status(constants.http.SUCCESS.status).json(position);
+    res.status(constants.http.SUCCESS.status).json(talk);
   };
 
-  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
-    Position.updateById(positionId, position, finish);
+  if (validations.validateNonEmpty(talkId) && validations.validateNumeric(talkId)) {
+    Talk.updateById(talkId, talk, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
@@ -99,9 +98,9 @@ router.put('/:positionId', function (req, res) {
 
 });
 
-// delete position by id
-router.delete('/:positionId', function (req, res) {
-  var position, positionId = req.params.positionId;
+// delete talk by id
+router.delete('/:talkId', function (req, res) {
+  var talk, talkId = req.params.talkId;
 
   var finish = function (err, rows, fields) {
     if (err) {
@@ -112,8 +111,8 @@ router.delete('/:positionId', function (req, res) {
     res.status(constants.http.NO_CONTENT.status).json({message: 'Successfully deleted.'});
   };
 
-  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
-    Position.deleteById(positionId, finish);
+  if (validations.validateNonEmpty(talkId) && validations.validateNumeric(talkId)) {
+    Talk.deleteById(talkId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
