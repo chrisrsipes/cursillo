@@ -142,4 +142,26 @@ router.get('/:cursilloId/locations', function (req, res) {
   }
 });
 
+// get cursillo's parishes by id
+router.get('/:cursilloId/parishes', function (req, res) {
+  var cursillo, cursilloId = req.params.cursilloId;
+
+  var finish = function (err, rows, fields) {
+    if (err) {
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else {
+      res.status(constants.http.SUCCESS.status).json(rows);
+    }
+
+  };
+
+  if (validations.validateNonEmpty(cursilloId) && validations.validateNumeric(cursilloId)) {
+    Cursillo.findParishesById(cursilloId, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
 module.exports = router;

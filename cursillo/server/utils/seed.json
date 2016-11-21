@@ -147,14 +147,8 @@
       "description": "Full read access, write access to owned weekends.",
       "created": null,
       "modified": null
-    },
-    {
-      "id":4 ,
-      "name": "sestup",
-      "description": "Setup",
-      "created": null,
-      "modified": null
     }
+
   ],
   "ACL": [
     {
@@ -165,6 +159,24 @@
       "permission": "*",
       "principalType": "Role",
       "principalId": "1"
+    },
+    {
+      "id": 2,
+      "model": "*",
+      "property": "*",
+      "accessType": "GRANT",
+      "permission": "*",
+      "principalType": "Role",
+      "principalId": "2"
+    },
+    {
+      "id": 3,
+      "model": "*",
+      "property": "*",
+      "accessType": "GRANT",
+      "permission": "*",
+      "principalType": "Role",
+      "principalId": "3"
     }
   ],
   "Account": [

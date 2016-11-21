@@ -59,6 +59,10 @@ var findLocationsById = function (cursilloId, cb) {
   connection.query('SELECT * FROM Location WHERE cursilloId = ?', cursilloId, cb);
 };
 
+var findParishesById = function (cursilloId, cb) {
+  connection.query('SELECT * FROM Parish WHERE cursilloId = ?', cursilloId, cb);
+};
+
 var Cursillo = {
   'create': create,
   'findAll': findAll,
@@ -66,6 +70,7 @@ var Cursillo = {
   'updateById': updateById,
   'deleteById': deleteById,
   'findLocationsById': findLocationsById,
+  'findParishesById': findParishesById,
   'schema': schema,
   'requiredFields': requiredFields
 

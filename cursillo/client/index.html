@@ -40,15 +40,16 @@
         </ui>
 
         <ui class="nav navbar-nav" data-ng-if="!!currentUser">
-          <li><a href="javascript:void(0)" ui-sref="dashboard" data-has-any-role="admin, secretary, rector">Dashboard</a></li>
-          <li class="dropdown" data-has-role="admin">
+          <li><a href="javascript:void(0)" ui-sref="dashboard">Dashboard</a></li>
+          <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
               Admin
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="javascript:void(0)" ui-sref="position.list" data-has-any-role="admin">Positions</a></li>
               <li><a href="javascript:void(0)" ui-sref="cursillo.list" data-has-any-role="admin">Cursillos</a></li>
+              <li><a href="javascript:void(0)" ui-sref="location.list">Locations</a></li>
+              <li><a href="javascript:void(0)" ui-sref="position.list">Positions</a></li>
             </ul>
           </li>
           <li><a href="javascript:void(0)" ui-sref="logout">Logout</a></li>

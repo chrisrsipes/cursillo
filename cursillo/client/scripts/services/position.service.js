@@ -8,7 +8,8 @@ angular.module('app').factory('Position', ['$resource', '$location', function($r
     return $resource(getPath('/positions/:id'), null, {
       'query': {
         method: 'GET',
-        url: getPath('/positions')
+        url: getPath('/positions'),
+        isArray: true
       },
       'create': {
         method: 'POST',

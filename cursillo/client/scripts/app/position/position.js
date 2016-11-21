@@ -8,7 +8,7 @@ angular
       controller: ['$scope', function ($scope) {}],
       data: {
         requireLogin: true,
-        roles: ['admin']
+        roles: ['admin', 'secretary', 'rector']
       }
     })
 
@@ -19,7 +19,7 @@ angular
       controller: 'PositionListController',
       data: {
         requireLogin: true,
-        roles: ['admin']
+        roles: ['admin', 'secretary', 'rector']
       }
     })
   
@@ -52,12 +52,9 @@ angular
       controller: 'PositionDetailController',
       data: {
         requireLogin: true,
-        roles: ['admin', 'secretary']
+        roles: ['admin', 'secretary', 'rector']
       }
-    })
-  
-  
-  ;
+    });
 
 
 }]);
