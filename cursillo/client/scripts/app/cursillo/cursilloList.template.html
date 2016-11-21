@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-10">
+    <h3>Cursillo List</h3>
+  </div>
+
+  <div class="col-md-2 pull-right" has-role="admin">
+      <button type="button" class="btn btn-primary" data-ui-sref="cursillo.create" style="margin-top: 10px;">Create Cursillo</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <table datatable="ng" dt-options="options" dt-column-defs="columnDefs" class="row-border hover">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="cursillo in cursillos">
+        <td>{{ cursillo.id }}</td>
+        <td>{{ cursillo.name }}</td>
+        <td>
+          <a ui-sref="cursillo.detail({id: cursillo.id})" href="javascript:void(0)">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+          </a>
+
+          <a ui-sref="cursillo.edit({id: cursillo.id})" href="javascript:void(0)" has-role="admin">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+          </a>
+
+          <!--
+          <a href="javascript:void(0)" data-ng-click="deleteCursillo(cursillo.id, $index)" has-role="admin">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </a>
+          -->
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

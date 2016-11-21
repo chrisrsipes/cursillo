@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref="location.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      {{ edit ? "Edit" : "Create"}} Location
+    </h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <form name="location">
+
+      <div class="form-group">
+        <label for="location-name">Location Name</label>
+        <input type="text" class="form-control" id="location-name" placeholder="Enter name" ng-model="location.name" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary" data-ng-if="!edit" data-ng-click="createLocation()">Create</button>
+      <button type="submit" class="btn btn-danger" data-ng-if="edit" data-ng-click="loadLocation()">Reset</button>
+      <button type="submit" class="btn btn-primary" data-ng-if="edit" data-ng-click="updateLocation()">Update</button>
+    </form>
+
+
+  </div>
+</div>

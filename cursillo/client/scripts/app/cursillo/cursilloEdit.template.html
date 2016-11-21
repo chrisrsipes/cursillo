@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref="cursillo.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      {{ edit ? "Edit" : "Create"}} Cursillo
+    </h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <form name="cursillo">
+
+      <div class="form-group">
+        <label for="cursillo-name">Cursillo Name</label>
+        <input type="text" class="form-control" id="cursillo-name" placeholder="Enter name" ng-model="cursillo.name" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary" data-ng-if="!edit" data-ng-click="createCursillo()">Create</button>
+      <button type="submit" class="btn btn-danger" data-ng-if="edit" data-ng-click="loadCursillo()">Reset</button>
+      <button type="submit" class="btn btn-primary" data-ng-if="edit" data-ng-click="updateCursillo()">Update</button>
+    </form>
+
+
+  </div>
+</div>

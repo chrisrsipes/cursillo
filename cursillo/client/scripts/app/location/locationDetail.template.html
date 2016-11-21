@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref="location.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      Location Detail
+    </h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <form name="location">
+
+      <div class="form-group">
+        <label for="location-name">Location Name</label>
+        <span id="location-name" class="form-control">{{location.name}}</span>
+      </div>
+
+      <button type="button" class="btn btn-primary" data-ui-sref="location.edit({id: location.id})" has-role="admin">Edit</button>
+    </form>
+
+
+  </div>
+</div>
