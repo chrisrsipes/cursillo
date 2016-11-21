@@ -20,10 +20,10 @@ router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
-      res.status(500).json({message: 'Error executing request.'});
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      res.status(200).json({cursillos: rows});
+      res.status(constants.http.SUCCESS.status).json(rows);
     }
   };
 
@@ -35,14 +35,13 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   var cursillo = Cursillo.schema(req.body);
 
-
   var finish = function (err, result) {
     if (err) {
-      res.status(500).json({message: 'Error executing request.'});
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
       cursillo.id = result.insertId;
-      res.status(200).json(cursillo);
+      res.status(constants.http.SUCCESS.status).json(cursillo);
     }
   };
 
@@ -55,48 +54,46 @@ router.get('/:cursilloId', function (req, res) {
   var cursillo, cursilloId = req.params.cursilloId;
 
   var finish = function (err, rows, fields) {
-    if (rows.length === 0) {
-      res.status(404).json({message: 'Cursillo not found.'});
+    if (err) {
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else if (rows.length === 0) {
+      res.status(constants.http.NO_CONTENT.status).json({message: constants.http.NO_CONTENT.message});
     }
     else {
       cursillo = rows && rows[0] || {};
+      res.status(constants.http.SUCCESS.status).json(cursillo);
     }
 
-    res.status(200).json(cursillo);
   };
 
   if (validations.validateNonEmpty(cursilloId) && validations.validateNumeric(cursilloId)) {
     Cursillo.findById(cursilloId, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
 // update cursillo by id
 router.put('/:cursilloId', function (req, res) {
-  var cursillo, cursilloId = req.params.cursilloId;
+  var cursilloId = req.params.cursilloId;
+  var cursillo = Cursillo.schema(req.body);
 
   var finish = function (err, rows, fields) {
     if (err) {
-      res.status(400).json({message: 'Bad request.'});
-    }
-    else if (rows.length === 0) {
-      res.status(404).json({message: 'Cursillo not found.'});
-    }
-    else {
-      cursillo = rows && rows[0] || {};
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+      return;
     }
 
-    res.status(200).json(Cursillo.schema(req.body));
+    res.status(constants.http.SUCCESS.status).json(cursillo);
   };
 
   if (validations.validateNonEmpty(cursilloId) && validations.validateNumeric(cursilloId)) {
-
-    Cursillo.updateById(cursilloId, req.body, finish);
+    Cursillo.updateById(cursilloId, cursillo, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 
 });
@@ -106,21 +103,19 @@ router.delete('/:cursilloId', function (req, res) {
   var cursillo, cursilloId = req.params.cursilloId;
 
   var finish = function (err, rows, fields) {
-    if (rows.length === 0) {
-      res.status(404).json({message: 'Cursillo not found.'});
-    }
-    else {
-      cursillo = rows && rows[0] || {};
+    if (err) {
+      res.status(constants.http.INTERNAL_ERROR).json({message: constants.http.INTERNAL_ERROR});
+      return;
     }
 
-    res.status(200).json({message: 'Successfully deleted.'});
+    res.status(constants.http.NO_CONTENT.status).json({message: 'Successfully deleted.'});
   };
 
   if (validations.validateNonEmpty(cursilloId) && validations.validateNumeric(cursilloId)) {
     Cursillo.deleteById(cursilloId, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
@@ -131,11 +126,10 @@ router.get('/:cursilloId/locations', function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
-      console.log('err', err);
-      res.status(500).json({message: err});
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      res.status(200).json(rows);
+      res.status(constants.http.SUCCESS.status).json(rows);
     }
 
   };
@@ -144,7 +138,7 @@ router.get('/:cursilloId/locations', function (req, res) {
     Cursillo.findLocationsById(cursilloId, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 

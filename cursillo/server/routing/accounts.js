@@ -16,7 +16,7 @@ var router = express.Router();
 // endpoints
 
 router.get('/authenticated', auth.authenticate, auth.authorize, function (req, res) {
-  res.status(200).json({message: 'mde it', account: req.account});
+  res.status(constants.http.SUCCESS.status).json({account: req.account});
 });
 
 // create account
@@ -26,16 +26,18 @@ router.post('/', function (req, res) {
   var flag = validations.validateProvidedFields(account, Account.requiredFields);
 
   var fail = function () {
-    res.status(400).json({message: 'Bad account object.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   };
 
   var finish = function () {
-    res.status(201).json({account: account});
+    res.status(constants.http.CREATED.status).json({account: account});
   };
 
   var createRoleMapping = function (err, result) {
 
-    if (err) console.log('err', err);
+    if (err) {
+      console.log('err', err);
+    }
 
     var principalId = result.insertId;
 
@@ -67,10 +69,10 @@ router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
-      res.status(500).json({message: 'Error executing request.'});
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      res.status(200).json({accounts: rows});
+      res.status(constants.http.SUCCESS.status).json({accounts: rows});
     }
   };
 
@@ -94,7 +96,7 @@ router.post('/login', function(req, res) {
   var finish = function (accessToken) {
     delete account.password;
     account.roles = roles;
-    res.status(200).json({accessToken: accessToken, account: account});
+    res.status(constants.http.SUCCESS.status).json({accessToken: accessToken, account: account});
   };
 
   var processRoles = function (err, rows, fields) {
@@ -107,17 +109,17 @@ router.post('/login', function(req, res) {
       Role.findAssignedRolesFromUser(account.id, processRoles);
     }
     else {
-      fail(401, 'Login failed - username or password incorrect.');
+      fail(constants.http.BAD_REQUEST.status, 'Login failed - username or password incorrect.');
     }
 
   };
 
   var parseAccount = function (err, rows, fields) {
     if (err) {
-      fail(500, 'There was an error processing your request.');
+      fail(constants.http.INTERNAL_ERROR.status, constants.http.INTERNAL_ERROR.message);
     }
     else if (rows.length === 0) {
-      fail(401, 'Login failed - username or password incorrect.');
+      fail(constants.http.BAD_REQUEST.status, 'Login failed - username or password incorrect.');
     }
     else {
       account = rows[0];
@@ -130,14 +132,14 @@ router.post('/login', function(req, res) {
     Account.findAccountByEmail(credentials.email, parseAccount);
   }
   else {
-    fail(400, 'Invalid credentials.');
+    fail(constants.http.BAD_REQUEST.status, 'Login failed - username or password incorrect.');
   }
 });
 
 router.get('/logout', auth.authenticate, auth.authorize, function(req, res) {
 
   Account.deleteAllAccessTokensForAccount(req.account.id, function () {
-    res.status(200).json({message: 'Successfully logged out.'});
+    res.status(constants.http.NO_CONTENT.status).json(constants.http.NO_CONTENT.message);
   });
 
 
@@ -151,14 +153,14 @@ router.get('/:accountId', function (req, res) {
   var finish = function (err, rows, fields) {
     var roles = _.map(rows, 'name');
     account.roles = roles;
-    res.status(200).json(account);
+    res.status(constants.http.SUCCESS.status).json(account);
   };
 
   if (validations.validateNonEmpty(accountId) && validations.validateNumeric(accountId)) {
     Account.findAccountById(accountId, function (err, rows, fields) {
 
       if (rows.length === 0) {
-        res.status(404).json({message: 'Account not found.'});
+        res.status(constants.http.NO_CONTENT.status).json({message: constants.http.NO_CONTENT.message});
       }
       else {
         account = rows && rows[0] || {};
@@ -168,7 +170,7 @@ router.get('/:accountId', function (req, res) {
     });
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 

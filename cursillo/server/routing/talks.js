@@ -20,10 +20,10 @@ router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
-      res.status(500).json({message: 'Error executing request.'});
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      res.status(200).json({talks: rows});
+      res.status(constants.http.SUCCESS.status).json(rows);
     }
   };
 
@@ -35,14 +35,13 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   var talk = Talk.schema(req.body);
 
-
   var finish = function (err, result) {
     if (err) {
-      res.status(500).json({message: 'Error executing request.'});
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
       talk.id = result.insertId;
-      res.status(200).json(talk);
+      res.status(constants.http.SUCCESS.status).json(talk);
     }
   };
 
@@ -55,48 +54,46 @@ router.get('/:talkId', function (req, res) {
   var talk, talkId = req.params.talkId;
 
   var finish = function (err, rows, fields) {
-    if (rows.length === 0) {
-      res.status(404).json({message: 'Talk not found.'});
+    if (err) {
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else if (rows.length === 0) {
+      res.status(constants.http.NO_CONTENT.status).json({message: constants.http.NO_CONTENT.message});
     }
     else {
       talk = rows && rows[0] || {};
+      res.status(constants.http.SUCCESS.status).json(talk);
     }
 
-    res.status(200).json(talk);
   };
 
   if (validations.validateNonEmpty(talkId) && validations.validateNumeric(talkId)) {
     Talk.findById(talkId, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
 // update talk by id
 router.put('/:talkId', function (req, res) {
-  var talk, talkId = req.params.talkId;
+  var talkId = req.params.talkId;
+  var talk = Talk.schema(req.body);
 
   var finish = function (err, rows, fields) {
     if (err) {
-      res.status(400).json({message: 'Bad request.'});
-    }
-    else if (rows.length === 0) {
-      res.status(404).json({message: 'Talk not found.'});
-    }
-    else {
-      talk = rows && rows[0] || {};
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+      return;
     }
 
-    res.status(200).json(Talk.schema(req.body));
+    res.status(constants.http.SUCCESS.status).json(talk);
   };
 
   if (validations.validateNonEmpty(talkId) && validations.validateNumeric(talkId)) {
-
-    Talk.updateById(talkId, req.body, finish);
+    Talk.updateById(talkId, talk, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 
 });
@@ -106,21 +103,19 @@ router.delete('/:talkId', function (req, res) {
   var talk, talkId = req.params.talkId;
 
   var finish = function (err, rows, fields) {
-    if (rows.length === 0) {
-      res.status(404).json({message: 'Talk not found.'});
-    }
-    else {
-      talk = rows && rows[0] || {};
+    if (err) {
+      res.status(constants.http.INTERNAL_ERROR).json({message: constants.http.INTERNAL_ERROR});
+      return;
     }
 
-    res.status(200).json({message: 'Successfully deleted.'});
+    res.status(constants.http.NO_CONTENT.status).json({message: 'Successfully deleted.'});
   };
 
   if (validations.validateNonEmpty(talkId) && validations.validateNumeric(talkId)) {
     Talk.deleteById(talkId, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 

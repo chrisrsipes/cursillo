@@ -20,10 +20,10 @@ router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
-      res.status(500).json({message: 'Error executing request.'});
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      res.status(200).json({locations: rows});
+      res.status(constants.http.SUCCESS.status).json(rows);
     }
   };
 
@@ -35,14 +35,13 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   var location = Location.schema(req.body);
 
-
   var finish = function (err, result) {
     if (err) {
-      res.status(500).json({message: 'Error executing request.'});
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
       location.id = result.insertId;
-      res.status(200).json(location);
+      res.status(constants.http.SUCCESS.status).json(location);
     }
   };
 
@@ -55,48 +54,46 @@ router.get('/:locationId', function (req, res) {
   var location, locationId = req.params.locationId;
 
   var finish = function (err, rows, fields) {
-    if (rows.length === 0) {
-      res.status(404).json({message: 'Location not found.'});
+    if (err) {
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else if (rows.length === 0) {
+      res.status(constants.http.NO_CONTENT.status).json({message: constants.http.NO_CONTENT.message});
     }
     else {
       location = rows && rows[0] || {};
+      res.status(constants.http.SUCCESS.status).json(location);
     }
 
-    res.status(200).json(location);
   };
 
   if (validations.validateNonEmpty(locationId) && validations.validateNumeric(locationId)) {
     Location.findById(locationId, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
 // update location by id
 router.put('/:locationId', function (req, res) {
-  var location, locationId = req.params.locationId;
+  var locationId = req.params.locationId;
+  var location = Location.schema(req.body);
 
   var finish = function (err, rows, fields) {
     if (err) {
-      res.status(400).json({message: 'Bad request.'});
-    }
-    else if (rows.length === 0) {
-      res.status(404).json({message: 'Location not found.'});
-    }
-    else {
-      location = rows && rows[0] || {};
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+      return;
     }
 
-    res.status(200).json(Location.schema(req.body));
+    res.status(constants.http.SUCCESS.status).json(location);
   };
 
   if (validations.validateNonEmpty(locationId) && validations.validateNumeric(locationId)) {
-
-    Location.updateById(locationId, req.body, finish);
+    Location.updateById(locationId, location, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 
 });
@@ -106,21 +103,19 @@ router.delete('/:locationId', function (req, res) {
   var location, locationId = req.params.locationId;
 
   var finish = function (err, rows, fields) {
-    if (rows.length === 0) {
-      res.status(404).json({message: 'Location not found.'});
-    }
-    else {
-      location = rows && rows[0] || {};
+    if (err) {
+      res.status(constants.http.INTERNAL_ERROR).json({message: constants.http.INTERNAL_ERROR});
+      return;
     }
 
-    res.status(200).json({message: 'Successfully deleted.'});
+    res.status(constants.http.NO_CONTENT.status).json({message: 'Successfully deleted.'});
   };
 
   if (validations.validateNonEmpty(locationId) && validations.validateNumeric(locationId)) {
     Location.deleteById(locationId, finish);
   }
   else {
-    res.status(404).json({message: 'Invalid ID provided.'});
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
