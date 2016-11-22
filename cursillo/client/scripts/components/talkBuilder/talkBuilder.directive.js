@@ -6,7 +6,7 @@ angular.module('app').directive('talkBuilder', function () {
       weekendId: '='
     },
     link: function (scope, elem, attrs) {},
-    controller: ['$scope', '$uibModal', 'Talk', 'Weekend', 'Notification', function ($scope, $uibModal, Talk, Weekend, Notification) {
+    controller: ['$scope', '$uibModal', 'Talk', 'TalkLink', 'Weekend', 'Notification', function ($scope, $uibModal, Talk, TalkLink, Weekend, Notification) {
 
       $scope.filledTalks = {};
       $scope.talks = [];
@@ -20,19 +20,20 @@ angular.module('app').directive('talkBuilder', function () {
         });
 
       };
-
-      $scope.loadTalkLinks = function () {
-        Weekend.getTalkLinks({id: $scope.weekendId}, function (talkLinks) {
-          $scope.talkLinks = talkLinks;
-
-          angular.forEach(talkLinks, function (val) {
+      
+      var markFilledTalks = function () {
+        angular.forEach($scope.talkLinks, function (val) {
             if (val.status === 'ACTIVE')
               $scope.filledTalks[val.talkId] = true;
             else
               $scope.filledTalks[val.talkId] = false;
           });
+      };
 
-
+      $scope.loadTalkLinks = function () {
+        Weekend.getTalkLinks({id: $scope.weekendId}, function (talkLinks) {
+          $scope.talkLinks = talkLinks;
+          markFilledTalks();
         });
       };
 
@@ -54,17 +55,33 @@ angular.module('app').directive('talkBuilder', function () {
         });
 
         modalInstance.result.then(function (selected) {
-          console.log('selected');
+          
           if (selected.id) {
             $scope.loadTalkLinks();
           }
           else {
             Notification.error('Error creating talk assignment.');
           }
+          
         }, function () {
-          console.log('cancelled');
+          // cancelled
         });
 
+      };
+      
+      $scope.updateTalkLinkStatus = function (talkLink, status) {
+        var oldStatus = talkLink.status;
+        
+        talkLink.status = status;
+        
+        TalkLink.update({id: talkLink.id}, talkLink, function (tl) {
+          markFilledTalks();
+        }, function () {
+          // there was an error
+          talkLink.status = oldStatus;
+          Notification.error('Error updating status on Talk Link.');
+        });
+        
       };
 
       $scope.loadTalks();
