@@ -23,6 +23,11 @@ angular.module('app').factory('Weekend', ['$resource', '$location', function($re
       },
       'delete': {
         method:'DELETE'
+      },
+      'getTalkLinks': {
+        method: 'GET',
+        url: getPath('/weekends/:id/talkLinks'),
+        isArray: true
       }
     });
 

@@ -5,8 +5,7 @@ var bcrypt = require('bcrypt');
 var auth = require('../utils/auth');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
-var Weekend = require('../models/weekend.js');
-var TalkLink = require('../models/talkLink.js');
+var Person = require('../models/person');
 
 var router = express.Router();
 
@@ -16,10 +15,11 @@ router.use(auth.authorize);
 
 // endpoints
 
-// get all weekends
+// get all people
 router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
+    console.log('err', err);
     if (err) {
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
@@ -28,82 +28,58 @@ router.get('/', function (req, res) {
     }
   };
 
-  Weekend.findAll(finish);
+  Person.findAll(finish);
 
 });
 
-// create a new weekend
+// create a new person
 router.post('/', function (req, res) {
-  var weekend = Weekend.schema(req.body);
+  var person = Person.schema(req.body);
 
   var finish = function (err, result) {
     if (err) {
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      weekend.id = result.insertId;
-      res.status(constants.http.SUCCESS.status).json(weekend);
+      person.id = result.insertId;
+      res.status(constants.http.SUCCESS.status).json(person);
     }
   };
 
-  Weekend.create(weekend, finish);
+  Person.create(person, finish);
 
 });
 
-// get weekend by id
-router.get('/:weekendId', function (req, res) {
-  var weekend, cursillo, weekendId = req.params.weekendId;
+// get person by id
+router.get('/:personId', function (req, res) {
+  var person, personId = req.params.personId;
 
   var finish = function (err, rows, fields) {
     if (err) {
-      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else if (rows.length === 0) {
       res.status(constants.http.NO_CONTENT.status).json({message: constants.http.NO_CONTENT.message});
     }
     else {
-      weekend = rows && rows[0] || {};
-      res.status(constants.http.SUCCESS.status).json(weekend);
+      person = rows && rows[0] || {};
+      res.status(constants.http.SUCCESS.status).json(person);
     }
 
   };
 
-  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
-    Weekend.findById(weekendId, finish);
+  if (validations.validateNonEmpty(personId) && validations.validateNumeric(personId)) {
+    Person.findById(personId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
-router.get('/:weekendId/talkLinks', function (req, res) {
-  var weekend, cursillo, weekendId = req.params.weekendId;
-
-  var finish = function (err, rows, fields) {
-    if (err) {
-      console.log('err', err);
-      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
-    }
-    else {
-      res.status(constants.http.SUCCESS.status).json(rows);
-    }
-
-  };
-
-  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
-    TalkLink.findByWeekendId(weekendId, finish);
-  }
-  else {
-    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
-  }
-});
-
-
-// update weekend by id
-router.put('/:weekendId', function (req, res) {
-  var weekendId = req.params.weekendId;
-  var weekend = Weekend.schema(req.body);
+// update person by id
+router.put('/:personId', function (req, res) {
+  var personId = req.params.personId;
+  var person = Person.schema(req.body);
 
   var finish = function (err, rows, fields) {
     if (err) {
@@ -111,11 +87,11 @@ router.put('/:weekendId', function (req, res) {
       return;
     }
 
-    res.status(constants.http.SUCCESS.status).json(weekend);
+    res.status(constants.http.SUCCESS.status).json(person);
   };
 
-  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
-    Weekend.updateById(weekendId, weekend, finish);
+  if (validations.validateNonEmpty(personId) && validations.validateNumeric(personId)) {
+    Person.updateById(personId, person, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
@@ -123,9 +99,9 @@ router.put('/:weekendId', function (req, res) {
 
 });
 
-// delete weekend by id
-router.delete('/:weekendId', function (req, res) {
-  var weekend, weekendId = req.params.weekendId;
+// delete person by id
+router.delete('/:personId', function (req, res) {
+  var person, personId = req.params.personId;
 
   var finish = function (err, rows, fields) {
     if (err) {
@@ -136,8 +112,8 @@ router.delete('/:weekendId', function (req, res) {
     res.status(constants.http.NO_CONTENT.status).json({message: 'Successfully deleted.'});
   };
 
-  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
-    Weekend.deleteById(weekendId, finish);
+  if (validations.validateNonEmpty(personId) && validations.validateNumeric(personId)) {
+    Person.deleteById(personId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

@@ -17,6 +17,97 @@
       "cursilloId": 1
     }
   ],
+  "Parish": [
+    {
+      "id": 1,
+      "name": "Parish Uno",
+      "city": "Orlando",
+      "area": "UCF",
+      "notes": "",
+      "cursilloId": 1
+    }
+  ],
+  "Person": [
+    {
+      "id": 1,
+      "firstName": "User",
+      "lastName": "One",
+      "email": "user.one@localhost",
+      "homePhone": null,
+      "workPhone": null,
+      "street": null,
+      "city": null,
+      "state": null,
+      "zip": null,
+      "birthdate": null,
+      "occupation": null,
+      "gender": "male",
+      "isTeamMember": 0,
+      "dateStarted": "11/21/16",
+      "tagName": null,
+      "parishId": 1
+    },
+    {
+      "id": 2,
+      "firstName": "User",
+      "lastName": "Two",
+      "email": "user.two@localhost",
+      "homePhone": null,
+      "workPhone": null,
+      "street": null,
+      "city": null,
+      "state": null,
+      "zip": null,
+      "birthdate": null,
+      "occupation": null,
+      "gender": "female",
+      "isTeamMember": 0,
+      "dateStarted": "11/21/16",
+      "tagName": null,
+      "parishId": 1
+    },
+    {
+      "id": 3,
+      "firstName": "User",
+      "lastName": "Three",
+      "email": "user.three@localhost",
+      "homePhone": null,
+      "workPhone": null,
+      "street": null,
+      "city": null,
+      "state": null,
+      "zip": null,
+      "birthdate": null,
+      "occupation": null,
+      "gender": "male",
+      "isTeamMember": 0,
+      "dateStarted": "11/21/16",
+      "tagName": null,
+      "parishId": 1
+    }
+  ],
+  "Weekend": [
+    {
+      "id": 1,
+      "number": 1,
+      "startDate": "04/27/2016",
+      "endDate": "04/30/2016",
+      "description": "Mens Weekend #1",
+      "notes": "",
+      "isCompleted": true,
+      "locationId": 1
+    },
+    {
+      "id": 2,
+      "number": 2,
+      "startDate": "11/25/2016",
+      "endDate": "11/28/2016",
+      "description": "Mens Weekend #2",
+      "notes": "",
+      "isCompleted": false,
+      "locationId": 1
+    }
+  ],
   "Talk": [
     {
       "id": 1,
@@ -129,6 +220,29 @@
       "number": 16,
       "description": "Backup Study Talk",
       "isActive": true
+    }
+  ],
+  "TalkLink": [
+    {
+      "id": 1,
+      "status": "ACTIVE",
+      "talkId": 1,
+      "personId": 1,
+      "weekendId": 1
+    },
+    {
+      "id": 2,
+      "status": "ACTIVE",
+      "talkId": 2,
+      "personId": 1,
+      "weekendId": 2
+    },
+    {
+      "id": 3,
+      "status": "ACTIVE",
+      "talkId": 2,
+      "personId": 2,
+      "weekendId": 2
     }
   ],
   "Role": [

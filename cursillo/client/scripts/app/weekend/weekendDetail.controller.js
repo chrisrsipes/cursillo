@@ -9,7 +9,6 @@ angular.module('app').controller('WeekendDetailController', ['$scope', 'Weekend'
 
   $scope.loadWeekend = function () {
     Weekend.get({id: $scope.weekendId}, function (weekend) {
-      console.log('weekend', weekend);
       $scope.weekend = weekend;
     });
   };
