@@ -60,6 +60,18 @@ var findByWeekendId = function (weekendId, cb) {
 
 };
 
+var findByPersonId = function (personId, cb) {
+
+  connection.query(
+    'SELECT tl.status, tl.id, tl.personId, tl.weekendId, tl.talkId, t.name as talkName, p.firstName as personFirstName, p.lastName as personLastName ' +
+    'FROM TalkLink tl, Talk t, Person p ' +
+    'WHERE tl.talkId = t.id ' +
+    'AND tl.personId = p.id ' +
+    'AND tl.personId = ?', [personId], cb
+  );
+
+};
+
 var deleteById = function (talkLinkId, cb) {
 
   connection.query(
@@ -77,6 +89,7 @@ var TalkLink = {
   'findAll': findAll,
   'findById': findById,
   'findByWeekendId': findByWeekendId,
+  'findByPersonId': findByPersonId,
   'updateById': updateById,
   'deleteById': deleteById,
   'schema': schema,

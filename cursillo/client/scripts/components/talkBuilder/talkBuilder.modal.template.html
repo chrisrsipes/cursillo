@@ -22,15 +22,17 @@
           <thead>
           <tr>
             <th>Name</th>
+            <th>Count</th>
             <th>Actions</th>
           </tr>
           </thead>
           <tbody>
-          <tr ng-repeat="person in talkPeople">
+          <tr ng-repeat="person in talkPeople | orderBy:'count'">
             <td>{{ person.firstName }} {{ person.lastName }}</td>
+            <td>{{ person.count }}</td>
             <td>
 
-              <a href="javascript:void(0)" data-ng-click="selectPerson(person)">
+              <a href="javascript:void(0)" data-ng-click="selectPerson(person.personId)">
                 <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" style="color: green;"></span>
                 Select
               </a>
@@ -54,9 +56,34 @@
         </ui-select>
       </div>
 
+      <table datatable="ng" dt-options="options" class="row-border hover">
+          <thead>
+          <tr>
+            <th>Talk</th>
+            <th>Weekend</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="talkLink in talkLinks">
+            <td>{{ talkLink.talkName }}</td>
+            <td>{{ talkLink.weekendId }}</td>
+            <td>{{ talkLink.status }}</td>
+          </tr>
+          </tbody>
+        </table>
 
     </div>
 
+  </div>
+
+  <div class="row">
+    <div class="col-md-6"></div>
+
+    <div class="col-md-6 text-right">
+      <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+      <button class="btn btn-primary" ng-click="createTalkLink()" ng-disabled="!selected.talkId || !selected.personId || !weekendId">Assign</button>
+    </div>
   </div>
 </div>
 

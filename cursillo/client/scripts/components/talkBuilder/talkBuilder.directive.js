@@ -6,7 +6,7 @@ angular.module('app').directive('talkBuilder', function () {
       weekendId: '='
     },
     link: function (scope, elem, attrs) {},
-    controller: ['$scope', '$uibModal', 'Talk', 'Weekend', function ($scope, $uibModal, Talk, Weekend) {
+    controller: ['$scope', '$uibModal', 'Talk', 'Weekend', 'Notification', function ($scope, $uibModal, Talk, Weekend, Notification) {
 
       $scope.filledTalks = {};
       $scope.talks = [];
@@ -27,13 +27,16 @@ angular.module('app').directive('talkBuilder', function () {
 
           angular.forEach(talkLinks, function (val) {
             if (val.status === 'ACTIVE')
-              $scope.filledTalks[val.id] = true;
+              $scope.filledTalks[val.talkId] = true;
+            else
+              $scope.filledTalks[val.talkId] = false;
           });
+
 
         });
       };
 
-      
+
       $scope.assignTalks = function () {
 
         var modalInstance = $uibModal.open({
@@ -42,53 +45,22 @@ angular.module('app').directive('talkBuilder', function () {
           ariaDescribedBy: 'modal-body',
           size: 'lg',
           templateUrl: 'scripts/components/talkBuilder/talkBuilder.modal.template.html',
-          controller: ['$scope', 'Talk', 'Person', function ($scope, Talk, Person) {
-
-            $scope.selected = { 
-              talkId: null,
-              personId: null
-            };
-            
-            $scope.talks = [];
-            $scope.talkPeople = [];
-            $scope.people = [];
-            
-            $scope.loadPeopleByTalkId = function () {
-              Talk.getPeople({id: $scope.selected.talkId}, function (people) {
-                $scope.talkPeople = people;
-              });
-            };
-
-            $scope.loadTalks = function () {
-              Talk.query(function (talks) {
-                $scope.talks = talks;
-              });
-            };
-            
-            $scope.loadPeople = function () {
-              Person.query(function (people) {
-                $scope.people = people;
-              });
-            };
-            
-            $scope.getFullName = function (person) {
-              return [person.firstName, person.lastName].join(' ');
-            };
-            
-            $scope.selectPerson = function (person) {
-              $scope.selected.personId = person.id;
-            };
-
-            $scope.loadTalks();
-            $scope.loadPeople();
-
-
-
-          }]
+          controller: 'TalkBuilderModalController',
+          resolve: {
+            weekendId: function () {
+              return $scope.weekendId;
+            }
+          }
         });
 
         modalInstance.result.then(function (selected) {
-          console.log('selected', selected);
+          console.log('selected');
+          if (selected.id) {
+            $scope.loadTalkLinks();
+          }
+          else {
+            Notification.error('Error creating talk assignment.');
+          }
         }, function () {
           console.log('cancelled');
         });
