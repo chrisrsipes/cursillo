@@ -12,7 +12,7 @@
 <div class="row">
   <div class="col-md-12">
 
-    <form name="position">
+    <form name="positionForm" novalidate>
 
       <div class="form-group">
         <label for="position-name">Position Name</label>
@@ -26,12 +26,12 @@
 
       <div class="form-group">
         <label for="position-description">Position Description</label>
-        <input type="text" class="form-control" id="position-description" placeholder="Enter description" ng-model="position.description" required>
+        <input type="text" class="form-control" id="position-description" placeholder="Enter description" ng-model="position.description" >
       </div>
 
-      <button type="submit" class="btn btn-primary" data-ng-if="!edit" data-ng-click="createPosition()">Create</button>
-      <button type="submit" class="btn btn-danger" data-ng-if="edit" data-ng-click="loadPosition()">Reset</button>
-      <button type="submit" class="btn btn-primary" data-ng-if="edit" data-ng-click="updatePosition()">Update</button>
+      <button type="submit" class="btn btn-primary" data-ng-if="!edit" data-ng-click="createPosition()" data-ng-disabled="!positionForm.$valid">Create</button>
+      <button type="button" class="btn btn-danger" data-ng-if="edit" data-ng-click="loadPosition()">Reset</button>
+      <button type="submit" class="btn btn-primary" data-ng-if="edit" data-ng-click="updatePosition()" data-ng-disabled="!positionForm.$valid">Update</button>
     </form>
 
 

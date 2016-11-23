@@ -14,7 +14,6 @@ var lbTables = [
   'Position',
   'RoleMapping',
   'Role',
-  'Table',
   'Talk',
   'TalkLink',
   'Team',
