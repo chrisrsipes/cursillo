@@ -43,15 +43,15 @@
         <td>{{ talkLink.status }}</td>
         <td>
 
-          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'ACTIVE')" ng-show="talkLink.status !== 'ACTIVE'" style="color: green; ">
+          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'ACTIVE')" ng-show="talkLink.status !== 'ACTIVE'" has-any-role="admin, rector" style="color: green; ">
             <span class="glyphicon glyphicon-ok-circle action-icons" aria-hidden="true"></span>
           </a>
 
-          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'HOLD')" ng-show="talkLink.status !== 'HOLD'" style="color: orange;">
+          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'HOLD')" ng-show="talkLink.status !== 'HOLD'" has-any-role="admin, rector" style="color: orange;">
             <span class="glyphicon glyphicon-ban-circle action-icons"" aria-hidden="true"></span>
           </a>
 
-          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'CANCELLED')" ng-show="talkLink.status !== 'CANCELLED'" style="color: red;">
+          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'INACTIVE')" ng-show="talkLink.status !== 'INACTIVE'" has-any-role="admin, rector" style="color: red;">
             <span class="glyphicon glyphicon-remove-circle action-icons" aria-hidden="true"></span>
           </a>
 
