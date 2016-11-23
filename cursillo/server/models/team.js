@@ -14,6 +14,7 @@ var schema = function (user) {
       "id": null,
       "name": null,
       "notes": null,
+      "isTable": null,
       "weekendId": null
     };
 

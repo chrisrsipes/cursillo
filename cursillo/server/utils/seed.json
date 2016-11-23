@@ -422,6 +422,18 @@
       "number": 14,
       "name": "Music",
       "description": ""
+    },
+    {
+      "id": 15,
+      "number": 15,
+      "name": "Team Leader",
+      "description": ""
+    },
+    {
+      "id": 16,
+      "number": 16,
+      "name": "Candidate",
+      "description": ""
     }
 
   ]

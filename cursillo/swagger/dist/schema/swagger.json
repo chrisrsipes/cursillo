@@ -3180,6 +3180,9 @@
         "description": {
           "type": "string"
         },
+        "isTable": {
+          "type": "boolean"
+        },
         "weekendId": {
           "type": "integer",
           "format": "int64",

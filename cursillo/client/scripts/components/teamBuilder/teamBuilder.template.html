@@ -7,7 +7,7 @@
     <div>
       <button type="button" class="btn btn-info" ng-click="addTeam()" style="margin-top: 10px;">Add Team</button>
       <button type="button" class="btn btn-info" ng-click="manageTeams()" style="margin-top: 10px;">Manage Teams</button>
-      <button type="button" class="btn btn-primary" ng-click="assignWeekendPositions()" style="margin-top: 10px;" ng-disabled="!selected.teamId">Assign To Team</button>
+      <button type="button" class="btn btn-primary" ng-click="assignWeekendPositions()" style="margin-top: 10px;" ng-disabled="!selected.team.id">Assign To Team</button>
     </div>
   </div>
 </div>
@@ -20,19 +20,27 @@
     <div class="row">
 
       <div class="col-md-12" style="margin-bottom: 20px;">
-        <ui-select ng-model="selected.teamId" on-select="loadWeekendPositionsForTeam()" style="max-width: 400px;">
+        <ui-select ng-model="selected.team" on-select="loadWeekendPositionsForTeam()" style="max-width: 400px;">
           <ui-select-match placeholder="Select">{{$select.selected.name}}</ui-select-match>
-          <ui-select-choices repeat="team.id as team in teams">
+          <ui-select-choices repeat="team in teams">
             <div ng-bind-html="team.name"></div>
           </ui-select-choices>
         </ui-select>
-
       </div>
 
     </div>
 
-    <div class="row" ng-show="selected.teamId">
-      <div class="col-md-6" ng-repeat="position in positions">
+    <div class="row" ng-show="selected.team.id && !selected.team.isTable">
+      <div class="col-md-6" ng-repeat="position in positions" ng-show="position.name !== 'Candidate' && position.name !== 'Team Leader'">
+        <span class="glyphicon glyphicon-remove-circle" style="color: red;" ng-show="!filledPositions[position.id]"></span>
+        <span class="glyphicon glyphicon-ok-circle" style="color: green;" ng-show="filledPositions[position.id]"></span>
+
+        ({{position.number}}) {{position.name}}
+      </div>
+    </div>
+
+    <div class="row" ng-show="selected.team.id && selected.team.isTable">
+      <div class="col-md-6" ng-repeat="position in positions" ng-show="position.name === 'Candidate' || position.name === 'Team Leader'">
         <span class="glyphicon glyphicon-remove-circle" style="color: red;" ng-show="!filledPositions[position.id]"></span>
         <span class="glyphicon glyphicon-ok-circle" style="color: green;" ng-show="filledPositions[position.id]"></span>
 

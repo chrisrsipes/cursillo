@@ -15,7 +15,7 @@ angular.module('app').directive('teamBuilder', function () {
       $scope.teams = [];
 
       $scope.selected = {
-        teamId: null
+        team: null
       };
 
       $scope.loadPositions = function () {
@@ -49,7 +49,7 @@ angular.module('app').directive('teamBuilder', function () {
 
 
       $scope.loadWeekendPositionsForTeam = function () {
-        Team.getWeekendPositions({id: $scope.selected.teamId}, function (weekendPositions) {
+        Team.getWeekendPositions({id: $scope.selected.team.id}, function (weekendPositions) {
           $scope.weekendPositions = weekendPositions;
           markFilledPositions();
         });
@@ -69,7 +69,7 @@ angular.module('app').directive('teamBuilder', function () {
               return $scope.weekendId;
             },
             teamId: function () {
-              return $scope.selected.teamId
+              return $scope.selected.team.id
             }
           }
         });
