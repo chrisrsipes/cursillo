@@ -28,6 +28,10 @@ angular.module('app').factory('Team', ['$resource', '$location', function($resou
         method: 'GET',
         url: getPath('/teams/:id/weekendPositions'),
         isArray: true
+      },
+      'deleteWeekendPositions': {
+        method: 'delete',
+        url: getPath('/teams/:id/weekendPositions')
       }
       
     });

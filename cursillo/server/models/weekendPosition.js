@@ -77,6 +77,13 @@ var deleteById = function (weekendPositionId, cb) {
 
 };
 
+var deleteByTeamId = function (teamId, cb) {
+
+  connection.query('DELETE FROM WeekendPosition ' +
+    'WHERE teamId = ? ', [teamId], cb);
+
+};
+
 var updateById = function (weekendPositionId, weekendPosition, cb) {
   connection.query('UPDATE WeekendPosition SET ? WHERE id = ' + weekendPositionId, schema(weekendPosition), cb);
 };
@@ -90,6 +97,7 @@ var WeekendPosition = {
   'findByPersonId': findByPersonId,
   'updateById': updateById,
   'deleteById': deleteById,
+  'deleteByTeamId': deleteByTeamId,
   'schema': schema,
   'requiredFields': requiredFields
 

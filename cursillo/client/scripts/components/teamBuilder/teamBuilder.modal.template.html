@@ -19,28 +19,28 @@
       </div>
 
       <table datatable="ng" dt-options="options" class="row-border hover">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Count</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="person in weekendPositionPeople | orderBy:'count'">
-            <td>{{ person.firstName }} {{ person.lastName }}</td>
-            <td>{{ person.count }}</td>
-            <td>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Count</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="person in weekendPositionPeople | orderBy:'count'">
+          <td>{{ person.firstName }} {{ person.lastName }}</td>
+          <td>{{ person.count }}</td>
+          <td>
 
-              <a href="javascript:void(0)" data-ng-click="selectPerson(person.personId)">
-                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" style="color: green;"></span>
-                Select
-              </a>
+            <a href="javascript:void(0)" data-ng-click="selectPerson(person.personId)">
+              <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" style="color: green;"></span>
+              Select
+            </a>
 
-            </td>
-          </tr>
-          </tbody>
-        </table>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
     </div>
 

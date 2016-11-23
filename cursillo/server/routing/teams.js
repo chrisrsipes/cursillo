@@ -100,6 +100,29 @@ router.get('/:teamId/weekendPositions', function (req, res) {
   }
 });
 
+// delete weekend positions that have been assigned team by team id
+router.delete('/:teamId/weekendPositions', function (req, res) {
+  var team, teamId = req.params.teamId;
+
+  var finish = function (err, rows, fields) {
+    if (err) {
+      console.log('err', err);
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else {
+      res.status(constants.http.SUCCESS.status).json(constants.http.NO_CONTENT.message);
+    }
+
+  };
+
+  if (validations.validateNonEmpty(teamId) && validations.validateNumeric(teamId)) {
+    WeekendPosition.deleteByTeamId(teamId, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
 
 // update team by id
 router.put('/:teamId', function (req, res) {

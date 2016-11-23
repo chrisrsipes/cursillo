@@ -134,6 +134,31 @@ angular.module('app').directive('teamBuilder', function () {
         });
         
       };
+      
+      $scope.manageTeams = function () {
+        var modalInstance = $uibModal.open({
+          animation: true,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          size: 'lg',
+          templateUrl: 'scripts/components/teamBuilder/teamList.modal.template.html',
+          controller: 'TeamListModalController',
+          resolve: {
+            weekendId: function () {
+              return $scope.weekendId;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          $scope.loadTeams();
+        }, function () {
+          // cancelled
+          $scope.loadTeams();
+        });
+        
+        
+      };
 
       $scope.loadTeams();
       $scope.loadPositions();

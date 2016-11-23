@@ -2135,8 +2135,48 @@
         "security":[
 
         ]
+      },
+      "delete":{
+        "tags":[
+          "team"
+        ],
+        "summary":"Deletes weekend positions for team with Id teamId.",
+        "description":"",
+        "operationId":"deleteWeekendPositionsByTeamId",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"teamId",
+            "description":"Team Id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
       }
     },
+
 
     "/tables": {
       "get":{
