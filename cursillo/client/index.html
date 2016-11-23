@@ -53,9 +53,20 @@
               <li><a href="javascript:void(0)" ui-sref="position.list">Positions</a></li>
             </ul>
           </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+              Weekends
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:void(0)" ui-sref="weekend.create" data-has-any-role="admin, rector">New Weekend</a></li>
+              <li><a href="javascript:void(0)" ui-sref="weekend.list">Weekend List</a></li>
+            </ul>
+          </li>
           <li><a href="javascript:void(0)" ui-sref="logout">Logout</a></li>
 
         </ui>
+
 
 
       </div>
@@ -159,6 +170,7 @@
 <script src="scripts/services/position.service.js"></script>
 <script src="scripts/services/cursillo.service.js"></script>
 <script src="scripts/services/location.service.js"></script>
+<script src="scripts/services/weekend.service.js"></script>
 
 
 </body>

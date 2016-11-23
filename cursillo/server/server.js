@@ -10,6 +10,7 @@ var cursillos = require('./routing/cursillos');
 var locations = require('./routing/locations');
 var talks = require('./routing/talks');
 var parish = require('./routing/parish');
+var weekends = require('./routing/weekends');
 
 var port = 8080;
 
@@ -35,6 +36,7 @@ app.use('/api/positions', positions);
 app.use('/api/cursillos', cursillos);
 app.use('/api/locations', locations);
 app.use('/api/talks', talks);
+app.use('/api/weekends', weekends);
 app.use('/api/parishes', parish);
 
 
