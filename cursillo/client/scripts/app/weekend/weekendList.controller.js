@@ -11,20 +11,15 @@ angular.module('app').controller('WeekendListController', ['$scope', 'Weekend', 
 
 
   $scope.deleteWeekend = function (weekendId, index) {
-    /*
      Weekend.delete({id: weekendId}, function (response) {
+       $scope.weekends.splice(index, 1);
      });
-     */
-
-
-    $scope.weekends.splice(index, 1);
-
-
   };
 
   $scope.loadWeekends = function () {
 
     Weekend.query(function (weekends) {
+      console.log('weekends', weekends);
       $scope.weekends = weekends;
     });
 

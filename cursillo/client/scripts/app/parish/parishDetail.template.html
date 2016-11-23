@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref="parish.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      Parish Detail
+    </h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <form name="parish">
+
+      <div class="form-group">
+        <label for="parish-name">Parish Name</label>
+        <span id="parish-name" class="form-control">{{parish.name}}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="parish-cursillo-id">Cursillo</label>
+        <span id="parish-cursillo-id" class="form-control">{{ selectedCursillo.name }}</span>
+      </div>
+
+      <button type="button" class="btn btn-primary" data-ui-sref="parish.edit({id: parish.id})" has-role="admin">Edit</button>
+    </form>
+
+
+  </div>
+</div>

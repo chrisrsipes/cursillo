@@ -5,8 +5,7 @@ var bcrypt = require('bcrypt');
 var auth = require('../utils/auth');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
-var Weekend = require('../models/weekend.js');
-var TalkLink = require('../models/talkLink.js');
+var WeekendPosition = require('../models/weekendPosition.js');
 
 var router = express.Router();
 
@@ -16,7 +15,7 @@ router.use(auth.authorize);
 
 // endpoints
 
-// get all weekends
+// get all weekendPositions
 router.get('/', function (req, res) {
 
   var finish = function (err, rows, fields) {
@@ -28,31 +27,31 @@ router.get('/', function (req, res) {
     }
   };
 
-  Weekend.findAll(finish);
+  WeekendPosition.findAll(finish);
 
 });
 
-// create a new weekend
+// create a new weekendPosition
 router.post('/', function (req, res) {
-  var weekend = Weekend.schema(req.body);
+  var weekendPosition = WeekendPosition.schema(req.body);
 
   var finish = function (err, result) {
     if (err) {
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      weekend.id = result.insertId;
-      res.status(constants.http.SUCCESS.status).json(weekend);
+      weekendPosition.id = result.insertId;
+      res.status(constants.http.SUCCESS.status).json(weekendPosition);
     }
   };
 
-  Weekend.create(weekend, finish);
+  WeekendPosition.create(weekendPosition, finish);
 
 });
 
-// get weekend by id
-router.get('/:weekendId', function (req, res) {
-  var weekend, cursillo, weekendId = req.params.weekendId;
+// get weekendPosition by id
+router.get('/:weekendPositionId', function (req, res) {
+  var weekendPosition, cursillo, weekendPositionId = req.params.weekendPositionId;
 
   var finish = function (err, rows, fields) {
     if (err) {
@@ -63,48 +62,24 @@ router.get('/:weekendId', function (req, res) {
       res.status(constants.http.NO_CONTENT.status).json({message: constants.http.NO_CONTENT.message});
     }
     else {
-      weekend = rows && rows[0] || {};
-      res.status(constants.http.SUCCESS.status).json(weekend);
+      weekendPosition = rows && rows[0] || {};
+      res.status(constants.http.SUCCESS.status).json(weekendPosition);
     }
 
   };
 
-  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
-    Weekend.findById(weekendId, finish);
+  if (validations.validateNonEmpty(weekendPositionId) && validations.validateNumeric(weekendPositionId)) {
+    WeekendPosition.findById(weekendPositionId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
   }
 });
 
-// get talks for a weekend by weekend id
-router.get('/:weekendId/talkLinks', function (req, res) {
-  var weekend, cursillo, weekendId = req.params.weekendId;
-
-  var finish = function (err, rows, fields) {
-    if (err) {
-      console.log('err', err);
-      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
-    }
-    else {
-      res.status(constants.http.SUCCESS.status).json(rows);
-    }
-
-  };
-
-  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
-    TalkLink.findByWeekendId(weekendId, finish);
-  }
-  else {
-    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
-  }
-});
-
-
-// update weekend by id
-router.put('/:weekendId', function (req, res) {
-  var weekendId = req.params.weekendId;
-  var weekend = Weekend.schema(req.body);
+// update weekendPosition by id
+router.put('/:weekendPositionId', function (req, res) {
+  var weekendPositionId = req.params.weekendPositionId;
+  var weekendPosition = WeekendPosition.schema(req.body);
 
   var finish = function (err, rows, fields) {
     if (err) {
@@ -112,11 +87,11 @@ router.put('/:weekendId', function (req, res) {
       return;
     }
 
-    res.status(constants.http.SUCCESS.status).json(weekend);
+    res.status(constants.http.SUCCESS.status).json(weekendPosition);
   };
 
-  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
-    Weekend.updateById(weekendId, weekend, finish);
+  if (validations.validateNonEmpty(weekendPositionId) && validations.validateNumeric(weekendPositionId)) {
+    WeekendPosition.updateById(weekendPositionId, weekendPosition, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
@@ -124,9 +99,9 @@ router.put('/:weekendId', function (req, res) {
 
 });
 
-// delete weekend by id
-router.delete('/:weekendId', function (req, res) {
-  var weekend, weekendId = req.params.weekendId;
+// delete weekendPosition by id
+router.delete('/:weekendPositionId', function (req, res) {
+  var weekendPosition, weekendPositionId = req.params.weekendPositionId;
 
   var finish = function (err, rows, fields) {
     if (err) {
@@ -137,8 +112,8 @@ router.delete('/:weekendId', function (req, res) {
     res.status(constants.http.NO_CONTENT.status).json({message: 'Successfully deleted.'});
   };
 
-  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
-    Weekend.deleteById(weekendId, finish);
+  if (validations.validateNonEmpty(weekendPositionId) && validations.validateNumeric(weekendPositionId)) {
+    WeekendPosition.deleteById(weekendPositionId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

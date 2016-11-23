@@ -1,0 +1,11 @@
+.card {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px 5px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.action-icons {
+  font-size: 20px;
+}

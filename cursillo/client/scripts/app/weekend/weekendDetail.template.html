@@ -9,54 +9,95 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
+<div class="card">
+  <form name="weekend">
 
-    <form name="weekend">
-
-      <div class="form-group">
-        <label for="weekend-number">Weekend Number</label>
-        <span id="weekend-number" class="form-control">{{ weekend.number }}</span>
-      </div>
-
-      <div class="form-group">
-        <label for="weekend-description">Weekend Description</label>
-        <span id="weekend-description" class="form-control">{{ weekend.description }}</span>
-      </div>
-
-      <div class="form-group">
-        <label for="weekend-start-date">Weekend Start Date</label>
-        <span id="weekend-start-date" class="form-control">{{ weekend.startDate }}</span>
-      </div>
-
-      <div class="form-group">
-        <label for="weekend-end-date">Weekend End Date</label>
-        <span id="weekend-end-date" class="form-control">{{ weekend.endDate }}</span>
-      </div>
-
-      <div class="form-group">
-        <label for="weekend-notes">Weekend Notes</label>
-        <span id="weekend-notes" class="form-control">{{ weekend.notes }}</span>
-      </div>
-
-      <div class="form-group">
-        <label for="weekend-location-name">Weekend Location</label>
-        <span id="weekend-location-name" class="form-control">{{ weekend.locationName }}</span>
-
-      </div>
-
-
-      <div class="form-group">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" id="weekend-is-completed" ng-model="weekend.isCompleted" ng-disabled="true"> Weekend Completed
-          </label>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="weekend-number">Weekend Number</label>
+          <span id="weekend-number" class="form-control">{{ weekend.number }}</span>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary" data-ui-sref="weekend.edit({id: weekend.id})">Edit</button>
-    </form>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="weekend-location-name">Weekend Location</label>
+          <span id="weekend-location-name" class="form-control">{{ weekend.locationName }}</span>
+        </div>
+      </div>
 
+    </div>
 
-  </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="weekend-description">Weekend Description</label>
+          <span id="weekend-description" class="form-control">{{ weekend.description }}</span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="weekend-notes">Weekend Notes</label>
+          <span id="weekend-notes" class="form-control">{{ weekend.notes }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="weekend-start-date">Weekend Start Date</label>
+          <span id="weekend-start-date" class="form-control">{{ weekend.startDate | date:'fullDate' }}</span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="weekend-end-date">Weekend End Date</label>
+          <span id="weekend-end-date" class="form-control">{{ weekend.endDate | date:'fullDate' }}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="weekend-is-completed" ng-model="weekend.isCompleted" ng-disabled="true"> Weekend Completed
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-primary" data-ui-sref="weekend.edit({id: weekend.id})">Edit</button>
+      </div>
+
+    </div>
+
+  </form>
+
 </div>
+
+
+<div class="card">
+
+  <div class="row" ng-if="weekend.id">
+    <div class="col-md-12">
+      <div talk-builder weekend-id="weekend.id"></div>
+    </div>
+  </div>
+
+</div>
+
+

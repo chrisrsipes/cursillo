@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-md-6">
+    <h3>Talk Builder</h3>
+  </div>
+
+  <div class="col-md-6 text-right">
+    <div>
+      <button type="button" class="btn btn-primary" ng-click="assignTalks()" style="margin-top: 10px;">Assign Talk</button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-6" ng-repeat="talk in talks">
+        <span class="glyphicon glyphicon-remove-circle" style="color: red;" ng-show="!filledTalks[talk.id]"></span>
+        <span class="glyphicon glyphicon-ok-circle" style="color: green;" ng-show="filledTalks[talk.id]"></span>
+
+        ({{talk.number}}) {{talk.name}}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+
+    <table datatable="ng" dt-options="options" class="row-border hover">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Person</th>
+        <th>Talk</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="talkLink in talkLinks">
+        <td>{{ talkLink.id }}</td>
+        <td>{{ talkLink.personFirstName }} {{ talkLink.personLastName }}</td>
+        <td>{{ talkLink.talkName }}</td>
+        <td>{{ talkLink.status }}</td>
+        <td>
+
+          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'ACTIVE')" ng-show="talkLink.status !== 'ACTIVE'" has-any-role="admin, rector" style="color: green; ">
+            <span class="glyphicon glyphicon-ok-circle action-icons" aria-hidden="true"></span>
+          </a>
+
+          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'HOLD')" ng-show="talkLink.status !== 'HOLD'" has-any-role="admin, rector" style="color: orange;">
+            <span class="glyphicon glyphicon-ban-circle action-icons"" aria-hidden="true"></span>
+          </a>
+
+          <a href="javascript:void(0)" data-ng-click="updateTalkLinkStatus(talkLink, 'INACTIVE')" ng-show="talkLink.status !== 'INACTIVE'" has-any-role="admin, rector" style="color: red;">
+            <span class="glyphicon glyphicon-remove-circle action-icons" aria-hidden="true"></span>
+          </a>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+

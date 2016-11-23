@@ -11,6 +11,9 @@ var locations = require('./routing/locations');
 var talks = require('./routing/talks');
 var parish = require('./routing/parish');
 var weekends = require('./routing/weekends');
+var talkLinks = require('./routing/talkLinks');
+var people = require('./routing/people');
+var weekendPositions = require('./routing/weekendPositions');
 
 var port = 8080;
 
@@ -38,6 +41,9 @@ app.use('/api/locations', locations);
 app.use('/api/talks', talks);
 app.use('/api/weekends', weekends);
 app.use('/api/parishes', parish);
+app.use('/api/talkLinks', talkLinks);
+app.use('/api/people', people);
+app.use('/api/weekendPositions', weekendPositions);
 
 
 app.listen(port, function () {

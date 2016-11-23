@@ -1,19 +1,19 @@
-angular.module('app').factory('Weekend', ['$resource', '$location', function($resource, $location) {
+angular.module('app').factory('TalkLink', ['$resource', '$location', function($resource, $location) {
     var base = [$location.protocol(), '://', $location.host(), ':', $location.port(), '/api'].join('');
 
     var getPath = function (trail) {
         return base + trail;
     };
 
-    return $resource(getPath('/weekends/:id'), null, {
+    return $resource(getPath('/talkLinks/:id'), null, {
       'query': {
         method: 'GET',
-        url: getPath('/weekends'),
+        url: getPath('/talkLinks'),
         isArray: true
       },
       'create': {
         method: 'POST',
-        url: getPath('/weekends')
+        url: getPath('/talkLinks')
       },
       'get': {
         method:'GET'
@@ -23,12 +23,8 @@ angular.module('app').factory('Weekend', ['$resource', '$location', function($re
       },
       'delete': {
         method:'DELETE'
-      },
-      'getTalkLinks': {
-        method: 'GET',
-        url: getPath('/weekends/:id/talkLinks'),
-        isArray: true
       }
+      
     });
 
 }]);
