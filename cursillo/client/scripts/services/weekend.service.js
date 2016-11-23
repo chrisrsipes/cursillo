@@ -28,6 +28,11 @@ angular.module('app').factory('Weekend', ['$resource', '$location', function($re
         method: 'GET',
         url: getPath('/weekends/:id/talkLinks'),
         isArray: true
+      },
+      'getTeams': {
+        method: 'GET',
+        url: getPath('/weekends/:id/teams'),
+        isArray: true
       }
     });
 

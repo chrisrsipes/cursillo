@@ -7,6 +7,7 @@ var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 var Team = require('../models/team');
 var Person = require('../models/person');
+var WeekendPosition = require('../models/weekendPosition');
 
 var router = express.Router();
 
@@ -76,12 +77,13 @@ router.get('/:teamId', function (req, res) {
   }
 });
 
-// get people that have been assigned team by team id
-router.get('/:teamId/people', function (req, res) {
+// get weekend positions that have been assigned team by team id
+router.get('/:teamId/weekendPositions', function (req, res) {
   var team, teamId = req.params.teamId;
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
@@ -91,7 +93,7 @@ router.get('/:teamId/people', function (req, res) {
   };
 
   if (validations.validateNonEmpty(teamId) && validations.validateNumeric(teamId)) {
-    Person.findByTeamId(teamId, finish);
+    WeekendPosition.findByTeamId(teamId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

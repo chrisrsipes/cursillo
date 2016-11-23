@@ -459,6 +459,47 @@
         ]
       }
     },
+    "/positions/{positionId}/people": {
+      "get":{
+        "tags":[
+          "position"
+        ],
+        "summary":"Gets all people for a position.",
+        "description":"",
+        "operationId":"getPeopleByPositionId",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"Access Token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"positionId",
+            "description":"Position Id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"Invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
     "/cursillos": {
       "get":{
         "tags":[
@@ -1146,6 +1187,46 @@
         "summary": "return Talk Links for weekend with id weekendId.",
         "description": "",
         "operationId": "getTalkLinksByWeekendId",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "authorization",
+            "description": "access token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "weekendId",
+            "description": "weekend id",
+            "required": true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "invalid credentials."
+          }
+        },
+        "security": [
+        ]
+      }
+    },
+    "/weekends/{weekendId}/teams": {
+      "get": {
+        "tags": [
+          "weekend"
+        ],
+        "summary": "return Teams for weekend with id weekendId.",
+        "description": "",
+        "operationId": "getTeamsByWeekendId",
         "consumes": [
           "application/json"
         ],
@@ -1982,6 +2063,47 @@
         "summary":"Delete Team with Id teamId.",
         "description":"",
         "operationId":"deleteTeamById",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"teamId",
+            "description":"Team Id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+    "/teams/{teamId}/weekendPositions": {
+      "get":{
+        "tags":[
+          "team"
+        ],
+        "summary":"Return weekend positions for team with Id teamId.",
+        "description":"",
+        "operationId":"getWeekendPositionsByTeamId",
         "consumes":[
           "application/json"
         ],
@@ -2984,8 +3106,8 @@
           "type": "integer",
           "format": "int64"
         },
-        "isActive": {
-          "type": "boolean"
+        "status": {
+          "type": "string"
         },
         "teamId": {
           "type": "integer",

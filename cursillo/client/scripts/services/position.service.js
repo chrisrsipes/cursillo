@@ -23,6 +23,11 @@ angular.module('app').factory('Position', ['$resource', '$location', function($r
       },
       'delete': {
         method:'DELETE'
+      },
+      'getPeople': {
+        method: 'GET',
+        url: getPath('/positions/:id/people'),
+        isArray: true
       }
     });
 

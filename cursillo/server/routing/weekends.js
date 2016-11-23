@@ -7,6 +7,7 @@ var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 var Weekend = require('../models/weekend.js');
 var TalkLink = require('../models/talkLink.js');
+var Team = require('../models/team.js');
 
 var router = express.Router();
 
@@ -94,6 +95,29 @@ router.get('/:weekendId/talkLinks', function (req, res) {
 
   if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
     TalkLink.findByWeekendId(weekendId, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
+// get teams for a weekend by weekend id
+router.get('/:weekendId/teams', function (req, res) {
+  var weekend, cursillo, weekendId = req.params.weekendId;
+
+  var finish = function (err, rows, fields) {
+    if (err) {
+      console.log('err', err);
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else {
+      res.status(constants.http.SUCCESS.status).json(rows);
+    }
+
+  };
+
+  if (validations.validateNonEmpty(weekendId) && validations.validateNumeric(weekendId)) {
+    Team.findByWeekendId(weekendId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

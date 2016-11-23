@@ -7,12 +7,12 @@ var connection = require('../utils/connection');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 
-const requiredFields = ['teamId', 'personId', 'positionId'];
+const requiredFields = ['teamId', 'personId', 'positionId', 'status'];
 
 var schema = function (user) {
     var obj = {
       "id": null,
-      "isActive": null,
+      "status": null,
       "teamId": null,
       "positionId": null,
       "personId": null
@@ -38,10 +38,34 @@ var findAll= function (cb) {
 };
 
 var findById = function (weekendPositionId, cb) {
-  
+
   connection.query('SELECT * ' +
     'FROM WeekendPosition ' +
     'WHERE id = ? ', [weekendPositionId], cb);
+
+};
+
+var findByTeamId = function (teamId, cb) {
+
+  connection.query('SELECT wp.id, wp.status, wp.personId, wp.positionId, wp.teamId, pe.firstName, pe.lastName, po.name as positionName, po.id as positionId ' +
+    'FROM WeekendPosition wp, Person pe, Position po ' +
+    'WHERE wp.positionId = po.id AND wp.personId = pe.id AND wp.teamId = ? ', [teamId], cb);
+
+};
+
+var findByPositionId = function (positionId, cb) {
+
+  connection.query('SELECT wp.id, wp.status, wp.personId, wp.positionId, wp.teamId, pe.firstName, pe.lastName, po.name as positionName, po.id as positionId ' +
+    'FROM WeekendPosition wp, Person pe, Position po ' +
+    'WHERE wp.positionId = po.id AND wp.personId = pe.id AND wp.positionId = ? ', [positionId], cb);
+
+};
+
+var findByPersonId = function (personId, cb) {
+
+  connection.query('SELECT wp.id, wp.status, wp.personId, wp.positionId, wp.teamId, pe.firstName, pe.lastName, po.name as positionName, po.id as positionId ' +
+    'FROM WeekendPosition wp, Person pe, Position po ' +
+    'WHERE wp.positionId = po.id AND wp.personId = pe.id AND wp.personId = ? ', [personId], cb);
 
 };
 
@@ -61,6 +85,9 @@ var WeekendPosition = {
   'create': create,
   'findAll': findAll,
   'findById': findById,
+  'findByTeamId': findByTeamId,
+  'findByPositionId': findByPositionId,
+  'findByPersonId': findByPersonId,
   'updateById': updateById,
   'deleteById': deleteById,
   'schema': schema,

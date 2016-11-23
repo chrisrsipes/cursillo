@@ -7,6 +7,7 @@ var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 var Person = require('../models/person');
 var TalkLink = require('../models/talkLink');
+var WeekendPosition = require('../models/weekendPosition');
 
 var router = express.Router();
 
@@ -93,6 +94,28 @@ router.get('/:personId/talkLinks', function (req, res) {
 
   if (validations.validateNonEmpty(personId) && validations.validateNumeric(personId)) {
     TalkLink.findByPersonId(personId, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
+// get weekend positions for a person by personId
+router.get('/:personId/weekendPositions', function (req, res) {
+  var person, personId = req.params.personId;
+
+  var finish = function (err, rows, fields) {
+    if (err) {
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else {
+      res.status(constants.http.SUCCESS.status).json(rows);
+    }
+
+  };
+
+  if (validations.validateNonEmpty(personId) && validations.validateNumeric(personId)) {
+    WeekendPosition.findByPersonId(personId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

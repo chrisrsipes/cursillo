@@ -45,6 +45,16 @@ var findById = function (teamId, cb) {
 
 };
 
+var findByWeekendId = function (weekendId, cb) {
+
+  connection.query(
+    'SELECT * ' +
+    'FROM Team ' +
+    'WHERE weekendId = ? ', [weekendId], cb
+  );
+
+};
+
 var deleteById = function (teamId, cb) {
 
   connection.query(
@@ -61,6 +71,7 @@ var Team = {
   'create': create,
   'findAll': findAll,
   'findById': findById,
+  'findByWeekendId': findByWeekendId,
   'updateById': updateById,
   'deleteById': deleteById,
   'schema': schema,

@@ -67,6 +67,16 @@ var findByTalkId = function (talkId, cb) {
   
 };
 
+var findByPositionId = function (positionId, cb) {
+  
+  connection.query('SELECT * ' +
+    'FROM Person pe, WeekendPosition wp, Position po ' +
+    'WHERE po.id = wp.positionId ' +
+    'AND pe.id = wp.personId ' + 
+    'AND po.id = ?', [positionId], cb);
+  
+};
+
 var deleteById = function (personId, cb) {
 
   connection.query(
@@ -84,6 +94,7 @@ var Person = {
   'findAll': findAll,
   'findById': findById,
   'findByTalkId': findByTalkId,
+  'findByPositionId': findByPositionId,
   'updateById': updateById,
   'deleteById': deleteById,
   'schema': schema,

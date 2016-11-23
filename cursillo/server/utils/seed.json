@@ -108,6 +108,14 @@
       "locationId": 1
     }
   ],
+  "Team": [
+    {
+      "id": 1,
+      "name": "Team #1",
+      "notes": "",
+      "weekendId": 1
+    }
+  ],
   "Talk": [
     {
       "id": 1,

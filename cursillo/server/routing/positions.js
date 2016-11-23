@@ -6,6 +6,7 @@ var auth = require('../utils/auth');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 var Position = require('../models/position');
+var Person = require('../models/person');
 
 var router = express.Router();
 
@@ -70,6 +71,29 @@ router.get('/:positionId', function (req, res) {
 
   if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
     Position.findById(positionId, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
+// get people for position by position id
+router.get('/:positionId/people', function (req, res) {
+  var position, positionId = req.params.positionId;
+
+  var finish = function (err, rows, fields) {
+    if (err) {
+      console.log('err', err);
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else {
+      res.status(constants.http.SUCCESS.status).json(rows);
+    }
+
+  };
+
+  if (validations.validateNonEmpty(positionId) && validations.validateNumeric(positionId)) {
+    Person.findByPositionId(positionId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

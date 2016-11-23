@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-md-6">
+    <h3>Team Builder</h3>
+  </div>
+
+  <div class="col-md-6 text-right">
+    <div>
+      <button type="button" class="btn btn-info" ng-click="addTeam()" style="margin-top: 10px;">Add Team</button>
+      <button type="button" class="btn btn-info" ng-click="manageTeams()" style="margin-top: 10px;">Manage Teams</button>
+      <button type="button" class="btn btn-primary" ng-click="assignWeekendPositions()" style="margin-top: 10px;" ng-disabled="!selected.teamId">Assign To Team</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="row">
+
+      <div class="col-md-12" style="margin-bottom: 20px;">
+        <ui-select ng-model="selected.teamId" on-select="loadWeekendPositionsForTeam()" style="max-width: 400px;">
+          <ui-select-match placeholder="Select">{{$select.selected.name}}</ui-select-match>
+          <ui-select-choices repeat="team.id as team in teams">
+            <div ng-bind-html="team.name"></div>
+          </ui-select-choices>
+        </ui-select>
+
+      </div>
+
+    </div>
+
+    <div class="row" ng-show="selected.teamId">
+      <div class="col-md-6" ng-repeat="position in positions">
+        <span class="glyphicon glyphicon-remove-circle" style="color: red;" ng-show="!filledPositions[position.id]"></span>
+        <span class="glyphicon glyphicon-ok-circle" style="color: green;" ng-show="filledPositions[position.id]"></span>
+
+        ({{position.number}}) {{position.name}}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+
+    <table datatable="ng" dt-options="options" class="row-border hover">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Person</th>
+        <th>Position</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="weekendPosition in weekendPositions">
+        <td>{{ weekendPosition.id }}</td>
+        <td>{{ weekendPosition.firstName }} {{ weekendPosition.lastName }}</td>
+        <td>{{ weekendPosition.positionName }}</td>
+        <td>{{ weekendPosition.status }}</td>
+        <td>
+
+          <a href="javascript:void(0)" data-ng-click="updateWeekendPositionStatus(weekendPosition, 'ACTIVE')" ng-show="weekendPosition.status !== 'ACTIVE'" has-any-role="admin, rector" style="color: green; ">
+            <span class="glyphicon glyphicon-ok-circle action-icons" aria-hidden="true"></span>
+          </a>
+
+          <a href="javascript:void(0)" data-ng-click="updateWeekendPositionStatus(weekendPosition, 'HOLD')" ng-show="weekendPosition.status !== 'HOLD'" has-any-role="admin, rector" style="color: orange;">
+            <span class="glyphicon glyphicon-ban-circle action-icons" aria-hidden="true"></span>
+          </a>
+
+          <a href="javascript:void(0)" data-ng-click="updateWeekendPositionStatus(weekendPosition, 'INACTIVE')" ng-show="weekendPosition.status !== 'INACTIVE'" has-any-role="admin, rector" style="color: red;">
+            <span class="glyphicon glyphicon-remove-circle action-icons" aria-hidden="true"></span>
+          </a>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

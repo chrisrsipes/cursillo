@@ -1,0 +1,89 @@
+<div class="modal-header">
+  <h3 class="modal-title">Assign Teams</h3>
+</div>
+
+<div class="modal-body" style="padding: 30px;">
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <h4>Position Lookup</h4>
+
+      <div>
+        <ui-select ng-model="selected.positionId" on-select="loadPeopleByPositionId()" style="max-width: 400px;">
+          <ui-select-match placeholder="Select">{{$select.selected.name }}</ui-select-match>
+          <ui-select-choices repeat="position.id as position in positions">
+            <div ng-bind-html="position.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+
+      <table datatable="ng" dt-options="options" class="row-border hover">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Count</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="person in weekendPositionPeople | orderBy:'count'">
+            <td>{{ person.firstName }} {{ person.lastName }}</td>
+            <td>{{ person.count }}</td>
+            <td>
+
+              <a href="javascript:void(0)" data-ng-click="selectPerson(person.personId)">
+                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" style="color: green;"></span>
+                Select
+              </a>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+    </div>
+
+    <div class="col-md-6">
+      <h4>Person Lookup</h4>
+
+      <div>
+        <ui-select ng-model="selected.personId" style="max-width: 400px;">
+          <ui-select-match placeholder="Select">{{$select.selected.firstName }} {{$select.selected.lastName}}</ui-select-match>
+          <ui-select-choices repeat="person.id as person in people">
+            <div ng-bind-html="getFullName(person)"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+
+      <table datatable="ng" class="row-border hover">
+        <thead>
+        <tr>
+          <th>Position</th>
+          <th>Weekend</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="weekendPosition in weekendPositions">
+          <td>{{ weekendPosition.firstName }} {{ weekendPosition.lastName }}</td>
+          <td>{{ weekendPosition.positionName }}</td>
+          <td>{{ weekendPosition.status }}</td>
+
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6"></div>
+
+    <div class="col-md-6 text-right">
+      <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+      <button class="btn btn-primary" ng-click="createWeekendPosition()" ng-disabled="!selected.positionId || !selected.personId || !teamId">Assign</button>
+    </div>
+  </div>
+</div>

@@ -1,19 +1,19 @@
-angular.module('app').factory('Person', ['$resource', '$location', function($resource, $location) {
+angular.module('app').factory('Team', ['$resource', '$location', function($resource, $location) {
     var base = [$location.protocol(), '://', $location.host(), ':', $location.port(), '/api'].join('');
 
     var getPath = function (trail) {
         return base + trail;
     };
 
-    return $resource(getPath('/people/:id'), null, {
+    return $resource(getPath('/teams/:id'), null, {
       'query': {
         method: 'GET',
-        url: getPath('/people'),
+        url: getPath('/teams'),
         isArray: true
       },
       'create': {
         method: 'POST',
-        url: getPath('/people')
+        url: getPath('/teams')
       },
       'get': {
         method:'GET'
@@ -24,16 +24,12 @@ angular.module('app').factory('Person', ['$resource', '$location', function($res
       'delete': {
         method:'DELETE'
       },
-      'getTalkLinks': {
-        method: 'GET',
-        url: getPath('/people/:id/talkLinks'),
-        isArray: true
-      },
       'getWeekendPositions': {
         method: 'GET',
-        url: getPath('/people/:id/weekendPositions'),
+        url: getPath('/teams/:id/weekendPositions'),
         isArray: true
       }
+      
     });
 
 }]);
