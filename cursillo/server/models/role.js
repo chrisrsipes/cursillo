@@ -41,13 +41,48 @@ var findRoleByName = function (name, cb) {
   connection.query('SELECT * FROM Role WHERE name = ?', [name], cb);
 };
 
+
+var create = function (role, cb) {
+  connection.query('INSERT INTO Role SET ?', [role], cb);
+};
+
+var findAll= function (cb) {
+  connection.query('SELECT * FROM Role', cb);
+};
+
+var findById = function (roleId, cb) {
+
+  connection.query(
+    'SELECT * ' +
+    'FROM Role ' +
+    'WHERE id = ?', [roleId], cb
+  );
+
+};
+
+var deleteById = function (roleId, cb) {
+
+  connection.query(
+    'DELETE FROM Role WHERE id = ?', [roleId], cb
+  );
+
+};
+
+var updateById = function (roleId, role, cb) {
+  connection.query('UPDATE Role SET ? WHERE id = ' + roleId, schema(role), cb);
+};
+
 var Role = {
+  'create': create,
+  'findAll': findAll,
+  'findById': findById,
+  'updateById': updateById,
+  'deleteById': deleteById,
   'findAssignedRolesFromUser': findAssignedRolesFromUser,
   'findAssignedAccessFromUser': findAssignedAccessFromUser,
   'findRoleByName': findRoleByName,
   'schema': schema,
   'requiredFields': requiredFields
-
 };
 
 module.exports = Role;

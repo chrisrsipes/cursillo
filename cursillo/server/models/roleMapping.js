@@ -27,8 +27,14 @@ var createRoleMapping = function (roleMapping, cb) {
   connection.query('INSERT into RoleMapping SET ? ', [roleMapping], cb);
 };
 
+
+var updateByAccountId = function (accountId, roleMapping, cb) {
+  connection.query('UPDATE RoleMapping SET ? WHERE principalId = ' + accountId, roleMapping, cb);
+};
+
 var RoleMapping = {
   'createRoleMapping': createRoleMapping,
+  'updateByAccountId': updateByAccountId,
   'schema': schema,
   'requiredFields': requiredFields
 

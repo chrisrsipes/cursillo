@@ -65,14 +65,14 @@ router.post('/', function (req, res) {
 });
 
 // get all accounts
-router.get('/', function (req, res) {
+router.get('/', auth.authenticate, auth.authorize, function (req, res) {
 
   var finish = function (err, rows, fields) {
     if (err) {
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
-      res.status(constants.http.SUCCESS.status).json({accounts: rows});
+      res.status(constants.http.SUCCESS.status).json(rows);
     }
   };
 
@@ -147,7 +147,7 @@ router.get('/logout', auth.authenticate, auth.authorize, function(req, res) {
 
 
 // GET account by id
-router.get('/:accountId', function (req, res) {
+router.get('/:accountId', auth.authenticate, auth.authorize, function (req, res) {
   var account, accountId = req.params.accountId;
 
   var finish = function (err, rows, fields) {
@@ -174,6 +174,62 @@ router.get('/:accountId', function (req, res) {
   }
 });
 
+// update account by id
+router.put('/:accountId', auth.authenticate, auth.authorize, function (req, res) {
+  var account, accountId = req.params.accountId;
 
+  var finish = function (err, result) {
+    console.log('result', result);
+    if (err) {
+      console.log('err', err);
+    }
+    
+    res.status(constants.http.SUCCESS.status).json(account);
+  };
+
+  if (validations.validateNonEmpty(accountId) && validations.validateNumeric(accountId)) {
+    Account.updateById(accountId, req.body, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
+// delete account by id
+router.delete('/:accountId', auth.authenticate, auth.authorize, function (req, res) {
+  var account, accountId = req.params.accountId;
+
+  var finish = function (err, rows, fields) {
+    res.status(constants.http.SUCCESS.status).json(constants.http.NO_CONTENT.message);
+  };
+
+  if (validations.validateNonEmpty(accountId) && validations.validateNumeric(accountId)) {
+    Account.deleteAccountById(accountId, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
+// update roles for account by account id
+router.post('/:accountId/roles', auth.authenticate, auth.authorize, function (req, res) {
+  var account, accountId = req.params.accountId, roleMapping = req.body;
+
+  var finish = function (err, result) {
+    console.log('result', result);
+    if (err) {
+      console.log('err', err);
+    }
+    
+    res.status(constants.http.SUCCESS.status).json(account);
+  };
+
+  if (validations.validateNonEmpty(accountId) && validations.validateNumeric(accountId)) {
+    RoleMapping.updateByAccountId(accountId, req.body, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
 
 module.exports = router;

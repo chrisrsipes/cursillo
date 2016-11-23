@@ -15,6 +15,7 @@ var talkLinks = require('./routing/talkLinks');
 var people = require('./routing/people');
 var weekendPositions = require('./routing/weekendPositions');
 var teams = require('./routing/teams');
+var roles = require('./routing/roles');
 
 var port = 8080;
 
@@ -46,6 +47,7 @@ app.use('/api/talkLinks', talkLinks);
 app.use('/api/people', people);
 app.use('/api/weekendPositions', weekendPositions);
 app.use('/api/teams', teams);
+app.use('/api/roles', roles);
 
 
 app.listen(port, function () {

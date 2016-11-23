@@ -1,10 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref="user.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      {{ edit ? "Edit" : "Create"}} User
+    </h3>
+  </div>
+</div>
 
-</body>
-</html>
+<div class="row">
+  <div class="col-md-12">
+
+    <form name="userForm" novalidate>
+
+      <div class="form-group">
+        <label for="register-first-name">First Name</label>
+        <input type="text" class="form-control" id="register-first-name" placeholder="First Name" ng-model="account.firstName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="register-last-name">Last Name</label>
+        <input type="text" class="form-control" id="register-last-name" placeholder="Last Name" ng-model="account.lastName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="login-email">Email address</label>
+        <input type="email" class="form-control" id="login-email" placeholder="Email" ng-model="account.email" required>
+      </div>
+
+      <div class="form-group" data-ng-if="!edit">
+        <label for="login-password">Password</label>
+        <input type="password" class="form-control" id="login-password" placeholder="Password" ng-model="account.password" required>
+      </div>
+
+      <div class="form-group" data-ng-if="!edit">
+        <label for="login-confirm-password">Confirm Password</label>
+        <input type="password" class="form-control" id="login-confirm-password" placeholder="Confirm Password" ng-model="account.confirmPassword" required>
+      </div>
+
+
+
+
+      <div style="margin-top: 20px;">
+
+        <button type="submit"
+                class="btn btn-primary"
+                data-ng-click="createAccount()"
+                data-ng-if="!edit"
+                data-ng-disabled="userForm.$invalid || account.password != account.confirmPassword">
+          Create
+        </button>
+
+        <button type="button" class="btn btn-danger" data-ng-if="edit" data-ng-click="loadAccount()">Reset</button>
+
+        <button type="submit"
+                class="btn btn-primary"
+                data-ng-click="updateAccount()"
+                data-ng-if="edit"
+                data-ng-disabled="userForm.$invalid">
+          Update
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

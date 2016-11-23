@@ -27,6 +27,16 @@ var schema = function (user) {
   return obj;
 };
 
+var removeNull = function (obj) {
+  _.each(obj, function (val, key) {
+    if (val == null || val == undefined) {
+      delete obj[key];
+    }
+  });
+  
+  return obj;
+};
+
 var createAccount = function (account, cb) {
 
   // Store hash for password instead of password
@@ -38,11 +48,12 @@ var createAccount = function (account, cb) {
 };
 
 var findAccountById = function (accountId, cb) {
-  connection.query(
-    'SELECT a.id, a.firstName, a.lastName, a.email, a.status, a.password ' +
-    'FROM Account a ' +
-    'WHERE a.id = ?', [accountId], cb
-  );
+  
+  connection.query('SELECT a.id, a.firstName, a.lastName, a.email, a.status, r.name as roleName, r.id as roleId ' +
+    'FROM Account a, RoleMapping rm, Role r ' +
+    'WHERE rm.principalId = a.id ' +
+    'AND rm.roleId = r.id ' +
+    'AND a.id = ?', [accountId], cb);
 
 };
 
@@ -57,8 +68,30 @@ var findAccountByEmail = function (email, cb) {
 };
 
 var findAllAccounts  = function (cb) {
-  connection.query('SELECT * FROM Account', cb);
+  connection.query('SELECT a.id, a.firstName, a.lastName, a.email, r.name as roleName, r.id as roleName ' +
+    'FROM Account a, RoleMapping rm, Role r ' +
+    'WHERE rm.principalId = a.id ' +
+    'AND rm.roleId = r.id', cb);
 };
+
+var updateById = function (accountId, account, cb) {
+  console.log('password', account.password);
+  
+  if (account.password) {
+    bcrypt.hash(account.password, constants.saltRounds, function(err, hash) {
+      account.password = hash;
+      connection.query('UPDATE Account SET ? WHERE id = ' + accountId, removeNull(schema(account)), cb);
+    });
+  }
+  else {
+    connection.query('UPDATE Account SET ? WHERE id = ' + accountId, removeNull(schema(account)), cb);
+  }
+};
+
+var deleteAccountById = function (accountId, cb) {
+  connection.query('DELETE FROM Account WHERE id = ?', [accountId], cb);
+};
+
 
 var deleteAllAccessTokensForAccount = function (userId, cb) {
   connection.query('DELETE FROM AccessToken WHERE userId = ?', [userId], cb);
@@ -115,10 +148,12 @@ var generateAccessTokenForAccount = function (accountId, cb) {
 
 var Account = {
   'createAccount': createAccount,
+  'updateById': updateById,
   'findAccountById': findAccountById,
   'findAccountByEmail': findAccountByEmail,
   'findAllAccounts': findAllAccounts,
   'deleteAllAccessTokensForAccount': deleteAllAccessTokensForAccount,
+  'deleteAccountById': deleteAccountById,
   'findAccountFromAccessToken':findAccountFromAccessToken,
   'generateAccessTokenForAccount': generateAccessTokenForAccount,
   'schema': schema,

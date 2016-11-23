@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h3 class="modal-title">Update Role</h3>
+</div>
+
+<div class="modal-body" style="padding: 30px;">
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <form name="resetPasswordForm">
+          <div>
+            <p><b>Select Role</b></p>
+            <ui-select ng-model="roleMapping.roleId" style="max-width: 200px;">
+              <ui-select-match placeholder="Select">{{$select.selected.name }}</ui-select-match>
+              <ui-select-choices repeat="role.id as role in roles">
+                <div ng-bind-html="role.name | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-6">
+      <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+      <button class="btn btn-primary" ng-click="updateRole()" ng-disabled="!roleMapping.roleId">Assign</button>
+    </div>
+  </div>
+
+</div>
