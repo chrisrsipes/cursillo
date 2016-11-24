@@ -16,7 +16,7 @@ angular.module('app').controller('UserDetailController', ['$scope', 'Account', '
       animation: true,
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
-      size: 'lg',
+      size: 'md',
       templateUrl: 'scripts/app/user/resetPassword.modal.template.html',
       controller: 'ResetPasswordModalController',
       resolve: {
@@ -39,7 +39,7 @@ angular.module('app').controller('UserDetailController', ['$scope', 'Account', '
       animation: true,
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
-      size: 'lg',
+      size: 'md',
       templateUrl: 'scripts/app/user/updateRole.modal.template.html',
       controller: 'UpdateRoleModalController',
       resolve: {

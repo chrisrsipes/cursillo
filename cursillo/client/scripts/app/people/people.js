@@ -18,8 +18,8 @@ angular
     .state('people.list', {
       parent: 'people',
       url: '/list',
-      templateUrl: 'scripts/app/people/peopleList.template.html',
-      controller: 'PeopleListController',
+      templateUrl: 'scripts/app/people/personList.template.html',
+      controller: 'PersonListController',
       data: {
         requireLogin: true,
         roles: ['admin', 'secretary', 'rector']
@@ -29,8 +29,8 @@ angular
     .state('people.create', {
       parent: 'people',
       url: '/create',
-      templateUrl: 'scripts/app/people/peopleEdit.template.html',
-      controller: 'PeopleEditController',
+      templateUrl: 'scripts/app/people/personEdit.template.html',
+      controller: 'PersonEditController',
       data: {
         requireLogin: true,
         roles: ['admin']
@@ -40,8 +40,8 @@ angular
     .state('people.edit', {
       parent: 'people',
       url: '/:id/edit',
-      templateUrl: 'scripts/app/people/peopleEdit.template.html',
-      controller: 'PeopleEditController',
+      templateUrl: 'scripts/app/people/personEdit.template.html',
+      controller: 'PersonEditController',
       data: {
         requireLogin: true,
         roles: ['admin']
@@ -51,8 +51,8 @@ angular
     .state('people.detail', {
       parent: 'people',
       url: '/:id/detail',
-      templateUrl: 'scripts/app/people/peopleDetail.template.html',
-      controller: 'PeopleDetailController',
+      templateUrl: 'scripts/app/people/personDetail.template.html',
+      controller: 'PersonDetailController',
       data: {
         requireLogin: true,
         roles: ['admin', 'secretary', 'rector']

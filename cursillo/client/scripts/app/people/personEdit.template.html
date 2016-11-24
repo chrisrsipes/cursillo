@@ -1,0 +1,157 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref=".list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      Edit
+    </h3>
+  </div>
+</div>
+
+<form name="Form" novalidate>
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-first-name">First Name</label>
+        <input type="text" id="person-first-name" ng-model="person.firstName" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-last-name">Last Name</label>
+        <input type="text" id="person-last-name" ng-model="person.lastName" class="form-control" required>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-email">Email</label>
+        <input type="text" id="person-email" ng-model="person.email" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div>
+        <p><b>Select gender</b></p>
+        <ui-select ng-model="person.gender">
+          <ui-select-match placeholder="Select">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="gender in ['male', 'female']">
+            <div ng-bind-html="gender | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-home-phone">Home Phone</label>
+        <input type="text" id="person-home-phone" ng-model="person.homePhone" class="form-control" >
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-work-phone">Work Phone</label>
+        <input type="text" id="person-work-phone" ng-model="person.workPhone" class="form-control" >
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-street">Street</label>
+        <input type="text" id="person-street" ng-model="person.street" class="form-control" >
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="person-city">City</label>
+        <input type="text" id="person-city" ng-model="person.city" class="form-control" >
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="person-state">State</label>
+        <input type="text" id="person-state" ng-model="person.state" class="form-control" >
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="person-zip">Zip</label>
+        <input type="number" id="person-zip" ng-model="person.zip" class="form-control" minlength="5" maxlength="5" >
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-occupation">Occupation</label>
+        <input type="text" id="person-occupation" ng-model="person.occupation" class="form-control" >
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="person-tag-name">Tag Name</label>
+        <input type="text" id="person-tag-name" ng-model="person.tagName" class="form-control" >
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="person-team-member">Team Member?</label>
+        <input type="checkbox" id="person-team-member" ng-model="person.isTeamMember" class="form-control" >
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <p><b>Birthdate</b></p>
+      <div style="display:inline-block; min-height:290px;" id="person-birthdate">
+        <div uib-datepicker ng-model="person.birthdate" class="well well-sm" datepicker-options="options"></div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <p><b>Start Date</b></p>
+      <div style="display:inline-block; min-height:290px;" id="person-start-date">
+        <div uib-datepicker ng-model="person.startDate" class="well well-sm" datepicker-options="options"></div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<div class="row" style="margin: 20px 0px;">
+  <div class="col-md-12">
+
+    <button type="button" class="btn btn-danger" data-ng-click="loadPerson()">Reset</button>
+
+    <button type="submit"
+            class="btn btn-primary"
+            data-ng-click="updatePerson()"
+            data-ng-disabled="Form.$invalid">
+      Update
+    </button>
+  </div>
+</div>

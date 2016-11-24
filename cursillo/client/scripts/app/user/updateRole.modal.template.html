@@ -5,7 +5,7 @@
 <div class="modal-body" style="padding: 30px;">
 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
 
         <form name="resetPasswordForm">
           <div>
@@ -19,13 +19,16 @@
           </div>
         </form>
       </div>
+
+      <div class="col-md-6 pull-right">
+        <div class="pull-right">
+          <p>&nbsp;</p>
+          <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+          <button class="btn btn-primary" ng-click="updateRole()" ng-disabled="!roleMapping.roleId">Assign</button>
+        </div>
+      </div>
+
     </div>
 
-  <div class="row" style="margin-top: 20px;">
-    <div class="col-md-6">
-      <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-      <button class="btn btn-primary" ng-click="updateRole()" ng-disabled="!roleMapping.roleId">Assign</button>
-    </div>
-  </div>
 
 </div>
