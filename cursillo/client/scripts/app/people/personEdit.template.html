@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-md-12">
     <h3>
-      <a ui-sref=".list" href="javascript:void(0)">
+      <a ui-sref="people.list" href="javascript:void(0)">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
       </a>
-      Edit
+      Edit Person
     </h3>
   </div>
 </div>
@@ -133,9 +133,9 @@
     </div>
 
     <div class="col-md-6">
-      <p><b>Start Date</b></p>
+      <p><b>Date Started</b></p>
       <div style="display:inline-block; min-height:290px;" id="person-start-date">
-        <div uib-datepicker ng-model="person.startDate" class="well well-sm" datepicker-options="options"></div>
+        <div uib-datepicker ng-model="person.dateStarted" class="well well-sm" datepicker-options="options"></div>
       </div>
     </div>
   </div>

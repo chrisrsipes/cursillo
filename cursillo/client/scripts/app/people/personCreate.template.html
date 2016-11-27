@@ -1,0 +1,361 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref="people.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      Create Person
+    </h3>
+  </div>
+</div>
+
+<form name="personForm" novalidate>
+
+  <div class="card">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Person Information</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-first-name">First Name</label>
+          <input type="text" id="person-first-name" ng-model="person.firstName" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-last-name">Last Name</label>
+          <input type="text" id="person-last-name" ng-model="person.lastName" class="form-control" required>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-email">Email</label>
+          <input type="text" id="person-email" ng-model="person.email" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div>
+          <p><b>Select gender</b></p>
+          <ui-select ng-model="person.gender">
+            <ui-select-match placeholder="Select">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="gender in ['male', 'female']">
+              <div ng-bind-html="gender | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-home-phone">Home Phone</label>
+          <input type="text" id="person-home-phone" ng-model="person.homePhone" class="form-control" >
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-work-phone">Work Phone</label>
+          <input type="text" id="person-work-phone" ng-model="person.workPhone" class="form-control" >
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-street">Street</label>
+          <input type="text" id="person-street" ng-model="person.street" class="form-control" >
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="person-city">City</label>
+          <input type="text" id="person-city" ng-model="person.city" class="form-control" >
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="person-state">State</label>
+          <input type="text" id="person-state" ng-model="person.state" class="form-control" >
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="person-zip">Zip</label>
+          <input type="number" id="person-zip" ng-model="person.zip" class="form-control" minlength="5" maxlength="5" >
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-occupation">Occupation</label>
+          <input type="text" id="person-occupation" ng-model="person.occupation" class="form-control" >
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-tag-name">Tag Name</label>
+          <input type="text" id="person-tag-name" ng-model="person.tagName" class="form-control" >
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div>
+          <p><b>Select Parish</b></p>
+          <ui-select ng-model="person.parishId">
+            <ui-select-match placeholder="Select">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="parish.id as parish in parishes">
+              <div ng-bind-html="parish.name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="person-team-member">Team Member?</label>
+          <input type="checkbox" id="person-team-member" ng-model="person.isTeamMember" class="form-control" >
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p><b>Birthdate</b></p>
+        <div style="display:inline-block; min-height:290px;" id="person-birthdate">
+          <div uib-datepicker ng-model="person.birthdate" class="well well-sm" datepicker-options="options"></div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <p><b>Date Started</b></p>
+        <div style="display:inline-block; min-height:290px;" id="person-start-date">
+          <div uib-datepicker ng-model="person.dateStarted" class="well well-sm" datepicker-options="options"></div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</form>
+
+<form name="contactsForm">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Contact Information</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+            <p><b>Add Contact</b></p>
+            <ui-select ng-model="selected.contactType" on-select="addContact()" style="max-width: 200px;">
+              <ui-select-match placeholder="Select">{{$select.selected.label }}</ui-select-match>
+              <ui-select-choices repeat="type.name as type in types">
+                <div ng-bind-html="type.label | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6" ng-repeat="contact in contacts">
+        <div class="card" style="background-color: #fff; margin: 10px 0px;">
+
+          <div class="row">
+            <div class="col-md-12 pull-right">
+              <div class="pull-right">
+                <a href="javascript:void(0)" data-ng-click="removeContact($index)">
+                  <span class="glyphicon glyphicon-remove" style="color: red;"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact-{{contact.id}}-first-name">First Name</label>
+                <input type="text" id="contact-{{contact.id}}-first-name" ng-model="contact.firstName" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact-{{contact.id}}-last-name">Last Name</label>
+                <input type="text" id="contact-{{contact.id}}-last-name" ng-model="contact.lastName" class="form-control" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact-{{contact.id}}-phone">Phone</label>
+                <input type="text" id="contact-{{contact.id}}-phone" ng-model="contact.phone" class="form-control" >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact-{{contact.id}}-age">Age</label>
+                <input type="text" id="contact-{{contact.id}}-age" ng-model="contact.age" class="form-control" >
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact-{{contact.id}}-type">Type</label>
+                <span id="contact-{{contact.id}}-type" class="form-control">{{contact.type}}</span>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact-{{contact.id}}-attended">Attended Cursillo?</label>
+                <input type="checkbox" id="contact-{{contact.id}}-attended" ng-model="contact.hasAttendedCursillo" class="form-control">
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</form>
+
+<form name="applicationForm">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Application Information</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="application-info-pastor">Pastor Name</label>
+          <input type="text" id="application-info-pastor" ng-model="applicationInfo.pastor" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="application-info-church">Church Name</label>
+          <input type="text" id="application-info-church" ng-model="applicationInfo.church" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="application-info-sponsor-name">Sponsor Name</label>
+          <input type="text" id="application-info-sponsor-name" ng-model="applicationInfo.sponsorName" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="application-info-sponsor-phone">Sponsor Phone</label>
+          <input type="text" id="application-info-sponsor-phone" ng-model="applicationInfo.sponsorPhone" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="application-info-reason">Reason for Applying</label>
+          <input type="text" id="application-info-reason" ng-model="applicationInfo.reasonForApplying" class="form-control">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="application-info-medical">Medical / Allergy Information</label>
+          <input type="text" id="application-info-medical" ng-model="applicationInfo.medicalInformation" class="form-control">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="form-group">
+          <label for="application-info-is-catholic">Catholic</label>
+          <input type="checkbox" id="application-info-is-catholic" ng-model="applicationInfo.isCatholic" class="form-control"/>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="form-group">
+          <label for="application-info-is-converted">Converted</label>
+          <input type="checkbox" id="application-info-is-converted" ng-model="applicationInfo.isConverted" class="form-control"/>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="form-group">
+          <label for="application-info-receives-eucharist">Receives Eucharist?</label>
+          <input type="checkbox" id="application-info-receives-eucharist" ng-model="applicationInfo.recievesEucharist" class="form-control"/>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="form-group">
+          <label for="application-info-request-lower-bunk">Requests lower bunk?</label>
+          <input type="checkbox" id="application-info-request-lower-bunk" ng-model="applicationInfo.requestLowerBunk" class="form-control"/>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</form>
+
+<div class="row" style="margin: 20px 0px;">
+  <div class="col-md-12">
+    <button type="button" class="btn btn-primary" data-ng-disabled="!personForm.$valid || !contactsForm.$valid || !applicationForm.$valid" data-ng-click="submitApplication()">Create</button>
+  </div>
+</div>

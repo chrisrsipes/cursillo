@@ -55,6 +55,14 @@
     {
       "name": "role",
       "description": "Roles"
+    },
+    {
+      "name": "contact",
+      "description": "Contacts"
+    },
+    {
+      "name": "application",
+      "description": "ApplicationInfos"
     }
   ],
   "schemes":[
@@ -594,6 +602,404 @@
         "responses":{
           "400":{
             "description":"Invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+    "/applications": {
+      "get":{
+        "tags":[
+          "application"
+        ],
+        "summary":"gets all applications.",
+        "description":"",
+        "operationId":"getApplications",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "post":{
+        "tags":[
+          "application"
+        ],
+        "summary":"creates a new application.",
+        "description":"",
+        "operationId":"createApplication",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"body",
+            "name":"body",
+            "description":"create a new application",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/ApplicationInfo"
+            }
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+    "/applications/{applicationId}": {
+      "get":{
+        "tags":[
+          "application"
+        ],
+        "summary":"return contact with id application id.",
+        "description":"",
+        "operationId":"getApplicationById",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"applicationId",
+            "description":"application id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "put":{
+        "tags":[
+          "application"
+        ],
+        "summary":"updates an existing application.",
+        "description":"",
+        "operationId":"updateApplication",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"applicationId",
+            "description":"id of application being updated.",
+            "required":true
+          },
+          {
+            "in":"body",
+            "name":"body",
+            "description":"create a new application",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/ApplicationInfo"
+            }
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "delete":{
+        "tags":[
+          "application"
+        ],
+        "summary":"delete application with id applicationId.",
+        "description":"",
+        "operationId":"deleteApplicationById",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"applicationId",
+            "description":"application id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+    "/contacts": {
+      "get":{
+        "tags":[
+          "contact"
+        ],
+        "summary":"gets all contacts.",
+        "description":"",
+        "operationId":"getcontacts",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "post":{
+        "tags":[
+          "contact"
+        ],
+        "summary":"creates a new contact.",
+        "description":"",
+        "operationId":"createcontact",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"body",
+            "name":"body",
+            "description":"create a new contact",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/Contact"
+            }
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+    "/contacts/{contactid}": {
+      "get":{
+        "tags":[
+          "contact"
+        ],
+        "summary":"return contact with id contactid.",
+        "description":"",
+        "operationId":"getcontactbyid",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"contactid",
+            "description":"contact id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "put":{
+        "tags":[
+          "contact"
+        ],
+        "summary":"updates an existing contact.",
+        "description":"",
+        "operationId":"updatecontact",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"contactid",
+            "description":"id of contact being updated.",
+            "required":true
+          },
+          {
+            "in":"body",
+            "name":"body",
+            "description":"create a new contact",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/Contact"
+            }
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      },
+      "delete":{
+        "tags":[
+          "contact"
+        ],
+        "summary":"delete contact with id contactid.",
+        "description":"",
+        "operationId":"deletecontactbyid",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"contactid",
+            "description":"contact id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
           }
         },
         "security":[
@@ -2716,7 +3122,6 @@
         ]
       }
     },
-
     "/parishes": {
       "get":{
         "tags":[
@@ -3023,6 +3428,93 @@
         },
         "description": {
           "type": "string"
+        }
+      }
+    },
+
+    "ApplicationInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "required": "true"
+        },
+        "isCatholic": {
+          "type": "boolean"
+        },
+        "isConverted": {
+          "type": "boolean"
+        },
+        "convertedDate": {
+          "type": "string"
+        },
+        "receivesEucharist": {
+          "type": "boolean"
+        },
+        "pastor": {
+          "type": "string"
+        },
+        "church": {
+          "type": "string"
+        },
+        "sponsorName": {
+          "type": "string"
+        },
+        "sponsorPhone": {
+          "type": "string"
+        },
+        "reasonForApplying": {
+          "type": "string"
+        },
+        "requestLowerBunk": {
+          "type": "boolean"
+        },
+        "medicalInformation": {
+          "type": "string"
+        },
+        "personId": {
+          "type": "integer",
+          "format": "int64",
+          "required": true
+        }
+      }
+    },
+
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "required": "true"
+        },
+        "firstName": {
+          "type": "string",
+          "required": "true"
+        },
+        "lastName": {
+          "type": "string",
+          "required": "true"
+        },
+        "type": {
+          "type": "string",
+          "required": "true"
+        },
+        "phone": {
+          "type": "string",
+          "required": "true"
+        },
+        "age": {
+          "type": "number"
+        },
+        "hasAttended": {
+          "type": "boolean"
+        },
+        "personId": {
+          "type": "integer",
+          "format": "int64",
+          "required": true
         }
       }
     },

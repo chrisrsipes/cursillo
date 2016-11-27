@@ -40,6 +40,7 @@ router.post('/', function (req, res) {
 
   var finish = function (err, result) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {

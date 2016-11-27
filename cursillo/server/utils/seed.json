@@ -86,6 +86,53 @@
       "parishId": 1
     }
   ],
+  "ApplicationInfo": [
+    {
+      "id": 1,
+      "isConverted": true,
+      "isCatholic": true,
+      "convertedDate": "11/24/2016",
+      "receivesEucharist": true,
+      "pastor": "Pastor 1",
+      "church": "Church 1",
+      "sponsorName": "Sponsor 1",
+      "sponsorPhone": "111 111 1111",
+      "reasonForApplying": "Reason 1",
+      "requestLowerBunk": true,
+      "medicalInformation": "Medical info 1",
+      "personId": 1
+    },
+    {
+      "id": 2,
+      "isConverted": true,
+      "isCatholic": true,
+      "convertedDate": "11/25/2016",
+      "receivesEucharist": true,
+      "pastor": "Pastor 2",
+      "church": "Church 2",
+      "sponsorName": "Sponsor 2",
+      "sponsorPhone": "222 222 2222",
+      "reasonForApplying": "Reason 2",
+      "requestLowerBunk": true,
+      "medicalInformation": "Medical info 2",
+      "personId": 2
+    },
+    {
+      "id": 3,
+      "isConverted": false,
+      "isCatholic": false,
+      "convertedDate": "",
+      "receivesEucharist": false,
+      "pastor": "Pastor 3",
+      "church": "Church 3",
+      "sponsorName": "Sponsor 3",
+      "sponsorPhone": "333 333 3333",
+      "reasonForApplying": "Reason 3",
+      "requestLowerBunk": false,
+      "medicalInformation": "N/A",
+      "personId": 3
+    }
+  ],
   "Weekend": [
     {
       "id": 1,
@@ -222,7 +269,7 @@
       "description": "Primary Study Talk",
       "isActive": true
     },
-   {
+    {
       "id": 16,
       "name": "Backup Study Talk",
       "number": 16,

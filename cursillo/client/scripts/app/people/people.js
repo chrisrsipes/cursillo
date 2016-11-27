@@ -29,8 +29,8 @@ angular
     .state('people.create', {
       parent: 'people',
       url: '/create',
-      templateUrl: 'scripts/app/people/personEdit.template.html',
-      controller: 'PersonEditController',
+      templateUrl: 'scripts/app/people/personCreate.template.html',
+      controller: 'PersonCreateController',
       data: {
         requireLogin: true,
         roles: ['admin']

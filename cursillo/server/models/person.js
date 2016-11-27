@@ -40,7 +40,9 @@ var schema = function (user) {
 };
 
 var create = function (person, cb) {
-  connection.query('INSERT INTO person SET ?', [person], cb);
+  var query = connection.query('INSERT INTO person SET ?', [person], cb);
+  
+  console.log('sql', query.sql);
 };
 
 var findAll= function (cb) {

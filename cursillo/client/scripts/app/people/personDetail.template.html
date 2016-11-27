@@ -1,0 +1,147 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>
+      <a ui-sref="people.list" href="javascript:void(0)">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      Person Detail
+    </h3>
+  </div>
+</div>
+
+<form name="Form" novalidate>
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-first-name">First Name</label>
+        <span class="form-control" id="person-first-name">{{person.firstName}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-last-name">Last Name</label>
+        <span class="form-control" id="person-last-name">{{person.lastName}}</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-email">Email</label>
+        <span class="form-control" id="person-email">{{person.email}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-gender">Gender</label>
+        <span class="form-control" id="person-gender">{{person.gender}}</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-home-phone">Home Phone</label>
+        <span class="form-control" id="person-home-phone">{{person.homePhone}}</span>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-work-phone">Work Phone</label>
+        <span class="form-control" id="person-work-phone">{{person.workPhone}}</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-street">Street</label>
+        <span class="form-control" id="person-street">{{person.street}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="person-city">City</label>
+        <span class="form-control" id="person-city">{{person.city}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="person-state">State</label>
+        <span class="form-control" id="person-state">{{person.state}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="person-zip">Zip</label>
+        <span class="form-control" id="person-zip">{{person.zip}}</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-occupation">Occupation</label>
+        <span class="form-control" id="person-occupation">{{person.occupation}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="person-tag-name">Tag Name</label>
+        <span class="form-control" id="person-tag-name">{{person.tagName}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="person-team-member">Team Member?</label>
+        <input type="checkbox" id="person-team-member" ng-model="person.isTeamMember" class="form-control" data-ng-disabled="true">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-birthdate">Birthdate</label>
+        <span id="person-birthdate" class="form-control">{{ person.birthdate | date:'fullDate' }}</span>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="person-date-started">Date Started</label>
+        <span id="person-date-started" class="form-control">{{ person.dateStarted | date:'fullDate' }}</span>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<div class="row" style="margin: 20px 0px 20px 0px;">
+  <div class="col-md-12">
+
+    <button type="button" class="btn btn-primary" data-ui-sref="people.edit({id: person.id})">Edit</button>
+
+  </div>
+</div>
