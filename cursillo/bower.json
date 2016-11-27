@@ -1,4 +1,5 @@
 {
+  "directory": "./bower",
   "name": "vendor",
   "homepage": "https://github.com/chrisrsipes/parameter-discovery",
   "authors": [
