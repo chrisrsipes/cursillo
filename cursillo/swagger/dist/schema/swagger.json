@@ -3152,6 +3152,13 @@
             "type": "string"
           },
           {
+            "in":"query",
+            "name":"weekendIds",
+            "description":"array of weekend ids to return weekend positions for.",
+            "required":false,
+            "type": "string"
+          },
+          {
             "in":"path",
             "name":"personId",
             "description":"Person Id",

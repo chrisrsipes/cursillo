@@ -60,15 +60,31 @@ var findByWeekendId = function (weekendId, cb) {
 
 };
 
-var findByPersonId = function (personId, cb) {
+var findByPersonId = function (personId, weekendIds, cb) {
 
-  connection.query(
-    'SELECT tl.status, tl.id, tl.personId, tl.weekendId, tl.talkId, t.name as talkName, p.firstName as personFirstName, p.lastName as personLastName ' +
-    'FROM TalkLink tl, Talk t, Person p ' +
-    'WHERE tl.talkId = t.id ' +
-    'AND tl.personId = p.id ' +
-    'AND tl.personId = ?', [personId], cb
-  );
+  if (weekendIds.length === 0) {
+    connection.query(
+      'SELECT tl.status, tl.id, tl.personId, tl.weekendId, tl.talkId, t.name as talkName, p.firstName as personFirstName, p.lastName as personLastName, w.description, w.startDate, w.endDate ' +
+      'FROM TalkLink tl, Talk t, Person p, Weekend w ' +
+      'WHERE tl.talkId = t.id ' +
+      'AND tl.weekendId = w.id ' +
+      'AND tl.personId = p.id ' +
+      'AND tl.personId = ?', [personId], cb
+    );
+
+  }
+  else {
+    connection.query(
+      'SELECT tl.status, tl.id, tl.personId, tl.weekendId, tl.talkId, t.name as talkName, p.firstName as personFirstName, p.lastName as personLastName, w.description, w.startDate, w.endDate ' +
+      'FROM TalkLink tl, Talk t, Person p, Weekend w ' +
+      'WHERE tl.talkId = t.id ' +
+      'AND tl.weekendId = w.id ' +
+      'AND tl.weekendId IN (?) ' +
+      'AND tl.personId = p.id ' +
+      'AND tl.personId = ?', [weekendIds, personId], cb
+    );
+
+  }
 
 };
 

@@ -82,10 +82,13 @@ router.get('/:personId', function (req, res) {
 
 // get talk links for a person by personId
 router.get('/:personId/talkLinks', function (req, res) {
-  var person, personId = req.params.personId;
+  var person, personId = req.params.personId, weekendIdString = req.query.weekendIds;
 
+  var weekendIds = weekendIdString ? weekendIdString.split(',') : [];
+  
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
@@ -95,7 +98,7 @@ router.get('/:personId/talkLinks', function (req, res) {
   };
 
   if (validations.validateNonEmpty(personId) && validations.validateNumeric(personId)) {
-    TalkLink.findByPersonId(personId, finish);
+    TalkLink.findByPersonId(personId, weekendIds, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

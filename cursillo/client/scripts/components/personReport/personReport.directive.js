@@ -27,10 +27,7 @@ angular.module('app').directive('personReport', function () {
       $scope.loadPositions = function () {
         var filter = {
           id: $scope.personId
-
         };
-
-        console.log('selected weekends: ', $scope.selectedWeekendIds);
 
         if ($scope.selectedWeekendIds.length !== 0) {
           filter.weekendIds = $scope.selectedWeekendIds.join(',');
@@ -39,6 +36,21 @@ angular.module('app').directive('personReport', function () {
         Person.getWeekendPositions(filter, function (positions) {
           console.log('positions', positions);
           $scope.positions = positions;
+        });
+      };
+      
+      $scope.loadTalkLinks = function () {
+        var filter = {
+          id: $scope.personId
+        };
+
+        if ($scope.selectedWeekendIds.length !== 0) {
+          filter.weekendIds = $scope.selectedWeekendIds.join(',');
+        }
+
+        Person.getTalkLinks(filter, function (talkLinks) {
+          console.log('talkLinks', talkLinks);
+          $scope.talkLinks = talkLinks;
         });
       };
 
@@ -59,12 +71,14 @@ angular.module('app').directive('personReport', function () {
         modalInstance.result.then(function (weekends) {
           $scope.selectedWeekendIds = weekends;
           $scope.loadPositions();
+          $scope.loadTalkLinks();
         });
 
       };
 
       $scope.loadWeekends();
       $scope.loadPositions();
+      $scope.loadTalkLinks();
 
 
     }]
