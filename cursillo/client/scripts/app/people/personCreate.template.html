@@ -131,7 +131,7 @@
           <p><b>Select Parish</b></p>
           <ui-select ng-model="person.parishId">
             <ui-select-match placeholder="Select">{{$select.selected.name}}</ui-select-match>
-            <ui-select-choices repeat="parish.id as parish in parishes">
+            <ui-select-choices repeat="parish.id as parish in parishes | propsFilter: {name: $select.search, area: $select.search}">
               <div ng-bind-html="parish.name | highlight: $select.search"></div>
             </ui-select-choices>
           </ui-select>

@@ -11,11 +11,15 @@
 <div class="row">
   <div class="col-md-12">
 
+    {{people[0]}}
     <table datatable="ng" class="row-border hover">
       <thead>
       <tr>
         <th>Id</th>
         <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Gender</th>
         <th>Role</th>
         <th>Actions</th>
       </tr>
@@ -24,7 +28,10 @@
       <tr ng-repeat="person in people">
         <td>{{ person.id }}</td>
         <td>{{ person.firstName }} {{ person.lastName }}</td>
-        <td>{{ person.roleName }}</td>
+        <td>{{ person.email }}</td>
+        <td>{{ person.homePhone }}</td>
+        <td>{{ person.gender }}</td>
+        <td>{{ person.isTeamMember ? 'Team' : "Candidate" }}</td>
         <td>
           <a ui-sref="people.detail({id: person.id})" href="javascript:void(0)">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>

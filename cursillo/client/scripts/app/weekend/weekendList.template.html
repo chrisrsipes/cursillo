@@ -11,10 +11,11 @@
 <div class="row">
   <div class="col-md-12">
 
-    <table datatable="ng" dt-options="options" dt-column-defs="columnDefs" class="row-border hover">
+    <table datatable="ng" class="row-border hover">
       <thead>
       <tr>
         <th>Number</th>
+        <th>Description</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Location</th>
@@ -24,6 +25,7 @@
       <tbody>
       <tr ng-repeat="weekend in weekends">
         <td>{{ weekend.number }}</td>
+        <td>{{ weekend.description }}</td>
         <td>{{ weekend.startDate | date:'fullDate' }}</td>
         <td>{{ weekend.endDate | date:'fullDate' }}</td>
         <td>{{ weekend.locationName }}</td>
