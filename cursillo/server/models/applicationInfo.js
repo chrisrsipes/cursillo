@@ -54,6 +54,16 @@ var findById = function (applicationInfoId, cb) {
 
 };
 
+var findByPersonId = function (personId, cb) {
+
+  connection.query(
+    'SELECT * ' +
+    'FROM ApplicationInfo ' +
+    'WHERE personId = ?', [personId], cb
+  );
+
+};
+
 var deleteById = function (applicationInfoId, cb) {
 
   connection.query(
@@ -70,6 +80,7 @@ var ApplicationInfo = {
   'create': create,
   'findAll': findAll,
   'findById': findById,
+  'findByPersonId': findByPersonId,
   'updateById': updateById,
   'deleteById': deleteById,
   'schema': schema,

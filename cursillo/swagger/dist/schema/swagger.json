@@ -1560,6 +1560,54 @@
         ]
       }
     },
+    "/weekends/{gender}/past": {
+      "get":{
+        "tags":[
+          "weekend"
+        ],
+        "summary":"return past count weekends with gender gender.",
+        "description":"",
+        "operationId":"getPastWeekendsByGender",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"query",
+            "name":"count",
+            "description":"number of weekends to get",
+            "required":true,
+            "type": "number"
+          },
+          {
+            "in":"path",
+            "name":"gender",
+            "description":"weekend gender",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
     "/weekends/{weekendId}": {
       "get":{
         "tags":[
@@ -3086,9 +3134,98 @@
         "tags":[
           "person"
         ],
-        "summary":"Return person with Id personId.",
+        "summary":"Return talk links for person with Id personId.",
         "description":"",
         "operationId":"getTalkLinksByPersonId",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"personId",
+            "description":"Person Id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+    "/people/{personId}/weekendPositions": {
+      "get":{
+        "tags":[
+          "person"
+        ],
+        "summary":"Return weekend positions for person with Id personId.",
+        "description":"",
+        "operationId":"getWeekendPositionsByPersonId",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "in":"query",
+            "name":"authorization",
+            "description":"access token",
+            "required":true,
+            "type": "string"
+          },
+          {
+            "in":"query",
+            "name":"weekendIds",
+            "description":"array of weekend ids to return weekend positions for.",
+            "required":false,
+            "type": "string"
+          },
+          {
+            "in":"path",
+            "name":"personId",
+            "description":"Person Id",
+            "required":true,
+            "type": "integer",
+            "form": "int32"
+          }
+        ],
+        "responses":{
+          "400":{
+            "description":"invalid credentials."
+          }
+        },
+        "security":[
+
+        ]
+      }
+    },
+    "/people/{personId}/application": {
+      "get":{
+        "tags":[
+          "person"
+        ],
+        "summary":"Return application for person with Id personId.",
+        "description":"",
+        "operationId":"getApplicationByPersonId",
         "consumes":[
           "application/json"
         ],
@@ -3720,6 +3857,10 @@
         },
         "isCompleted": {
           "type": "boolean"
+        },
+        "gender": {
+          "type": "string",
+          "required": true
         },
         "locationId": {
           "type": "integer",

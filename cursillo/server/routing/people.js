@@ -8,6 +8,7 @@ var constants = require('../utils/constants');
 var Person = require('../models/person');
 var TalkLink = require('../models/talkLink');
 var WeekendPosition = require('../models/weekendPosition');
+var Application = require('../models/applicationInfo');
 
 var router = express.Router();
 
@@ -103,10 +104,13 @@ router.get('/:personId/talkLinks', function (req, res) {
 
 // get weekend positions for a person by personId
 router.get('/:personId/weekendPositions', function (req, res) {
-  var person, personId = req.params.personId;
+  var i, person, personId = req.params.personId, weekendIdString = req.query.weekendIds;
+
+  var weekendIds = weekendIdString ? weekendIdString.split(',') : [];
 
   var finish = function (err, rows, fields) {
     if (err) {
+      console.log('err', err);
       res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
     }
     else {
@@ -116,7 +120,31 @@ router.get('/:personId/weekendPositions', function (req, res) {
   };
 
   if (validations.validateNonEmpty(personId) && validations.validateNumeric(personId)) {
-    WeekendPosition.findByPersonId(personId, finish);
+    WeekendPosition.findByPersonId(personId, weekendIds, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
+// get application for a person by personId
+router.get('/:personId/application', function (req, res) {
+  var i, person, personId = req.params.personId;
+
+  var finish = function (err, rows, fields) {
+    if (err) {
+      console.log('err', err);
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else {
+      // only 1 application per person
+      res.status(constants.http.SUCCESS.status).json(rows[0]);
+    }
+
+  };
+
+  if (validations.validateNonEmpty(personId) && validations.validateNumeric(personId)) {
+    Application.findByPersonId(personId, finish);
   }
   else {
     res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});

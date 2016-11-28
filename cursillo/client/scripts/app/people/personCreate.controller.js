@@ -69,7 +69,7 @@ angular.module('app').controller('PersonCreateController', ['$scope', 'Person', 
 
         // create contacts
         angular.forEach($scope.contacts, function (contact) {
-          concat.personId = person.id;
+          contact.personId = person.id;
           contactPromises.push(Contact.create(contact).$promise);
         });
 

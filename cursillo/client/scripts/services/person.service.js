@@ -33,6 +33,26 @@ angular.module('app').factory('Person', ['$resource', '$location', function($res
         method: 'GET',
         url: getPath('/people/:id/weekendPositions'),
         isArray: true
+      },
+      'getApplication': {
+        method: 'GET',
+        url: getPath('/people/:id/application'),
+        transformResponse: function (response) {
+          var booleanFields = ['isCatholic', 'isConverted', 'requestLowerBunk', 'receivesEucharist'];
+          
+          var transformedResponse = angular.fromJson(response);
+          
+          angular.forEach(booleanFields, function (field) {
+            if (transformedResponse[field] == 1) {
+              transformedResponse[field] = true;
+            }
+            else {
+              transformedResponse[field] = false;
+            }
+          });
+          
+          return transformedResponse;
+        }
       }
     });
 

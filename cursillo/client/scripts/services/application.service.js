@@ -24,7 +24,7 @@ angular.module('app').factory('Application', ['$resource', '$location', function
       'delete': {
         method:'DELETE'
       }
-      
+
     });
 
 }]);

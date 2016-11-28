@@ -7,12 +7,13 @@ var connection = require('../utils/connection');
 var validations = require('../utils/validations');
 var constants = require('../utils/constants');
 
-const requiredFields = ['name', 'locationId'];
+const requiredFields = ['name', 'locationId', 'gender'];
 
 var schema = function (user) {
     var obj = {
       "id": null,
       "number": null,
+      "gender": null,
       "description": null,
       "startDate": null,
       "endDate": null,
@@ -35,19 +36,23 @@ var create = function (weekend, cb) {
   connection.query('INSERT INTO Weekend SET ?', [weekend], cb);
 };
 
-var findAll= function (cb) {
-  connection.query('SELECT w.id, w.number, w.description, w.startDate, w.endDate, w.notes, w.isCompleted, l.name as locationName ' +
+var findAll = function (cb) {
+  connection.query('SELECT w.id, w.number, w.description, w.startDate, w.endDate, w.notes, w.isCompleted, l.name as locationName, w.gender ' +
     'FROM Weekend w, Location l ' +
     'WHERE l.id = w.locationId', cb);
 };
 
 var findById = function (weekendId, cb) {
-  
+
   connection.query('SELECT w.id, w.number, w.description, w.startDate, w.endDate, w.notes, w.isCompleted, l.name as locationName, l.id as locationId ' +
     'FROM Weekend w, Location l ' +
     'WHERE l.id = w.locationId ' +
     ' AND w.id = ?', [weekendId], cb);
 
+};
+
+var findPastByGender = function (gender, count, cb) {
+  connection.query('select * from Weekend where gender = ? order by startDate desc limit ' + count, [gender], cb);
 };
 
 var deleteById = function (weekendId, cb) {
@@ -66,6 +71,7 @@ var Weekend = {
   'create': create,
   'findAll': findAll,
   'findById': findById,
+  'findPastByGender': findPastByGender,
   'updateById': updateById,
   'deleteById': deleteById,
   'schema': schema,

@@ -51,6 +51,31 @@ router.post('/', function (req, res) {
 
 });
 
+// get past x weekends by gender
+router.get('/:gender/past', function (req, res) {
+  var weekend, cursillo, gender = req.params.gender, count = req.query.count;
+
+  var finish = function (err, rows, fields) {
+    if (err) {
+      console.log('err', err);
+      res.status(constants.http.INTERNAL_ERROR.status).json({message: constants.http.INTERNAL_ERROR.message});
+    }
+    else {
+      res.status(constants.http.SUCCESS.status).json(rows);
+    }
+
+  };
+
+  console.log('gender', gender);
+  console.log('count', count);
+  if (gender && count && (gender === 'male' || gender === 'female')) {
+    Weekend.findPastByGender(gender, count, finish);
+  }
+  else {
+    res.status(constants.http.BAD_REQUEST.status).json({message: constants.http.BAD_REQUEST.message});
+  }
+});
+
 // get weekend by id
 router.get('/:weekendId', function (req, res) {
   var weekend, cursillo, weekendId = req.params.weekendId;

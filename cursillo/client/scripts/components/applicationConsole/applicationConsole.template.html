@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-md-6">
+    <h3>Application Information</h3>
+  </div>
+
+  <div class="col-md-6 text-right">
+    <div>
+      <button type="button" class="btn btn-primary" ng-click="enableEditMode()" style="margin-top: 10px;" data-ng-if="!editMode" >Enable Editing</button>
+      <button type="button" class="btn btn-danger" ng-click="cancel()" style="margin-top: 10px;" data-ng-if="editMode" >Cancel</button>
+      <button type="button" class="btn btn-primary" ng-click="updateApplication()" style="margin-top: 10px;" data-ng-if="editMode" >Save</button>
+    </div>
+  </div>
+</div>
+
+<form name="applicationForm">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="application-info-pastor">Pastor Name</label>
+        <input type="text" id="application-info-pastor" ng-model="applicationInfo.pastor" class="form-control" data-ng-disabled="!editMode">
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="application-info-church">Church Name</label>
+        <input type="text" id="application-info-church" ng-model="applicationInfo.church" class="form-control" data-ng-disabled="!editMode">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="application-info-sponsor-name">Sponsor Name</label>
+        <input type="text" id="application-info-sponsor-name" ng-model="applicationInfo.sponsorName" class="form-control" data-ng-disabled="!editMode">
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="application-info-sponsor-phone">Sponsor Phone</label>
+        <input type="text" id="application-info-sponsor-phone" ng-model="applicationInfo.sponsorPhone" class="form-control" data-ng-disabled="!editMode">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="application-info-reason">Reason for Applying</label>
+        <input type="text" id="application-info-reason" ng-model="applicationInfo.reasonForApplying" class="form-control" data-ng-disabled="!editMode">
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="application-info-medical">Medical / Allergy Information</label>
+        <input type="text" id="application-info-medical" ng-model="applicationInfo.medicalInformation" class="form-control" data-ng-disabled="!editMode">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="application-info-is-catholic">Catholic</label>
+        <input type="checkbox" id="application-info-is-catholic" ng-model="applicationInfo.isCatholic" class="form-control" data-ng-disabled="!editMode"/>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="application-info-is-converted">Converted</label>
+        <input type="checkbox" id="application-info-is-converted" ng-model="applicationInfo.isConverted" class="form-control" data-ng-disabled="!editMode"/>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="application-info-receives-eucharist">Receives Eucharist?</label>
+        <input type="checkbox" id="application-info-receives-eucharist" ng-model="applicationInfo.receivesEucharist" class="form-control" data-ng-disabled="!editMode"/>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <label for="application-info-request-lower-bunk">Requests lower bunk?</label>
+        <input type="checkbox" id="application-info-request-lower-bunk" ng-model="applicationInfo.requestLowerBunk" class="form-control" data-ng-disabled="!editMode"/>
+      </div>
+    </div>
+
+  </div>
+
+</form>

@@ -141,6 +141,7 @@
       "endDate": "04/30/2016",
       "description": "Mens Weekend #1",
       "notes": "",
+      "gender": "male",
       "isCompleted": true,
       "locationId": 1
     },
@@ -149,8 +150,20 @@
       "number": 2,
       "startDate": "11/25/2016",
       "endDate": "11/28/2016",
+      "description": "Female Weekend #1",
+      "notes": "",
+      "gender": "female",
+      "isCompleted": false,
+      "locationId": 1
+    },
+    {
+      "id": 3,
+      "number": 3,
+      "startDate": "12/25/2016",
+      "endDate": "12/28/2016",
       "description": "Mens Weekend #2",
       "notes": "",
+      "gender": "male",
       "isCompleted": false,
       "locationId": 1
     }
@@ -161,6 +174,18 @@
       "name": "Team #1",
       "notes": "",
       "weekendId": 1
+    },
+    {
+      "id": 2,
+      "name": "Team #2",
+      "notes": "",
+      "weekendId": 1
+    },
+    {
+      "id": 3,
+      "name": "Team #3",
+      "notes": "",
+      "weekendId": 2
     }
   ],
   "Talk": [
@@ -298,6 +323,36 @@
       "talkId": 2,
       "personId": 2,
       "weekendId": 2
+    }
+  ],
+  "WeekendPosition": [
+    {
+      "id": 1,
+      "status": "ACTIVE",
+      "teamId": 1,
+      "personId": 1,
+      "positionId": 1
+    },
+    {
+      "id": 2,
+      "status": "ACTIVE",
+      "teamId": 1,
+      "personId": 2,
+      "positionId": 3
+    },
+    {
+      "id": 3,
+      "status": "ACTIVE",
+      "teamId": 3,
+      "personId": 1,
+      "positionId": 10
+    },
+    {
+      "id": 4,
+      "status": "ACTIVE",
+      "teamId": 3,
+      "personId": 2,
+      "positionId": 8
     }
   ],
   "Role": [

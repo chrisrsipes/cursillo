@@ -12,7 +12,7 @@
       <div>
         <ui-select ng-model="selected.talkId" on-select="loadPeopleByTalkId()" style="max-width: 400px;">
           <ui-select-match placeholder="Select">{{$select.selected.name }}</ui-select-match>
-          <ui-select-choices repeat="talk.id as talk in talks">
+          <ui-select-choices repeat="talk.id as talk in talks | propsFilter: {name: $select.search}">
             <div ng-bind-html="talk.name | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>

@@ -24,6 +24,10 @@
     },
     "isCompleted": {
       "type": "boolean"
+    },
+    "gender": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],

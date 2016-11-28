@@ -61,12 +61,30 @@ var findByPositionId = function (positionId, cb) {
 
 };
 
-var findByPersonId = function (personId, cb) {
+var findByPersonId = function (personId, weekendIds, cb) {
 
-  connection.query('SELECT wp.id, wp.status, wp.personId, wp.positionId, wp.teamId, pe.firstName, pe.lastName, po.name as positionName, po.id as positionId ' +
-    'FROM WeekendPosition wp, Person pe, Position po ' +
-    'WHERE wp.positionId = po.id AND wp.personId = pe.id AND wp.personId = ? ', [personId], cb);
-
+  if (weekendIds.length === 0) {
+    connection.query('SELECT wp.id, wp.status, wp.personId, wp.positionId, wp.teamId, pe.firstName, pe.lastName, po.name as positionName, po.id as positionId, w.startDate, w.endDate, w.description ' +
+      'FROM WeekendPosition wp, Person pe, Position po, Weekend w, Team t ' +
+      'WHERE wp.positionId = po.id ' +
+      'AND wp.teamId = t.id ' +
+      'AND w.id = t.weekendId ' +
+      'AND wp.personId = pe.id ' +
+      'AND wp.personId = ? ' +
+      'ORDER BY w.startDate DESC', [personId], cb);
+  }
+  else {
+    connection.query('SELECT wp.id, wp.status, wp.personId, wp.positionId, wp.teamId, pe.firstName, pe.lastName, po.name as positionName, po.id as positionId, w.startDate, w.endDate, w.description ' +
+      'FROM WeekendPosition wp, Person pe, Position po, Weekend w, Team t ' +
+      'WHERE wp.positionId = po.id ' +
+      'AND wp.teamId = t.id ' +
+      'AND w.id = t.weekendId ' +
+      'AND w.id IN (?) ' +
+      'AND wp.personId = pe.id ' +
+      'AND wp.personId = ? ' +
+      'ORDER BY w.startDate DESC', [weekendIds, personId], cb);
+  }
+  
 };
 
 var deleteById = function (weekendPositionId, cb) {

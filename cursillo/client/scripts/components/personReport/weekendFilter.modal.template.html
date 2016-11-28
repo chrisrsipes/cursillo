@@ -1,0 +1,79 @@
+<div class="modal-header">
+  <h3 class="modal-title">Build Weekend Filter</h3>
+</div>
+
+<div class="modal-body" style="padding: 30px;">
+
+  <div class="row">
+    <div class="col-md-6">
+      <span>Past</span>
+      <span style="margin: 0px 10px;"></span>
+      <input type="number" class="form-control" id="weekend-filter-count" ng-model="filter.count" min="1" max="15" style="display: inline-block; max-width: 80px;" />
+      <span style="margin: 0px 10px;"></span>
+      <span>weekends</span>
+      <span style="margin: 0px 10px;"></span>
+      <button type="button" class="btn btn-primary" data-ng-click="selectPastWeekends()">Set</button>
+    </div>
+
+    <div class="col-md-4">
+      <ui-select ng-model="selected.weekendId" style="max-width: 400px;">
+        <ui-select-match placeholder="Select">{{$select.selected.description }}</ui-select-match>
+        <ui-select-choices repeat="weekend.id as weekend in weekends | propsFilter: {description: $select.search}">
+          <div ng-bind-html="weekend.description | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+
+    <div class="col-md-2">
+      <button class="btn btn-primary" data-ng-click="addWeekend()">Add Weekend</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <table datatable="ng" dt-options="options" class="row-border hover">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Number</th>
+          <th>Description</th>
+          <th>Gender</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="weekend in selectedWeekends">
+          <td>{{weekend}}</td>
+          <td>{{weekendInfo[weekend].number}}</td>
+          <td>{{weekendInfo[weekend].description}}</td>
+          <td>{{weekendInfo[weekend].gender}}</td>
+          <td>{{weekendInfo[weekend].startDate}}</td>
+          <td>{{weekendInfo[weekend].endDate}}</td>
+          <td>{{weekendInfo[weekend].locationName}}</td>
+          <td>
+            <a href="javascript:void(0);" data-ng-click="removeWeekend($index)">
+              <span class="glyphicon glyphicon-remove-circle" style="color: red;"></span>
+            </a>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6"></div>
+
+    <div class="col-md-6 text-right">
+      <button class="btn btn-primary" ng-click="close()">Done</button>
+    </div>
+  </div>
+</div>

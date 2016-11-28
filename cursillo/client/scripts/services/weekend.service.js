@@ -33,6 +33,11 @@ angular.module('app').factory('Weekend', ['$resource', '$location', function($re
         method: 'GET',
         url: getPath('/weekends/:id/teams'),
         isArray: true
+      },
+      'findPastByGender': {
+        method: 'GET',
+        url: getPath('/weekends/:gender/past'),
+        isArray: true
       }
     });
 
