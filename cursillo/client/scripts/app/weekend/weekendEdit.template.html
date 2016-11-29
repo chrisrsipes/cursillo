@@ -53,6 +53,30 @@
   </div>
 
   <div class="row">
+
+    <div class="col-md-6">
+      <div>
+        <p><b>Select gender</b></p>
+        <ui-select ng-model="weekend.gender">
+          <ui-select-match placeholder="Select">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="gender in ['male', 'female']">
+            <div ng-bind-html="gender | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="weekend-is-completed">Weekend Completed</label>
+        <input type="checkbox" id="weekend-is-completed" ng-model="weekend.isCompleted" class="form-control">
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="row">
     <div class="col-md-6">
       <p><b>Weekend Start Date</b></p>
       <div style="display:inline-block; min-height:290px;" id="weekend-start-date">
@@ -68,28 +92,15 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" id="weekend-is-completed" ng-model="weekend.isCompleted"> Weekend Completed
-          </label>
-        </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-primary" data-ng-if="!edit" data-ng-click="createWeekend()">Create</button>
+        <button type="submit" class="btn btn-danger" data-ng-if="edit" data-ng-click="loadWeekend()">Reset</button>
+        <button type="submit" class="btn btn-primary" data-ng-if="edit" data-ng-click="updateWeekend()">Update</button>
       </div>
+
+      <div class="col-md-6"></div>
     </div>
-
-    <div class="col-md-6"></div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-      <button type="submit" class="btn btn-primary" data-ng-if="!edit" data-ng-click="createWeekend()">Create</button>
-      <button type="submit" class="btn btn-danger" data-ng-if="edit" data-ng-click="loadWeekend()">Reset</button>
-      <button type="submit" class="btn btn-primary" data-ng-if="edit" data-ng-click="updateWeekend()">Update</button>
-    </div>
-
-    <div class="col-md-6"></div>
-  </div>
 
 </form>
