@@ -42,7 +42,8 @@
       <tr>
         <th>Id</th>
         <th>Name</th>
-        <th>Cursillo</th>
+        <th>City</th>
+        <th>Region</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -50,7 +51,8 @@
       <tr ng-repeat="parish in parishes">
         <td>{{ parish.id }}</td>
         <td>{{ parish.name }}</td>
-        <td>{{ parish.cursilloName }}</td>
+        <td>{{ parish.city }}</td>
+        <td>{{ parish.area }}</td>
         <td>
           <a ui-sref="parish.detail({id: parish.id})" href="javascript:void(0)">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>

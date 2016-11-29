@@ -25,11 +25,12 @@ angular.module('app')
         console.log('people', people);
 
         angular.forEach(people, function (val) {
+          debugger;
           if (med[val.personId]) {
             med[val.personId].count++;
           }
           else {
-            med[val.id] = {
+            med[val.personId] = {
               personId: val.personId,
               firstName: val.firstName,
               lastName: val.lastName,
