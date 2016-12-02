@@ -1,0 +1,78 @@
+alter table accesstoken
+	add constraint 
+    foreign key (userId) references account(id)
+    on update cascade;
+
+alter table acl
+		add constraint
+        foreign key (id) references account(id)
+        on update cascade;
+
+alter table applicationinfo
+		add constraint
+        foreign key (personId) references person(id)
+        on update cascade;
+
+alter table contact
+		add constraint
+        foreign key (id) references person(id)
+        on update cascade;
+        
+alter table location 
+		add constraint
+        foreign key (cursilloId) references cursillo(id)
+        on update cascade;
+
+alter table parish
+		add constraint
+        foreign key (cursilloId) references cursillo(id)
+        on update cascade;
+        
+alter table person
+		add constraint
+        foreign key (parishId) references parish(id)
+        on update cascade;
+
+alter table rolemapping
+		add constraint FK1
+        foreign key (roleId) references role(id)
+        on update cascade;
+
+alter table rolemapping
+		modify principalId integer(11);
+
+alter table rolemapping
+		add constraint FK_rolemap
+        foreign key (principalId) references account(id)
+        on update cascade;
+        
+alter table talklink
+		add constraint 
+        foreign key (talkId) references talk(id)
+        on update cascade;
+
+alter table team
+		add constraint
+        foreign key (weekendId) references weekend(id)
+        on update cascade;
+
+alter table weekend
+		add constraint
+        foreign key (locationId) references location(id)
+        on update cascade;
+
+alter table weekendposition
+		add constraint FK_week
+        foreign key (teamId) references team(id)
+        on update cascade;
+
+alter table weekendposition
+		add constraint FK_week2
+        foreign key (positionId) references position (id)
+        on update cascade;
+
+alter table weekendposition
+		add constraint FK_week3
+        foreign key (personId) references person(id)
+        on update cascade;
+        
